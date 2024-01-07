@@ -1,3 +1,7 @@
+const debug = () => {
+  process.env.DEBUG == true;
+};
+
 isCompany = async (req, res, next) => {
   if (req.user.type !== "company") {
     next({ message: "Access only for company" });
@@ -12,4 +16,12 @@ isJobseeker = async (req, res, next) => {
     next();
   }
 };
-module.exports = { isCompany, isJobseeker };
+showError = async (err, next) => {
+  if (debug) {
+    console.error(err);
+  }
+  next({
+    message: "Problem while executing",
+  });
+};
+module.exports = { isCompany, isJobseeker, showError };

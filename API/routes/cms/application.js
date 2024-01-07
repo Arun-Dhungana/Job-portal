@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { cms } = require("../../controller/index");
-router.post("/", cms.application.create);
+router.post("/:id", cms.application.create);
 router
   .route("/update")
   .put(cms.application.update)

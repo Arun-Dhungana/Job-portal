@@ -21,6 +21,13 @@ const Application = model(
         required: true,
         value: new Date().toISOString(),
       },
+      status: {
+        type: String,
+        required: true,
+        set: (value) => value.toLowerCase(),
+        enum: ["rejected", "accepted", "pending"],
+        default: "pending",
+      },
     },
     { timestamps: true, autoCreate: true, autoIndex: true }
   )

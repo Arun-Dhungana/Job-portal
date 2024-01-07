@@ -25,22 +25,35 @@ const Jobs = model(
       type: {
         type: [String],
         required: true,
-        set: (value) => value.toLowerCase(),
+
         enum: ["top", "hot", "premium", "normal"],
-        default: "normal",
       },
       category: {
         type: String,
-        required: true,
+
         set: (value) => value.toLowerCase(),
-        enum: [],
+        enum: [
+          "bank-finance",
+          "ngo-ingo",
+          "sales-marketing",
+          "government",
+          "army-police",
+          "cooperative",
+          "school-college",
+          "healthcare",
+          "hotel-restaurant",
+          "customer_care",
+          "it-computer",
+          "logistics-supply_chain",
+        ],
+        required: true,
       },
       experience: {
         type: String,
         required: true,
       },
       salary: {
-        type: Schema.Types.Mixed,
+        type: Number,
         required: true,
       },
       education: {
@@ -60,7 +73,7 @@ const Jobs = model(
       opening: {
         type: Date,
         required: true,
-        value: new Date().toDateString(),
+        default: new Date().toDateString(),
       },
       deadline: {
         type: Date,

@@ -25,6 +25,7 @@ const listener = app.listen(
       await mongoose.connect(process.env.MONGO_URL);
       console.log("MongoDb connected!!");
     } catch (err) {
+      console.log(err);
       console.log("Problem while connecting with mongo");
     }
   }
