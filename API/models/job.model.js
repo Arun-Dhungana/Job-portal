@@ -25,9 +25,9 @@ const Jobs = model(
       type: {
         type: [String],
         required: true,
-
-        enum: ["top", "hot", "premium", "normal"],
+        enum: ["top", "premium", "normal"],
       },
+
       category: {
         type: String,
 
@@ -73,10 +73,18 @@ const Jobs = model(
       opening: {
         type: Date,
         required: true,
-        default: new Date().toDateString(),
       },
       deadline: {
         type: Date,
+        required: true,
+      },
+      status: {
+        type: Boolean,
+        default: true,
+        required: true,
+      },
+      count: {
+        type: Number,
         required: true,
       },
     },
@@ -87,4 +95,5 @@ const Jobs = model(
     }
   )
 );
+
 module.exports = Jobs;

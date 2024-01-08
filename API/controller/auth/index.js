@@ -59,7 +59,14 @@ const authController = {
         )
       ) {
         const user = await Users.findOne({ email });
-        const token = jwt.sign({ id: 1234523 }, process.env.JWT_SECRET);
+        const token = jwt.sign(
+          {
+            id: user._id,
+            iat: Math.floor(Date.now() / 1000) - 30,
+            exp: Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60,
+          },
+          process.env.JWT_SECRET
+        );
         res.json({ user, token });
       } else {
         next({ message: "Wrong Password" });

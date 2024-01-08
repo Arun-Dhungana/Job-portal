@@ -12,6 +12,7 @@ const Application = model(
         type: Schema.Types.ObjectId,
         ref: "users",
         required: true,
+        unique: true,
       },
       resume: {
         type: String,
@@ -19,7 +20,7 @@ const Application = model(
       applied_date: {
         type: Date,
         required: true,
-        value: new Date().toISOString(),
+        default: new Date().toISOString(),
       },
       status: {
         type: String,

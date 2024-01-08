@@ -5,8 +5,9 @@ const Company = model(
     {
       company_id: {
         type: Schema.Types.ObjectId,
-        requird: true,
+        required: true,
         ref: "users",
+        unique: true,
       },
       contact_person: {
         type: String,
