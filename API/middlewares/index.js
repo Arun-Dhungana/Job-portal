@@ -55,6 +55,7 @@ const fileStorage = (mimeTypes = []) =>
         cb(null, "/Users/arundhungana/Documents/GitHub/Job-portal/API/uploads"),
       filename: (req, file, cb) => {
         const ext = file.originalname.split(".").pop();
+        
         const filename =
           Date.now() + `${Math.floor(Math.random() * 100)}` + `.${ext}`;
         cb(null, filename);
