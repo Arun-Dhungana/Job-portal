@@ -1,11 +1,9 @@
 import { Button } from "react-bootstrap";
 export const SubmitBtn = ({ icon }) => {
   return (
-    <Button
-      type="submit"
-      className={`my-3 ${icon} bg-dark d-flex flex-row justify-content-start`}
-    >
-      Save
+    <Button type="submit" className="bg-dark border border-dark">
+      Login
+      <i className={` fa-solid ${icon}  px-3`}></i>
     </Button>
   );
 };

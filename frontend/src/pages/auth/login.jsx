@@ -15,7 +15,7 @@ export const Login = () => {
           sm={8}
           lg={4}
           md={6}
-          className="border border-success my-3 py-2 mx-auto rounded-2 shadow-lg"
+          className=" my-3 py-2 mx-auto rounded-2 shadow-lg"
         >
           <Row>
             <Col>
@@ -41,8 +41,8 @@ export const Login = () => {
                   onChange={(ev) => setInForm(ev, form, setForm)}
                 ></Form.Control>
               </FormField>
-              <div>
-                <SubmitBtn icon="fa-sign-in alt"></SubmitBtn>
+              <div className="my-3 w-50 mx-auto  bg-dark d-flex flex-row justify-content-center ">
+                <SubmitBtn icon="fa-sign-in-alt"></SubmitBtn>
               </div>
             </Form>
           </Col>
