@@ -1,8 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { Home } from "./pages/front/Homepage";
+import { Topnav } from "./components/Layout";
 
 function App() {
-  return <Home></Home>;
+  return <Topnav></Topnav>;
 }
 export default App;

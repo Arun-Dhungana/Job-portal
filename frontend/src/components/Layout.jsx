@@ -4,36 +4,191 @@ import {
   Navbar,
   NavDropdown,
   Nav,
-  NavItem,
+  Row,
+  Col,
 } from "react-bootstrap";
+import "./layout.css";
+import { Outlet } from "react-router-dom";
 export const Topnav = () => {
   return (
-    <Navbar expand="lg" size="lg">
-      <Container fluid>
-        <Navbar.Brand>JobHub</Navbar.Brand>
+    <Container fluid>
+      <Row className="min-vh-100">
+        {/*Navbar*/}
+        <Col xs={12}>
+          <Row>
+            <Col className="p-0">
+              <Navbar expand="lg" className=" bg-dark ps-2 " variant="dark">
+                <Navbar.Brand className="text-white text-2xl ">
+                  JobHub
+                </Navbar.Brand>
 
-        <Navbar.Toggle></Navbar.Toggle>
-        <Navbar.Collapse>
-          <Nav className="ms-auto me-3 ">
-            <NavLink href="#">About Us</NavLink>
-            <NavDropdown title="Search">
-              <NavDropdown.Item>Top Jobs</NavDropdown.Item>
-              <NavDropdown.Item>Hot Jobs</NavDropdown.Item>
-              <NavDropdown.Item>Premium Jobs</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-          <Nav className="ms-auto ">
-            <NavLink href="/register">
-              <i className="fa-solid fa-plug-circle-exclamation"></i>
-              Regsiter
-            </NavLink>
-            <NavLink href="/login">
-              <i className="fa-solid fa-plug-circle-bolt"></i>
-              Login
-            </NavLink>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+                <Navbar.Toggle></Navbar.Toggle>
+                <Navbar.Collapse>
+                  <Nav className="ms-auto me-3 ">
+                    <NavLink href="#" className="text-white">
+                      About Us
+                    </NavLink>
+
+                    <NavDropdown
+                      title={<span className="text-white">Search</span>}
+                      id="basic-navbar-dropdown"
+                      data-bs-theme="dark"
+                      className="dropdown"
+                    >
+                      <NavDropdown.Item>Top Jobs</NavDropdown.Item>
+                      <NavDropdown.Item>Hot Jobs</NavDropdown.Item>
+                      <NavDropdown.Item>Premium Jobs</NavDropdown.Item>
+                    </NavDropdown>
+                  </Nav>
+                  <Nav className="ms-auto  ">
+                    <NavLink href="/register" className="text-white">
+                      <i className="fa-solid fa-plug-circle-exclamation"></i>
+                      Regsiter
+                    </NavLink>
+                    <NavLink href="/login" className="text-white">
+                      <i className="fa-solid fa-plug-circle-bolt"></i>
+                      Login
+                    </NavLink>
+                  </Nav>
+                </Navbar.Collapse>
+              </Navbar>
+            </Col>
+          </Row>
+        </Col>
+        {/*Content*/}
+        <Outlet></Outlet>
+        {/*footer*/}
+
+        <Col xs={12} className="align-self-end px-0 pb-0">
+          <Row>
+            <footer variant="dark">
+              <Col xs={12} className="bg-dark text-white pt-2 pb-2">
+                <Row>
+                  <Col xs={12} md={4} className="text-center pb-3">
+                    <Row>
+                      <Col xs={12}>
+                        <img src="" alt=""></img>
+
+                        <a
+                          href="/"
+                          style={{ textDecoration: "none", fontSize: "20px" }}
+                          className="text-white mt-0 d-flex flex-row justify-content-center align-item-center "
+                        >
+                          JobHub
+                        </a>
+                      </Col>
+                    </Row>
+                  </Col>
+                  <hr className="d-xs-block d-md-none"></hr>
+                  <Col xs={12} md={4} className="text-center">
+                    <Row>
+                      <Col
+                        xs={12}
+                        className="pb-1 "
+                        style={{ fontSize: "20px" }}
+                      >
+                        Links
+                      </Col>
+                      <hr></hr>
+                      <Col xs={12} className="p-0">
+                        <ul
+                          style={{
+                            listStyle: "none",
+                          }}
+                        >
+                          <li>
+                            <a
+                              href="/"
+                              className="text-white"
+                              style={{ textDecoration: "none" }}
+                            >
+                              Home
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="/"
+                              className="text-white "
+                              style={{ textDecoration: "none" }}
+                            >
+                              Contact Us
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="/"
+                              className="text-white"
+                              style={{ textDecoration: "none" }}
+                            >
+                              About Us
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="/"
+                              className="text-white"
+                              style={{ textDecoration: "none" }}
+                            >
+                              Terms and Conditions
+                            </a>
+                          </li>
+                        </ul>
+                      </Col>
+                    </Row>
+                  </Col>
+                  <hr className="d-xs-block d-md-none"></hr>
+                  <Col xs={12} md={4} className="text-center text-sm-center ">
+                    <Row>
+                      <Col
+                        xs={12}
+                        className="pb-1"
+                        style={{ fontSize: "20px" }}
+                      >
+                        Contact Us
+                      </Col>
+                      <hr></hr>
+                      <Col xs={12} className="p-0 m-0">
+                        <i className="fa-solid fa-map-pin pe-1"></i>
+
+                        <address className="d-inline">
+                          Gurjudhara,Kathmandu
+                        </address>
+                        <br></br>
+                        <i className="fa-solid fa-phone-volume pe-1"></i>
+                        <p className="d-inline">9860857951</p>
+                        <br></br>
+                        <i className="fa-solid fa-at"></i>
+                        <p className="d-inline">demo@gmail.com</p>
+                        <br></br>
+                        <a href="" className="">
+                          <i className="fa-brands fa-facebook pe-2"></i>
+                        </a>
+                        <a href="" className="">
+                          <i className="fa-brands fa-square-instagram pe-2"></i>
+                        </a>
+                        <a href="" className="">
+                          <i className="fa-brands fa-twitter pe-2"></i>
+                        </a>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+              </Col>
+            </footer>
+          </Row>
+          <Row>
+            <Col
+              xs={12}
+              className="bg-dark  text-center p-0 m-0"
+              style={{ color: "grey" ,fontSize:'14px'}}
+            >
+              <p className="p-0 m-0">
+                &copy; 2000 - 2024 JobHUb Pvt. Ltd. All Right Reserved.
+              </p>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    </Container>
   );
 };
