@@ -14,7 +14,7 @@ export const Register = () => {
         <Col
           md={6}
           sm={8}
-          className="border border-dark mx-auto mt-3 rounded-3  "
+          className="border border-dark mx-auto mt-3 mb-3 rounded-3  "
           style={{ boxShadow: "2px 2px 10px grey" }}
         >
           <Row>
@@ -81,7 +81,7 @@ export const Register = () => {
                 </FormField>
 
                 <div className="mb-2 d-flex flex-row justify-content-center">
-                  <SubmitBtn icon="fa-solid fa-spinner"></SubmitBtn>
+                  <SubmitBtn icon="fa-save" title="Sign Up"></SubmitBtn>
                 </div>
               </Form>
             </Col>

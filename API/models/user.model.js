@@ -29,6 +29,9 @@ const Users = model(
       images: {
         type: String,
       },
+      skill: {
+        type: String,
+      },
     },
     {
       timestamps: true,

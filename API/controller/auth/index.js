@@ -22,6 +22,7 @@ const authController = {
       if (password === confirm_password) {
         const hash = bcyrpt.hashSync(password, bcyrpt.genSaltSync(10));
         const user = await Users.create({
+          ...req.body,
           name,
           email,
           password: hash,
