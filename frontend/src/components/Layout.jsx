@@ -16,7 +16,7 @@ export const Topnav = () => {
         {/*Navbar*/}
         <Col xs={12}>
           <Row>
-            <Col className="p-0">
+            <Col className="px-0">
               <Navbar expand="lg" className=" bg-dark ps-2 " variant="dark">
                 <Navbar.Brand className="text-white text-2xl ">
                   JobHub
@@ -24,7 +24,7 @@ export const Topnav = () => {
 
                 <Navbar.Toggle></Navbar.Toggle>
                 <Navbar.Collapse>
-                  <Nav className="ms-auto me-3 ">
+                  <Nav className="mx-auto  ">
                     <NavLink href="#" className="text-white">
                       About Us
                     </NavLink>
@@ -41,10 +41,24 @@ export const Topnav = () => {
                     </NavDropdown>
                   </Nav>
                   <Nav className="ms-auto  ">
-                    <NavLink href="/register" className="text-white">
-                      <i className="fa-solid fa-plug-circle-exclamation"></i>
-                      Regsiter
-                    </NavLink>
+                    <NavDropdown
+                      title={
+                        <span className="text-white">
+                          <i className="fa-solid fa-plug-circle-exclamation"></i>
+                          Register
+                        </span>
+                      }
+                      data-bs-theme="dark"
+                    >
+                      <NavDropdown.Item href="/register/seeker">
+                        as Job-Seeker
+                        <i class="fa-solid fa-user-large ps-1"></i>
+                      </NavDropdown.Item>
+                      <NavDropdown.Divider></NavDropdown.Divider>
+                      <NavDropdown.Item href="/register/company">
+                        as Company<i class="fa-solid fa-building-user ps-1"></i>
+                      </NavDropdown.Item>
+                    </NavDropdown>
                     <NavLink href="/login" className="text-white">
                       <i className="fa-solid fa-plug-circle-bolt"></i>
                       Login
@@ -180,7 +194,7 @@ export const Topnav = () => {
             <Col
               xs={12}
               className="bg-dark  text-center p-0 m-0"
-              style={{ color: "grey" ,fontSize:'14px'}}
+              style={{ color: "grey", fontSize: "14px" }}
             >
               <p className="p-0 m-0">
                 &copy; 2000 - 2024 JobHUb Pvt. Ltd. All Right Reserved.

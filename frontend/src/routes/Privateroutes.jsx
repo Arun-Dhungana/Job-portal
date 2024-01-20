@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { setUser } from "../store";
 import http from "../http";
-
+import { Loading } from "../components/Loading";
 export const PrivateRoutes = ({ element }) => {
   const [loading, setLoading] = useState(false);
 
   const user = useSelector((state) => state.user.value);
-  const navigate = useNavigate()``;
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     if (Object.keys(user).length == 0) {
@@ -30,6 +30,7 @@ export const PrivateRoutes = ({ element }) => {
           .finally(() => setLoading(false));
       } else {
         toast.error("Please login to continue");
+        console.log(13);
         navigate("/login");
       }
     }

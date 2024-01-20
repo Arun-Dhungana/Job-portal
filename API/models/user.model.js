@@ -29,8 +29,9 @@ const Users = model(
       images: {
         type: String,
       },
-      skill: {
+      description: {
         type: String,
+        required: true,
       },
     },
     {

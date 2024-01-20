@@ -2,3 +2,6 @@
     color:white;
    
 }
+[type=text],[type=email],[type=password],[type=number]{
+    background-color: rgb(232, 227, 227);
+}

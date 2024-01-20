@@ -41,11 +41,20 @@ export const Login = () => {
                   onChange={(ev) => setInForm(ev, form, setForm)}
                 ></Form.Control>
               </FormField>
-              <div className="my-3 w-50 mx-auto  bg-dark d-flex flex-row justify-content-center ">
-                <SubmitBtn icon="fa-sign-in-alt"></SubmitBtn>
-              </div>
+
+              <SubmitBtn icon="fa-sign-in-alt" title="Login"></SubmitBtn>
             </Form>
           </Col>
+          <Row>
+            <Col>
+              <h6 className="text-center">
+                Don't have an account? SignUp<br></br>
+                <a href="/register/seeker">as Jobseeker </a>
+                <br></br>
+                <a href="/register/company">as Company </a>
+              </h6>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </Container>

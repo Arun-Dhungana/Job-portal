@@ -1,24 +1,23 @@
 import { useState } from "react";
-import { Container, Row, Col, Form, Image } from "react-bootstrap";
+import { Container, Row, Col, Form, Image, Button } from "react-bootstrap";
 import { SubmitBtn, FormField } from "../../components/index";
 import img from "../../lib/img1.jpg";
+import { setInForm } from "../../lib";
+import { useNavigate } from "react-router-dom";
 
 export const EditProfile = () => {
   const [form, setForm] = useState({});
+  const navigate = useNavigate();
   return (
     <Container fluid>
       <Row>
-        <Col
-          xs={12}
-          className="d-flex flex-row justify-content-center align-items-center"
-          style={{
-            height: "300px",
-            background: "linear-gradient(to right, #2196F3, #0D47A1)",
-            boxShadow: "3px 0 10px red",
-          }}
-        >
+        <Col xs={12} className="">
           <Row>
-            <Col xs={12} md="auto" className="">
+            <Col
+              xs={12}
+              md={12}
+              className="d-flex flex-row justify-content-center mb-3"
+            >
               <div
                 className=""
                 style={{
@@ -54,13 +53,39 @@ export const EditProfile = () => {
               </div>
             </Col>
 
-            <Col xs={12} md="auto" className="">
-              <h1
-                className="text-nowrap bg-secondary rounded-2 px-2 mt-5 "
-                style={{ boxShadow: "2px 2px 8px black" }}
-              >
-                Company Name Pvt. Ltd
-              </h1>
+            <Col xs={12}></Col>
+            <Col xs={12} md={8} className="text-center mx-auto">
+              <Form>
+                <FormField label="Name" title="name" className="">
+                  <Form.Control
+                    id="name"
+                    type="text"
+                    onChange={(ev) => setInForm(ev, form, setForm)}
+                    className="border border-dark "
+                    style={{}}
+                  ></Form.Control>
+                </FormField>
+                <FormField label="Number" title="number">
+                  <Form.Control
+                    id="number"
+                    type="number"
+                    onChange={(ev) => setInForm(ev, form, setForm)}
+                    className="border border-dark "
+                    style={{}}
+                  ></Form.Control>
+                </FormField>
+                <Row>
+                  <Col className="d-flex flex-row justify-content-around">
+                    <Button
+                      className="bg-dark border border-none p-1 px-3"
+                      onClick={() => navigate(-1)}
+                    >
+                      Back
+                    </Button>
+                    <SubmitBtn title="Update" icon="fa-wrench"></SubmitBtn>
+                  </Col>
+                </Row>
+              </Form>
             </Col>
           </Row>
         </Col>

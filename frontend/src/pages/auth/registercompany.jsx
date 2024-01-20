@@ -2,7 +2,7 @@ import { useState } from "react";
 import { SubmitBtn, FormField } from "../../components/index";
 import { setInForm } from "../../lib";
 import { Container, Form, Row, Col, InputGroup } from "react-bootstrap";
-export const Register = () => {
+export const Registercomp = () => {
   const [form, setForm] = useState({});
   const handleSubmit = (ev) => {
     ev.preventDefault();
@@ -25,10 +25,11 @@ export const Register = () => {
           <Row>
             <Col>
               <Form onSubmit={handleSubmit}>
-                <FormField label="Name" title="name">
+                <FormField label="Company name" title="name">
                   <Form.Control
                     id="name"
                     name="name"
+                    type="text"
                     onChange={(ev) => setInForm(ev, form, setForm)}
                     required
                   ></Form.Control>
@@ -37,6 +38,17 @@ export const Register = () => {
                   <Form.Control
                     id="number"
                     name="number"
+                    type="number"
+                    onChange={(ev) => setInForm(ev, form, setForm)}
+                    required
+                  ></Form.Control>
+                </FormField>
+                <FormField label="Description" title="description">
+                  <Form.Control
+                    id="description"
+                    name="description"
+                    type="text"
+                    as="textarea"
                     onChange={(ev) => setInForm(ev, form, setForm)}
                     required
                   ></Form.Control>
@@ -47,6 +59,7 @@ export const Register = () => {
                     <Form.Control
                       id="email"
                       name="email"
+                      type="email"
                       onChange={(ev) => setInForm(ev, form, setForm)}
                       required
                     ></Form.Control>
@@ -56,6 +69,7 @@ export const Register = () => {
                   <Form.Control
                     id="password"
                     name="password"
+                    type="password"
                     onChange={(ev) => setInForm(ev, form, setForm)}
                     required
                   ></Form.Control>
@@ -64,27 +78,30 @@ export const Register = () => {
                   <Form.Control
                     id="confirm_password"
                     name="confirm_password"
+                    type="password"
                     onChange={(ev) => setInForm(ev, form, setForm)}
                     required
                   ></Form.Control>
                 </FormField>
                 <FormField title="role" label="Role">
-                  <Form.Select
+                  <Form.Control
                     id="role"
                     name="role"
-                    onChange={(ev) => setInForm(ev, form, setForm)}
-                    required
-                  >
-                    <option value="company">Company</option>
-                    <option value="jobseeker">JobSeeker</option>
-                  </Form.Select>
+                    value="Company"
+                    disabled
+                  ></Form.Control>
                 </FormField>
 
-                <div className="mb-2 d-flex flex-row justify-content-center">
-                  <SubmitBtn icon="fa-save" title="Sign Up"></SubmitBtn>
-                </div>
+                <SubmitBtn icon="fa-save" title="Sign Up"></SubmitBtn>
               </Form>
             </Col>
+            <Row>
+              <Col>
+                <h6 className="text-center">
+                  Already have an account?<a href="/login">Login</a>
+                </h6>
+              </Col>
+            </Row>
           </Row>
         </Col>
       </Row>
