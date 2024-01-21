@@ -73,134 +73,120 @@ export const Topnav = () => {
         <Outlet></Outlet>
         {/*footer*/}
 
-        <Col xs={12} className="align-self-end px-0 pb-0">
-          <Row>
-            <footer variant="dark">
-              <Col xs={12} className="bg-dark text-white pt-2 pb-2">
+        <Col auto className="bg-dark text-white pt-2 pb-2">
+          <footer variant="dark">
+            <Row>
+              <Col xs={12} md={4} className="text-center pb-3">
                 <Row>
-                  <Col xs={12} md={4} className="text-center pb-3">
-                    <Row>
-                      <Col xs={12}>
-                        <img src="" alt=""></img>
+                  <Col xs={12}>
+                    <img src="" alt=""></img>
 
-                        <a
-                          href="/"
-                          style={{ textDecoration: "none", fontSize: "20px" }}
-                          className="text-white mt-0 d-flex flex-row justify-content-center align-item-center "
-                        >
-                          JobHub
-                        </a>
-                      </Col>
-                    </Row>
-                  </Col>
-                  <hr className="d-xs-block d-md-none"></hr>
-                  <Col xs={12} md={4} className="text-center">
-                    <Row>
-                      <Col
-                        xs={12}
-                        className="pb-1 "
-                        style={{ fontSize: "20px" }}
-                      >
-                        Links
-                      </Col>
-                      <hr></hr>
-                      <Col xs={12} className="p-0">
-                        <ul
-                          style={{
-                            listStyle: "none",
-                          }}
-                        >
-                          <li>
-                            <a
-                              href="/"
-                              className="text-white"
-                              style={{ textDecoration: "none" }}
-                            >
-                              Home
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="/"
-                              className="text-white "
-                              style={{ textDecoration: "none" }}
-                            >
-                              Contact Us
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="/"
-                              className="text-white"
-                              style={{ textDecoration: "none" }}
-                            >
-                              About Us
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="/"
-                              className="text-white"
-                              style={{ textDecoration: "none" }}
-                            >
-                              Terms and Conditions
-                            </a>
-                          </li>
-                        </ul>
-                      </Col>
-                    </Row>
-                  </Col>
-                  <hr className="d-xs-block d-md-none"></hr>
-                  <Col xs={12} md={4} className="text-center text-sm-center ">
-                    <Row>
-                      <Col
-                        xs={12}
-                        className="pb-1"
-                        style={{ fontSize: "20px" }}
-                      >
-                        Contact Us
-                      </Col>
-                      <hr></hr>
-                      <Col xs={12} className="p-0 m-0">
-                        <i className="fa-solid fa-map-pin pe-1"></i>
-
-                        <address className="d-inline">
-                          Gurjudhara,Kathmandu
-                        </address>
-                        <br></br>
-                        <i className="fa-solid fa-phone-volume pe-1"></i>
-                        <p className="d-inline">9860857951</p>
-                        <br></br>
-                        <i className="fa-solid fa-at"></i>
-                        <p className="d-inline">demo@gmail.com</p>
-                        <br></br>
-                        <a href="" className="">
-                          <i className="fa-brands fa-facebook pe-2"></i>
-                        </a>
-                        <a href="" className="">
-                          <i className="fa-brands fa-square-instagram pe-2"></i>
-                        </a>
-                        <a href="" className="">
-                          <i className="fa-brands fa-twitter pe-2"></i>
-                        </a>
-                      </Col>
-                    </Row>
+                    <a
+                      href="/"
+                      style={{ textDecoration: "none", fontSize: "20px" }}
+                      className="text-white mt-0 d-flex flex-row justify-content-center align-item-center "
+                    >
+                      JobHub
+                    </a>
                   </Col>
                 </Row>
               </Col>
-            </footer>
-          </Row>
-          <Row>
-            <Col
-              xs={12}
-              className="bg-dark  text-center p-0 m-0"
-              style={{ color: "grey", fontSize: "14px" }}
-            >
-              <p className="p-0 m-0">
-                &copy; 2000 - 2024 JobHUb Pvt. Ltd. All Right Reserved.
-              </p>
-            </Col>
-          </Row>
+              <hr className="d-xs-block d-md-none"></hr>
+              <Col xs={12} md={4} className="text-center">
+                <Row>
+                  <Col xs={12} className="pb-1 " style={{ fontSize: "20px" }}>
+                    Links
+                  </Col>
+                  <hr></hr>
+                  <Col xs={12} className="p-0">
+                    <ul
+                      style={{
+                        listStyle: "none",
+                      }}
+                    >
+                      <li>
+                        <a
+                          href="/"
+                          className="text-white"
+                          style={{ textDecoration: "none" }}
+                        >
+                          Home
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/"
+                          className="text-white "
+                          style={{ textDecoration: "none" }}
+                        >
+                          Contact Us
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/"
+                          className="text-white"
+                          style={{ textDecoration: "none" }}
+                        >
+                          About Us
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/"
+                          className="text-white"
+                          style={{ textDecoration: "none" }}
+                        >
+                          Terms and Conditions
+                        </a>
+                      </li>
+                    </ul>
+                  </Col>
+                </Row>
+              </Col>
+              <hr className="d-xs-block d-md-none"></hr>
+              <Col xs={12} md={4} className="text-center text-sm-center ">
+                <Row>
+                  <Col xs={12} className="pb-1" style={{ fontSize: "20px" }}>
+                    Contact Us
+                  </Col>
+                  <hr></hr>
+                  <Col xs={12} className="p-0 m-0">
+                    <i className="fa-solid fa-map-pin pe-1"></i>
+
+                    <address className="d-inline">Gurjudhara,Kathmandu</address>
+                    <br></br>
+                    <i className="fa-solid fa-phone-volume pe-1"></i>
+                    <p className="d-inline">9860857951</p>
+                    <br></br>
+                    <i className="fa-solid fa-at"></i>
+                    <p className="d-inline">demo@gmail.com</p>
+                    <br></br>
+                    <a href="" className="">
+                      <i className="fa-brands fa-facebook pe-2"></i>
+                    </a>
+                    <a href="" className="">
+                      <i className="fa-brands fa-square-instagram pe-2"></i>
+                    </a>
+                    <a href="" className="">
+                      <i className="fa-brands fa-twitter pe-2"></i>
+                    </a>
+                  </Col>
+                </Row>
+              </Col>
+              <Row>
+                <Col
+                  xs={12}
+                  className="bg-dark  text-center "
+                  style={{ color: "grey", fontSize: "14px" }}
+                >
+                  <p className="p-0 m-0">
+                    &copy; 2000 - 2024 JobHUb Pvt. Ltd. All Right Reserved.
+                  </p>
+                </Col>
+              </Row>
+            </Row>
+          </footer>
         </Col>
       </Row>
     </Container>

@@ -12,6 +12,10 @@ export const AllRoutes = () => {
           <Route index element={<Pages.Front.Home></Pages.Front.Home>} />
           <Route path="login" element={<Pages.Auth.Login></Pages.Auth.Login>} />
           <Route
+            path="about"
+            element={<Pages.Front.About></Pages.Front.About>}
+          />
+          <Route
             path="register/seeker"
             element={<Pages.Auth.Register></Pages.Auth.Register>}
           />
