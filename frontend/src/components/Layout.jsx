@@ -73,7 +73,7 @@ export const Topnav = () => {
         <Outlet></Outlet>
         {/*footer*/}
 
-        <Col auto className="bg-dark text-white pt-2 pb-2">
+        <Col className="bg-dark text-white pt-2 pb-2">
           <footer variant="dark">
             <Row>
               <Col xs={12} md={4} className="text-center pb-3">
