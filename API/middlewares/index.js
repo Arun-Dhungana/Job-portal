@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const imagesize = require("image-size");
 const { Users } = require("../models");
 const multer = require("multer");
 const debug = () => {
@@ -70,6 +71,13 @@ const fileStorage = (mimeTypes = []) =>
         }
       } else {
         cb(null, true);
+      }
+    },
+    limits: (req, file, cb) => {
+      if (file.size == 1024 * 1024 * 3) {
+        cb(null, true);
+      } else {
+        cb({ message: "Files expected to be less than 3mb" }, false);
       }
     },
   });

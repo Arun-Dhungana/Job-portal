@@ -19,7 +19,7 @@ export const Register = () => {
         >
           <Row>
             <Col>
-              <h1 className="text-center ">Register</h1>
+              <h1 className="text-center ">JObseeker registration</h1>
             </Col>
           </Row>
           <Row>

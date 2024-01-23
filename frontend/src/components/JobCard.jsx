@@ -2,7 +2,7 @@ import { Col, Row, Image } from "react-bootstrap";
 import img1 from "../lib/img1.jpg";
 export const JobCard = () => {
   return (
-    <Col xs={12} sm={6} md={4} lg={3} xlg={2} className="ps-2 mb-3 ">
+    <Col xs={12} sm={6} md={4} lg={3} xlg={2} className=" mb-3 ">
       <Col
         xs={12}
         style={{

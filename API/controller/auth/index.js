@@ -5,8 +5,17 @@ const jwt = require("jsonwebtoken");
 const authController = {
   register: async (req, res, next) => {
     try {
-      const { name, email, password, confirm_password, number, role } =
-        req.body;
+      const {
+        name,
+        email,
+        password,
+        confirm_password,
+        number,
+        role,
+        description,
+      } = req.body;
+      const img = "";
+      img = req.files.map((img) => img.filename);
       const exist = await Users.findOne({ email: email });
       if (exist) {
         if (exist.role !== role) {
@@ -28,8 +37,10 @@ const authController = {
           password: hash,
           number,
           role,
+          image: img.toString(),
+          description,
         });
-        res.json(user);
+        res.json({ success: "Successfully registered" });
       } else {
         next({
           message: "Wrong password confirmed",

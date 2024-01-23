@@ -2,11 +2,34 @@ import { useState } from "react";
 import { SubmitBtn, FormField } from "../../components/index";
 import { setInForm } from "../../lib";
 import { Container, Form, Row, Col, InputGroup } from "react-bootstrap";
+import http from "../../http";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 export const Registercomp = () => {
   const [form, setForm] = useState({});
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    console.log(1);
+    setLoading(true);
+    const fd = new FormData();
+    for (let i in form) {
+      if (i == "image") {
+        fd.append(i, form.image);
+      } else {
+        fd.append(i, form[i]);
+      }
+    }
+    console.log(fd);
+    http
+      .post("/auth/register", fd, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then(navigate("/login"))
+      .catch((err) => {
+        toast.error(err);
+      })
+      .finally(setLoading(false));
   };
   return (
     <Container>
@@ -19,7 +42,7 @@ export const Registercomp = () => {
         >
           <Row>
             <Col>
-              <h1 className="text-center ">Register</h1>
+              <h1 className="text-center ">Company registration</h1>
             </Col>
           </Row>
           <Row>
@@ -39,6 +62,8 @@ export const Registercomp = () => {
                     id="number"
                     name="number"
                     type="number"
+                    maxLength={10}
+                    minLength={10}
                     onChange={(ev) => setInForm(ev, form, setForm)}
                     required
                   ></Form.Control>
@@ -83,6 +108,18 @@ export const Registercomp = () => {
                     required
                   ></Form.Control>
                 </FormField>
+                <FormField label="Profile Image" title="image">
+                  <Form.Control
+                    id="image"
+                    name="image"
+                    type="file"
+                    onChange={(ev) =>
+                      setForm({ ...form, image: ev.target.files })
+                    }
+                    accept="image/*"
+                    required
+                  ></Form.Control>
+                </FormField>
                 <FormField title="role" label="Role">
                   <Form.Control
                     id="role"
@@ -92,7 +129,13 @@ export const Registercomp = () => {
                   ></Form.Control>
                 </FormField>
 
-                <SubmitBtn icon="fa-save" title="Sign Up"></SubmitBtn>
+                <SubmitBtn
+                  icon="fa-save"
+                  title="Sign Up"
+                  loading={loading}
+                  variant1="info"
+                  variant2="success"
+                ></SubmitBtn>
               </Form>
             </Col>
             <Row>

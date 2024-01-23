@@ -1,7 +1,8 @@
 import axios from "axios";
 import { fromStorage } from "../lib";
+import { toast } from "react-toastify";
 const http = axios.create({
-  baseURL: import.meta.env.API_URL,
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -9,7 +10,7 @@ const http = axios.create({
 });
 http.interceptors.request.use(
   (config) => {
-    const token = fromStorage("");
+    const token = fromStorage("token");
     if (token) {
       config.headers = { ...config.headers, Authorization: `Bearer ${token}` };
     }
@@ -27,4 +28,5 @@ http.interceptors.response.use(
   },
   (err) => Promise.reject(err)
 );
+console.log(import.meta.env.API_URL);
 export default http;

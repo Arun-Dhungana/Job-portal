@@ -38,6 +38,7 @@ export const Login = () => {
                 <Form.Control
                   name="password"
                   id="password"
+                  type="password"
                   onChange={(ev) => setInForm(ev, form, setForm)}
                 ></Form.Control>
               </FormField>

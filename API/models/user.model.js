@@ -26,8 +26,9 @@ const Users = model(
         set: (value) => value.toLowerCase(),
         enum: ["jobseeker", "company"],
       },
-      images: {
+      image: {
         type: String,
+        required: true,
       },
       description: {
         type: String,
