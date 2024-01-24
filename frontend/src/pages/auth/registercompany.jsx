@@ -12,6 +12,7 @@ export const Registercomp = () => {
   const handleSubmit = (ev) => {
     ev.preventDefault();
     setLoading(true);
+    console.log(form);
     const fd = new FormData();
     for (let i in form) {
       if (i == "image") {
@@ -20,6 +21,7 @@ export const Registercomp = () => {
         fd.append(i, form[i]);
       }
     }
+    fd.append("role", "company");
     console.log(fd);
     http
       .post("/auth/register", fd, {
@@ -114,7 +116,7 @@ export const Registercomp = () => {
                     name="image"
                     type="file"
                     onChange={(ev) =>
-                      setForm({ ...form, image: ev.target.files })
+                      setForm({ ...form, image: ev.target.files[0] })
                     }
                     accept="image/*"
                     required

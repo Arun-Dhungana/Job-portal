@@ -9,28 +9,34 @@ import { Loading } from "../components/Loading";
 export const PrivateRoutes = ({ element }) => {
   const [loading, setLoading] = useState(false);
 
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => {
+    console.log(state);
+    return state.user.value;
+  });
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    if (Object.keys(user).length == 0) {
-      const token = fromStorage("12cmstoken");
+    if (Object.keys(user).length === 0) {
+      const token = fromStorage("token");
+
       if (token) {
         setLoading(true);
         http
-          .get("profile/detail")
+          .get("/profile/detail")
           .then(({ data }) => {
             dispatch(setUser(data));
           })
+
           .catch((err) => {
-            removeStorage("12cmstoken");
+            removeStorage("token");
             toast.error("Please login to continue");
             navigate("/login");
           })
           .finally(() => setLoading(false));
       } else {
         toast.error("Please login to continue");
-        console.log(13);
+
         navigate("/login");
       }
     }

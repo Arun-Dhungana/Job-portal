@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { profile } = require("../../controller/index");
-router.get("/", profile.detail);
+const { Auth } = require("../../middlewares");
+router.get("/detail", Auth, profile.detail);
 router
   .route("/change-password")
   .put(profile.change_password)

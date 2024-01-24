@@ -30,7 +30,7 @@ const showError = async (err, next) => {
 };
 const Auth = async (req, res, next) => {
   if ("authorization" in req.headers) {
-    const token = req.headers.authorization.split(":").pop();
+    const token = req.headers.authorization.split(" ").pop();
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       const id = decoded.id;
@@ -71,13 +71,6 @@ const fileStorage = (mimeTypes = []) =>
         }
       } else {
         cb(null, true);
-      }
-    },
-    limits: (req, file, cb) => {
-      if (file.size == 1024 * 1024 * 3) {
-        cb(null, true);
-      } else {
-        cb({ message: "Files expected to be less than 3mb" }, false);
       }
     },
   });

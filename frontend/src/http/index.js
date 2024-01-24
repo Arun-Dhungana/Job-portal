@@ -28,5 +28,5 @@ http.interceptors.response.use(
   },
   (err) => Promise.reject(err)
 );
-console.log(import.meta.env.API_URL);
+
 export default http;

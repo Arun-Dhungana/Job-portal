@@ -7,9 +7,17 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import "./layout.css";
 import { Outlet } from "react-router-dom";
 export const Topnav = () => {
+  const user = useSelector((state) => {
+    console.log(state.user.value);
+    return state.user.value;
+  });
+  if (Object.keys(user).length) {
+    console.log("hello");
+  }
   return (
     <Container fluid>
       <Row className="min-vh-100">
@@ -25,7 +33,7 @@ export const Topnav = () => {
                 <Navbar.Toggle></Navbar.Toggle>
                 <Navbar.Collapse>
                   <Nav className="mx-auto  ">
-                    <NavLink href="#" className="text-white">
+                    <NavLink href="/about" className="text-white">
                       About Us
                     </NavLink>
 

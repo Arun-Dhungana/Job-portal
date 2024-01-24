@@ -14,8 +14,8 @@ const authController = {
         role,
         description,
       } = req.body;
-      const img = "";
-      img = req.files.map((img) => img.filename);
+
+      const img = req.file.filename;
       const exist = await Users.findOne({ email: email });
       if (exist) {
         if (exist.role !== role) {
@@ -37,7 +37,7 @@ const authController = {
           password: hash,
           number,
           role,
-          image: img.toString(),
+          image: img,
           description,
         });
         res.json({ success: "Successfully registered" });
@@ -52,25 +52,13 @@ const authController = {
   },
   login: async (req, res, next) => {
     try {
-      const { email, password, role } = req.body;
-      const exist = await Users.findOne({ email: email });
+      const { email, password } = req.body;
+      const user = await Users.findOne({ email: email });
 
-      if (exist) {
-        if (exist.role !== role) {
-          next({
-            message: `You cannot login as ${role}`,
-          });
-        }
-      } else {
-        next({ message: "Wrong email!!" });
+      if (!user) {
+        next({ message: "User not found" });
       }
-      if (
-        bcyrpt.compareSync(
-          password,
-          "$2a$10$Bhp.JsFzfn0Tag2fdVZsv.hIUDbRaMbT49kBjC0/xtY8ijQ35XEVu"
-        )
-      ) {
-        const user = await Users.findOne({ email });
+      if (bcyrpt.compareSync(password, user.password)) {
         const token = jwt.sign(
           {
             id: user._id,

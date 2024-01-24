@@ -3,8 +3,15 @@ import image1 from "../../lib/01.jpeg";
 import image2 from "../../lib/02.png";
 import image3 from "../../lib/03.jpeg";
 import image4 from "../../lib/04.jpeg";
-
+import { useSelector } from "react-redux";
 export const About = () => {
+  const user = useSelector((state) => {
+    console.log(state.user.value);
+    return state.user.value;
+  });
+  if (Object.keys(user).length) {
+    console.log("hello");
+  }
   return (
     <Container>
       <Row>

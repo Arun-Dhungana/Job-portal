@@ -4,8 +4,9 @@ const { Users, Application, Jobs } = require("../../models/index");
 const bcrypt = require("bcryptjs");
 const ProfileController = {
   detail: async (req, res, next) => {
+    console.log(1);
     try {
-      const user = await Users.findById(req.params.id);
+      const user = await Users.findById(req.uid);
       res.json(user);
     } catch (err) {
       showError(err, next);

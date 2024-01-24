@@ -1,12 +1,32 @@
 import { useState } from "react";
 import { SubmitBtn, FormField } from "../../components/index";
-import { setInForm } from "../../lib";
+import { inStorage, setInForm } from "../../lib/index.js";
 import { Container, Form, Row, Col } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import http from "../../http";
+import { setUser } from "../../store/index.js";
+import { useNavigate } from "react-router-dom";
 export const Login = () => {
   const [form, setForm] = useState({});
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    console.log("bbkj");
+    setLoading(true);
+
+    http
+      .post("/auth/login", form)
+      .then(({ data }) => {
+        dispatch(setUser(data.user));
+
+        inStorage("token", data.token);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(setLoading(false));
   };
   return (
     <Container>
@@ -29,6 +49,7 @@ export const Login = () => {
                 <Form.Control
                   name="email"
                   id="email"
+                  type="text"
                   onChange={(ev) => setInForm(ev, form, setForm)}
                 ></Form.Control>
               </FormField>
@@ -43,7 +64,13 @@ export const Login = () => {
                 ></Form.Control>
               </FormField>
 
-              <SubmitBtn icon="fa-sign-in-alt" title="Login"></SubmitBtn>
+              <SubmitBtn
+                icon="fa-sign-in-alt"
+                title="Login"
+                variant1="primary"
+                variant2="success"
+                loading={loading}
+              ></SubmitBtn>
             </Form>
           </Col>
           <Row>

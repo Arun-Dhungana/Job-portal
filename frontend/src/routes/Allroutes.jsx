@@ -74,7 +74,12 @@ export const AllRoutes = () => {
             }
           ></Route>
 
-          <Route path="profile" element={<Outlet></Outlet>}>
+          <Route
+            path="profile"
+            element={
+              <PrivateRoutes element={<Outlet></Outlet>}></PrivateRoutes>
+            }
+          >
             <Route path=":id" element={<Pages.Profile.Detail />}></Route>
             <Route path="edit" element={<Pages.Profile.EditProfile />}></Route>
             <Route path="password" element={<Pages.Profile.Password />}></Route>
