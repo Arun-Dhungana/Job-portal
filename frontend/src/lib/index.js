@@ -12,6 +12,7 @@ export const fromStorage = (key) =>
   localStorage.getItem(key) || sessionStorage.getItem(key);
 
 export const removeStorage = (key) => {
-  localStorage.removeItem(key);
-  sessionStorage.removeItem(key);
+  localStorage.removeItem(key) || sessionStorage.removeItem(key);
 };
+export const imageURL = (filename) =>
+  `${import.meta.env.VITE_API_URL}/image/${filename}`;

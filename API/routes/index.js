@@ -7,6 +7,9 @@ const frontroutes = require("./front");
 const { Auth } = require("../middlewares");
 router.use("/profile", Profileroute);
 router.use("/cms", cmsroute);
-router.use("/auth",  authroute);
+router.use("/auth", authroute);
 router.use("/front", frontroutes);
+router.get("/image/:filename", (req, res, next) => {
+  res.sendFile(`uploads/${req.params.filename}`, { root: "./" });
+});
 module.exports = router;

@@ -48,19 +48,24 @@ export const AllRoutes = () => {
             />
           </Route>
           <Route
-            path="application/create"
+            path="application"
             element={
               <PrivateRoutes
                 element={
-                  <Seekeroutes
-                    element={
-                      <Pages.Application.Create></Pages.Application.Create>
-                    }
-                  ></Seekeroutes>
+                  <Seekeroutes element={<Outlet></Outlet>}></Seekeroutes>
                 }
               ></PrivateRoutes>
             }
-          ></Route>
+          >
+            <Route
+              path="create"
+              element={<Pages.Application.Create></Pages.Application.Create>}
+            ></Route>
+            <Route
+              path="applied"
+              element={<Pages.Application.Applied></Pages.Application.Applied>}
+            ></Route>
+          </Route>
           <Route
             path="application/list/:id"
             element={

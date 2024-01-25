@@ -10,7 +10,7 @@ export const PrivateRoutes = ({ element }) => {
   const [loading, setLoading] = useState(false);
 
   const user = useSelector((state) => {
-    console.log(state);
+    
     return state.user.value;
   });
 

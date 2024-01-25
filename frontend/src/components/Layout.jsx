@@ -1,23 +1,23 @@
-import {
-  NavLink,
-  Container,
-  Navbar,
-  NavDropdown,
-  Nav,
-  Row,
-  Col,
-} from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { Container, Navbar, NavDropdown, Nav, Row, Col } from "react-bootstrap";
+import { Link, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { removeStorage, imageURL } from "../lib";
+import { clearUser } from "../store";
 import "./layout.css";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 export const Topnav = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector((state) => {
     console.log(state.user.value);
     return state.user.value;
   });
-  if (Object.keys(user).length) {
-    console.log("hello");
-  }
+
+  const handleLogout = async () => {
+    await removeStorage('token')
+      .then(dispatch(clearUser()))
+      .catch((err) => console.log(err));
+  };
   return (
     <Container fluid>
       <Row className="min-vh-100">
@@ -26,16 +26,21 @@ export const Topnav = () => {
           <Row>
             <Col className="px-0">
               <Navbar expand="lg" className=" bg-dark ps-2 " variant="dark">
-                <Navbar.Brand className="text-white text-2xl ">
+                <Navbar.Brand as={Link} to="/" className="text-white text-2xl ">
                   JobHub
                 </Navbar.Brand>
 
                 <Navbar.Toggle></Navbar.Toggle>
                 <Navbar.Collapse>
                   <Nav className="mx-auto  ">
-                    <NavLink href="/about" className="text-white">
-                      About Us
-                    </NavLink>
+                    <Nav.Item>
+                      <NavLink
+                        to="/about"
+                        className="text-white text-decoration-none d-flex flex-row align-items-center"
+                      >
+                        About Us
+                      </NavLink>
+                    </Nav.Item>
 
                     <NavDropdown
                       title={<span className="text-white">Search</span>}
@@ -43,36 +48,88 @@ export const Topnav = () => {
                       data-bs-theme="dark"
                       className="dropdown"
                     >
-                      <NavDropdown.Item>Top Jobs</NavDropdown.Item>
-                      <NavDropdown.Item>Hot Jobs</NavDropdown.Item>
-                      <NavDropdown.Item>Premium Jobs</NavDropdown.Item>
+                      <NavDropdown.Item as={Link} to="/top">
+                        Top Jobs
+                      </NavDropdown.Item>
+                      <NavDropdown.Item as={Link} to="/hot">
+                        Hot Jobs
+                      </NavDropdown.Item>
+                      <NavDropdown.Item as={Link} to="/premium">
+                        Premium Jobs
+                      </NavDropdown.Item>
                     </NavDropdown>
                   </Nav>
+                  {Object.keys(user).length ? (
+                    user.role == "company" ? (
+                      <Nav className="ms-auto">
+                        <Nav.Item>Manage Jobs</Nav.Item>
+                      </Nav>
+                    ) : user.role == "jobseeker" ? (
+                      <Nav>
+                        <Nav.Item> Applied Jobs</Nav.Item>
+                      </Nav>
+                    ) : null
+                  ) : (
+                    <Nav className="ms-auto">
+                      <NavDropdown
+                        title={
+                          <span className="text-white">
+                            <i className="fa-solid fa-plug-circle-exclamation"></i>
+                            Register
+                          </span>
+                        }
+                        data-bs-theme="dark"
+                      >
+                        <NavDropdown.Item as={NavLink} to="/register/seeker">
+                          as Job-Seeker
+                          <i class="fa-solid fa-user-large ps-1"></i>
+                        </NavDropdown.Item>
+                        <NavDropdown.Divider></NavDropdown.Divider>
+                        <NavDropdown.Item href="/register/company">
+                          as Company
+                          <i className="fa-solid fa-building-user ps-1"></i>
+                        </NavDropdown.Item>
+                      </NavDropdown>
+                      <Nav.Item as={NavLink} to="/login" className="text-white">
+                        <i className="fa-solid fa-plug-circle-bolt"></i>
+                        Login
+                      </Nav.Item>
+                    </Nav>
+                  )}
+                </Navbar.Collapse>
+                {Object.keys(user).length ? (
                   <Nav className="ms-auto  ">
                     <NavDropdown
                       title={
-                        <span className="text-white">
-                          <i className="fa-solid fa-plug-circle-exclamation"></i>
-                          Register
-                        </span>
+                        <img
+                          className="h-100 w-100"
+                          style={{}}
+                          src={imageURL(user.image)}
+                          alt="profile picture"
+                        ></img>
                       }
-                      data-bs-theme="dark"
                     >
-                      <NavDropdown.Item href="/register/seeker">
-                        as Job-Seeker
-                        <i class="fa-solid fa-user-large ps-1"></i>
+                      <NavDropdown.Item href="/profile">
+                        Profile
+                      </NavDropdown.Item>
+
+                      <NavDropdown.Item href="/profile">
+                        Change Password
+                      </NavDropdown.Item>
+                      <NavDropdown.Item href="/profile">
+                        Edit Profile
                       </NavDropdown.Item>
                       <NavDropdown.Divider></NavDropdown.Divider>
-                      <NavDropdown.Item href="/register/company">
-                        as Company<i class="fa-solid fa-building-user ps-1"></i>
+                      <NavDropdown.Item
+                        onClick={() => {
+                          handleLogout;
+                        }}
+                      >
+                        Logout
                       </NavDropdown.Item>
                     </NavDropdown>
-                    <NavLink href="/login" className="text-white">
-                      <i className="fa-solid fa-plug-circle-bolt"></i>
-                      Login
-                    </NavLink>
                   </Nav>
-                </Navbar.Collapse>
+                ) : null}
               </Navbar>
             </Col>
           </Row>
