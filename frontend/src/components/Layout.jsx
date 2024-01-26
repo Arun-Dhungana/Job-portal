@@ -1,10 +1,12 @@
 import { Container, Navbar, NavDropdown, Nav, Row, Col } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeStorage, imageURL } from "../lib";
-import { clearUser } from "../store";
+import { fromStorage, removeStorage, imageURL } from "../lib";
+import { setUser, clearUser } from "../store";
 import "./layout.css";
 import { Outlet, useNavigate } from "react-router-dom";
+import http from "../http";
 export const Topnav = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -13,8 +15,22 @@ export const Topnav = () => {
     return state.user.value;
   });
 
+  const token = fromStorage("token");
+  console.log(token);
+
+  useEffect(() => {
+    if (token) {
+      http
+        .get("/profile/detail")
+        .then(({ data }) => {
+          console.log(data);
+          dispatch(setUser(data));
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);f
   const handleLogout = async () => {
-    await removeStorage('token')
+    await removeStorage("token")
       .then(dispatch(clearUser()))
       .catch((err) => console.log(err));
   };
