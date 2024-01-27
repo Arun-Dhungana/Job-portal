@@ -74,17 +74,13 @@ export const EditProfile = () => {
                     style={{}}
                   ></Form.Control>
                 </FormField>
-                <Row>
-                  <Col className="d-flex flex-row justify-content-around">
-                    <Button
-                      className="bg-dark border border-none p-1 px-3"
-                      onClick={() => navigate(-1)}
-                    >
-                      Back
-                    </Button>
-                    <SubmitBtn title="Update" icon="fa-wrench"></SubmitBtn>
-                  </Col>
-                </Row>
+
+                <SubmitBtn
+                  title="Update"
+                  icon="fa-wrench"
+                  variant1="danger"
+                  variant2="success"
+                ></SubmitBtn>
               </Form>
             </Col>
           </Row>

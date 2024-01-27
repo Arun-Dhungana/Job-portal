@@ -1,4 +1,12 @@
-import { Container, Navbar, NavDropdown, Nav, Row, Col } from "react-bootstrap";
+import {
+  Container,
+  Navbar,
+  NavDropdown,
+  Nav,
+  Row,
+  Col,
+  NavItem,
+} from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,11 +36,13 @@ export const Topnav = () => {
         })
         .catch((err) => console.log(err));
     }
-  }, []);f
-  const handleLogout = async () => {
-    await removeStorage("token")
-      .then(dispatch(clearUser()))
-      .catch((err) => console.log(err));
+  }, []);
+
+  const handleLogout = () => {
+    dispatch(clearUser());
+    removeStorage("token");
+
+    navigate("/");
   };
   return (
     <Container fluid>
@@ -40,23 +50,22 @@ export const Topnav = () => {
         {/*Navbar*/}
         <Col xs={12}>
           <Row>
-            <Col className="px-0">
-              <Navbar expand="lg" className=" bg-dark ps-2 " variant="dark">
+            <Navbar expand="lg" className=" bg-dark ps-2 " variant="dark">
+              <Col>
                 <Navbar.Brand as={Link} to="/" className="text-white text-2xl ">
                   JobHub
                 </Navbar.Brand>
-
+              </Col>
+              <Col>
                 <Navbar.Toggle></Navbar.Toggle>
                 <Navbar.Collapse>
-                  <Nav className="mx-auto  ">
-                    <Nav.Item>
-                      <NavLink
-                        to="/about"
-                        className="text-white text-decoration-none d-flex flex-row align-items-center"
-                      >
-                        About Us
-                      </NavLink>
-                    </Nav.Item>
+                  <Nav className="mx-auto ">
+                    <NavLink
+                      to="/about"
+                      className="text-white text-decoration-none d-flex flex-row  align-items-center"
+                    >
+                      About Us
+                    </NavLink>
 
                     <NavDropdown
                       title={<span className="text-white">Search</span>}
@@ -77,12 +86,22 @@ export const Topnav = () => {
                   </Nav>
                   {Object.keys(user).length ? (
                     user.role == "company" ? (
-                      <Nav className="ms-auto">
-                        <Nav.Item>Manage Jobs</Nav.Item>
+                      <Nav className="">
+                        <NavLink
+                          to="/job/manage"
+                          className="text-white text-decoration-none p-1"
+                        >
+                          Manage Jobs
+                        </NavLink>
                       </Nav>
                     ) : user.role == "jobseeker" ? (
                       <Nav>
-                        <Nav.Item> Applied Jobs</Nav.Item>
+                        <NavLink
+                          to="/application/applied"
+                          className="text-white text-decoration-none p-1"
+                        >
+                          Applied Jobs
+                        </NavLink>
                       </Nav>
                     ) : null
                   ) : (
@@ -94,6 +113,7 @@ export const Topnav = () => {
                             Register
                           </span>
                         }
+                        id="basic-navbar-dropdown"
                         data-bs-theme="dark"
                       >
                         <NavDropdown.Item as={NavLink} to="/register/seeker">
@@ -106,55 +126,63 @@ export const Topnav = () => {
                           <i className="fa-solid fa-building-user ps-1"></i>
                         </NavDropdown.Item>
                       </NavDropdown>
-                      <Nav.Item as={NavLink} to="/login" className="text-white">
+                      <NavLink
+                        to="/login"
+                        className="text-white text-decoration-none d-flex flex-row align-items-center pe-2"
+                      >
                         <i className="fa-solid fa-plug-circle-bolt"></i>
                         Login
-                      </Nav.Item>
+                      </NavLink>
                     </Nav>
                   )}
                 </Navbar.Collapse>
-                {Object.keys(user).length ? (
-                  <Nav className="ms-auto  ">
+              </Col>
+
+              {Object.keys(user).length ? (
+                <Col xs={2}>
+                  <Nav className="">
                     <NavDropdown
                       title={
                         <img
-                          className="h-100 w-100"
-                          style={{}}
                           src={imageURL(user.image)}
                           alt="profile picture"
+                          style={{
+                            height: "20%",
+                            width: "20%",
+
+                            borderRadius: "50%",
+                          }}
                         ></img>
                       }
+                      data-bs-theme="dark"
+                      className="ms-auto"
                     >
-                      <NavDropdown.Item href="/profile">
+                      <NavDropdown.Item as={Link} to="/profile/123">
                         Profile
                       </NavDropdown.Item>
 
                       <NavDropdown.Item href="/profile">
                         Change Password
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="/profile">
+                      <NavDropdown.Item as={Link} to="/profile/edit">
                         Edit Profile
                       </NavDropdown.Item>
                       <NavDropdown.Divider></NavDropdown.Divider>
-                      <NavDropdown.Item
-                        onClick={() => {
-                          handleLogout;
-                        }}
-                      >
+                      <NavDropdown.Item onClick={handleLogout}>
                         Logout
                       </NavDropdown.Item>
                     </NavDropdown>
                   </Nav>
-                ) : null}
-              </Navbar>
-            </Col>
+                </Col>
+              ) : null}
+            </Navbar>
           </Row>
         </Col>
         {/*Content*/}
         <Outlet></Outlet>
         {/*footer*/}
 
-        <Col className="bg-dark text-white pt-2 pb-2">
+        <Col className="bg-dark text-white pt-2 pb-2 align-self-end">
           <footer variant="dark">
             <Row>
               <Col xs={12} md={4} className="text-center pb-3">

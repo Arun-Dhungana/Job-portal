@@ -55,7 +55,7 @@ export const Home = () => {
             }}
           >
             <Row>
-              <Col xs={7} className="pe-0">
+              <Col xs={12} md={7} className="pe-0 ps-0">
                 <Form.Group>
                   <Form.Control
                     size="lg"
@@ -64,7 +64,7 @@ export const Home = () => {
                   />
                 </Form.Group>
               </Col>
-              <Col xs={3} className="ps-0 pe-0">
+              <Col xs={8} md={3} className="ps-0 pe-0">
                 <Form.Group>
                   <Form.Select size="lg" className=" ms-0">
                     <option>Category</option>
@@ -74,7 +74,7 @@ export const Home = () => {
                   </Form.Select>
                 </Form.Group>
               </Col>
-              <Col xs={2}>
+              <Col xs={4} md={2}>
                 <Form.Group>
                   <Button
                     type="search"

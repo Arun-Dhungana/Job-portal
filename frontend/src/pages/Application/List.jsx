@@ -8,7 +8,16 @@ export const List = () => {
           <h1 className="text-center mb-3">Applications</h1>
         </Col>
         <Row>
-          <Col style={{ border: "3px solid grey" }} className="pt-3">
+          <Col
+            xs={12}
+            md={7}
+            style={{
+              border: "3px solid grey",
+              background:
+                "linear-gradient(to right, #0000ff, #3366cc, #6699cc, #99b2cc, #b2d8e6, #cce5ff)",
+            }}
+            className="pt-3 mx-auto"
+          >
             <Form>
               <Row>
                 <Col xs={4} className="mb-3 text-center">
@@ -31,7 +40,7 @@ export const List = () => {
                   </label>
                 </Col>
                 <Col xs={8} className="mb-3">
-                  <Form.Control type="text"></Form.Control>
+                  <Form.Control type="text" disabled></Form.Control>
                 </Col>
               </Row>
               <Row>
@@ -43,10 +52,10 @@ export const List = () => {
                     type="submit"
                     variant="success"
                     size="sm"
-                    className="mb-2 me-2"
+                    className="mb-2 me-2 "
                   >
                     Accept
-                    <i className={` fa-solid px-3`}></i>
+                    <i className={` fa-solid fa-save px-3`}></i>
                   </Button>
                 </Col>
               </Row>

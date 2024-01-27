@@ -110,7 +110,7 @@ export const Registercomp = () => {
                     required
                   ></Form.Control>
                 </FormField>
-                <FormField label="Profile Image" title="image">
+                <FormField label="Company Logo" title="image">
                   <Form.Control
                     id="image"
                     name="image"

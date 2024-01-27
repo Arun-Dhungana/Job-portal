@@ -2,11 +2,28 @@ import { useState } from "react";
 import { SubmitBtn, FormField } from "../../components/index";
 import { setInForm } from "../../lib";
 import { Container, Form, Row, Col, InputGroup } from "react-bootstrap";
+import http from "../../http";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 export const Register = () => {
   const [form, setForm] = useState({});
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    console.log(1);
+    setLoading(true);
+    const fd = new FormData();
+    for (let i in form) {
+      fd.append(i, form[i]);
+    }
+    fd.append("role", "jobseeker");
+    http
+      .post("/auth/register", fd, {
+        headers: { "Content-type": "multipart/form-data" },
+      })
+      .then(navigate("/login"))
+      .catch((err) => toast.error(err))
+      .finally(setLoading(false));
   };
   return (
     <Container>
@@ -83,6 +100,18 @@ export const Register = () => {
                     required
                   ></Form.Control>
                 </FormField>
+                <FormField label="Profile Image" title="image">
+                  <Form.Control
+                    id="image"
+                    name="image"
+                    type="file"
+                    onChange={(ev) =>
+                      setForm({ ...form, image: ev.target.files[0] })
+                    }
+                    accept="image/*"
+                    required
+                  ></Form.Control>
+                </FormField>
                 <FormField title="role" label="Role">
                   <Form.Control
                     id="role"
@@ -92,7 +121,13 @@ export const Register = () => {
                   ></Form.Control>
                 </FormField>
 
-                <SubmitBtn icon="fa-save" title="Sign Up"></SubmitBtn>
+                <SubmitBtn
+                  icon="fa-save"
+                  title="Sign Up"
+                  loading={loading}
+                  variant1="danger"
+                  variant2="success"
+                ></SubmitBtn>
               </Form>
             </Col>
             <Row>

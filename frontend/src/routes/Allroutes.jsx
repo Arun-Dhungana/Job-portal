@@ -46,6 +46,10 @@ export const AllRoutes = () => {
               path="edit/:id"
               element={<Pages.Job.Edit></Pages.Job.Edit>}
             />
+            <Route
+              path="manage"
+              element={<Pages.Job.Manage></Pages.Job.Manage>}
+            />
           </Route>
           <Route
             path="application"

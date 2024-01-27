@@ -67,7 +67,7 @@ const authController = {
           },
           process.env.JWT_SECRET
         );
-        res.json({ user, token });
+        res.json({ user, token, success: "Loggged In successfully" });
       } else {
         next({ message: "Wrong Password" });
       }
