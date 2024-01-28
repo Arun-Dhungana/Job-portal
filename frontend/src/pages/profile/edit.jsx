@@ -4,9 +4,11 @@ import { SubmitBtn, FormField } from "../../components/index";
 import img from "../../lib/img1.jpg";
 import { setInForm } from "../../lib";
 import { useNavigate } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 export const EditProfile = () => {
+  const user = useSelector((state) => state.user.value);
   const [form, setForm] = useState({});
+
   const navigate = useNavigate();
   return (
     <Container fluid>
@@ -35,6 +37,7 @@ export const EditProfile = () => {
                     objectFit: "cover",
                     display: "inline-flex",
                     boxShadow: "2px 2px 8px black",
+                    margin: "5px",
                   }}
                   className=""
                 ></Image>
@@ -53,7 +56,6 @@ export const EditProfile = () => {
               </div>
             </Col>
 
-            <Col xs={12}></Col>
             <Col xs={12} md={8} className="text-center mx-auto">
               <Form>
                 <FormField label="Name" title="name" className="">
@@ -74,15 +76,74 @@ export const EditProfile = () => {
                     style={{}}
                   ></Form.Control>
                 </FormField>
-
-                <SubmitBtn
-                  title="Update"
-                  icon="fa-wrench"
-                  variant1="danger"
-                  variant2="success"
-                ></SubmitBtn>
+                <FormField label="Description" title="description" className="">
+                  <Form.Control
+                    id="description"
+                    type="text"
+                    as="textarea"
+                    onChange={(ev) => setInForm(ev, form, setForm)}
+                    className="border border-dark "
+                    style={{}}
+                  ></Form.Control>
+                </FormField>
               </Form>
             </Col>
+            {Object.keys(user).length ? (
+              user.role == "company" ? (
+                <Col xs={12} md={8} className="mx-auto">
+                  <h1 className="text-center my-5">Contact Person's Detail</h1>
+                  <Form>
+                    <FormField title="name" label="Name">
+                      <Form.Control
+                        id="name"
+                        type="text"
+                        onChange={(ev) => setInForm(ev, form, setForm)}
+                        className="border border-dark "
+                      ></Form.Control>
+                    </FormField>
+                    <FormField title="email" label="Email">
+                      <Form.Control
+                        id="email"
+                        type="email"
+                        onChange={(ev) => setInForm(ev, form, setForm)}
+                        className="border border-dark "
+                      ></Form.Control>
+                    </FormField>
+                    <FormField title="number" label="Number">
+                      <Form.Control
+                        id="number"
+                        type="number"
+                        onChange={(ev) => setInForm(ev, form, setForm)}
+                        className="border border-dark "
+                      ></Form.Control>
+                    </FormField>
+                    <FormField title="address" label="Address">
+                      <Form.Control
+                        id="address"
+                        type="text"
+                        onChange={(ev) => setInForm(ev, form, setForm)}
+                        className="border border-dark "
+                      ></Form.Control>
+                    </FormField>
+                    <FormField title="description" label="Description/Post">
+                      <Form.Control
+                        id="description"
+                        type="text"
+                        onChange={(ev) => setInForm(ev, form, setForm)}
+                        className="border border-dark "
+                      ></Form.Control>
+                    </FormField>
+                  </Form>
+                </Col>
+              ) : null
+            ) : null}
+
+            <SubmitBtn
+              title="Update"
+              icon="fa-wrench"
+              variant1="danger"
+              variant2="success"
+            ></SubmitBtn>
           </Row>
         </Col>
       </Row>

@@ -19,19 +19,16 @@ export const Topnav = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => {
-    console.log(state.user.value);
     return state.user.value;
   });
 
   const token = fromStorage("token");
-  console.log(token);
 
   useEffect(() => {
     if (token) {
       http
         .get("/profile/detail")
         .then(({ data }) => {
-          console.log(data);
           dispatch(setUser(data));
         })
         .catch((err) => console.log(err));
@@ -161,7 +158,7 @@ export const Topnav = () => {
                         Profile
                       </NavDropdown.Item>
 
-                      <NavDropdown.Item href="/profile">
+                      <NavDropdown.Item as={Link} to="/profile/password">
                         Change Password
                       </NavDropdown.Item>
                       <NavDropdown.Item as={Link} to="/profile/edit">

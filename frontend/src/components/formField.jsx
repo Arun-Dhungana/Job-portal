@@ -4,7 +4,7 @@ export const FormField = ({ title, label, children }) => {
       <label
         htmlFor={title}
         className=""
-        style={{ fontSize: "18px", fontWeight: "bolder" }}
+        style={{ fontSize: "20px", fontWeight: "bolder" }}
       >
         {label}
       </label>

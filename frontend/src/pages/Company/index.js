@@ -1,3 +1,3 @@
 import { Show } from "./Show";
-import { Edit } from "./Edit";
-export { Show, Edit };
+import { Create } from "./Create";
+export { Show, Create };

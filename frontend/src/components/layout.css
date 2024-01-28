@@ -2,4 +2,15 @@
 [type=text],[type=email],[type=password],[type=number],[type=date],[type=file]{
     background-color: rgb(232, 227, 227);
 }
-*{box-sizing: border-box;}
+.border-botto {
+    border: none;
+    border-bottom: 2px solid rgb(50, 41, 41);
+    border-radius: 0;
+    box-shadow: none; 
+    margin-bottom: 30px; 
+  }
+ 
+  .labeling{
+    font-size:100px
+  }
+
