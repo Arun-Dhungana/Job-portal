@@ -3,8 +3,22 @@ import { FormField } from "../../components/formField";
 import { useState } from "react";
 import { setInForm } from "../../lib";
 import { SubmitBtn } from "../../components";
+import http from "../../http";
+import { useNavigate } from "react-router-dom";
 export const Password = () => {
   const [form, setForm] = useState({});
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+    setLoading(true);
+    console.log(form);
+    http
+      .put("/profile/change-password", form)
+      .then(navigate("/profile/password"))
+      .catch((err) => console.log(err))
+      .finally(setLoading(false));
+  };
   return (
     <Container>
       <Row>
@@ -21,12 +35,12 @@ export const Password = () => {
           </Row>
           <Row>
             <Col>
-              <Form>
+              <Form onSubmit={handleSubmit}>
                 <FormField title="old_password" label="Password">
                   <Form.Control
                     id="old_password"
                     type="password"
-                    name="password"
+                    name="old_password"
                     onChange={(ev) => setInForm(ev, form, setForm)}
                   ></Form.Control>
                 </FormField>
@@ -51,9 +65,11 @@ export const Password = () => {
                 <Row>
                   <Col className="text-center">
                     <SubmitBtn
-                      className=""
                       title="Update"
+                      variant1="dark"
+                      variant2="success"
                       icon="fa-cloud-arrow-up"
+                      loading={loading}
                     ></SubmitBtn>
                   </Col>
                 </Row>
