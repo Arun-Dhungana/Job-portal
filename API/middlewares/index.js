@@ -24,6 +24,7 @@ const showError = async (err, next) => {
   if (debug) {
     console.error(err);
   }
+
   next({
     message: "Problem while executing",
   });

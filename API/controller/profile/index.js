@@ -19,13 +19,14 @@ const ProfileController = {
       if (bcrypt.compareSync(old_password, req.user.password)) {
         if (new_passsword === confirm_password) {
           const hash = bcrypt.hashSync(new_passsword, bcrypt.genSaltSync(10));
+
           await Users.findByIdAndUpdate(req.uid, { password: hash });
-          res.json({ message: "Successfully updated" });
+          res.json({ success: "Successfully updated" });
         } else {
-          next({ message: "Worng confirmation password" });
+          res.status(422).json({ message: "Wrong confirmation password" });
         }
       } else {
-        next({ message: "Wrong old password!!" });
+        next({ message: "Wrong old password!!", status: 400 });
       }
     } catch (err) {
       showError(err, next);

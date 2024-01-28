@@ -5,8 +5,8 @@ const { Auth } = require("../../middlewares");
 router.get("/detail", Auth, profile.detail);
 router
   .route("/change-password")
-  .put(profile.change_password)
-  .patch(profile.change_password);
+  .put(Auth, profile.change_password)
+  .patch(Auth, profile.change_password);
 router.get("/delete", profile.delete);
 router.get("/applied_jobs/:id", profile.applied_jobs);
 router.get("/applicants", profile.applicants);
