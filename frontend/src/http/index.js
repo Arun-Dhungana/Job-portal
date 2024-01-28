@@ -26,7 +26,12 @@ http.interceptors.response.use(
     }
     return response;
   },
-  (err) => Promise.reject(err)
+  (err) => {
+    if ("response" in err && "message" in err.response.data) {
+      toast.error(err.response.data.message);
+    }
+    return Promise.reject(err);
+  }
 );
 
 export default http;
