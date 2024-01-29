@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Image, Button } from "react-bootstrap";
 import { SubmitBtn, FormField } from "../../components/index";
 import img from "../../lib/img1.jpg";
 import { useSelector } from "react-redux";
-
+import http from "../../http";
 export const Detail = () => {
   const [form, setForm] = useState({});
+  
   const user = useSelector((state) => state.user.value);
+  useEffect(()=>{}, []);
   return (
     <Container fluid>
       <Row

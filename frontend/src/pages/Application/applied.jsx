@@ -22,7 +22,7 @@ export const Applied = () => {
               <Card.Text>Description of Job</Card.Text>
             </Card.Body>
             <Row>
-              <Col className="d-flex flex-row justify-content-between">
+              <Col className="d-flex flex-row justify-content-evenly">
                 <Button
                   variant="dark"
                   className="m-1"

@@ -11,6 +11,7 @@ export const AllRoutes = () => {
         <Route path="/" element={<Topnav></Topnav>}>
           <Route index element={<Pages.Front.Home></Pages.Front.Home>} />
           <Route path="login" element={<Pages.Auth.Login></Pages.Auth.Login>} />
+          <Route path="job/list" element={<Pages.Job.List></Pages.Job.List>} />
           <Route
             path="about"
             element={<Pages.Front.About></Pages.Front.About>}

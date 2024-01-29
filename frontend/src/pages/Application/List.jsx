@@ -1,6 +1,27 @@
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 export const List = () => {
+  const handleAccept = () =>
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div className="custom-ui">
+            <h1>Accept</h1>
+            <p>Are you sure to accept ?? </p>
+            <Button type="button" variant="danger" onClick={onClose}>
+              No
+            </Button>
+            <Button type="button" variant="success" onClick={onClose}>
+              Yes
+            </Button>
+          </div>
+        );
+      },
+    });
+
+  const handleReject = () => {};
   return (
     <Container>
       <Row>
@@ -45,14 +66,19 @@ export const List = () => {
               </Row>
               <Row>
                 <Col className="d-flex flex-row justify-content-end">
-                  <Button variant="danger" className="p-1 px-3 mb-2 me-2">
+                  <Button
+                    variant="danger"
+                    className="p-1 px-3 mb-2 me-2"
+                    onClick={handleReject}
+                  >
                     Reject
                   </Button>
                   <Button
-                    type="submit"
+                    type="button"
                     variant="success"
                     size="sm"
                     className="mb-2 me-2 "
+                    onClick={handleAccept}
                   >
                     Accept
                     <i className={` fa-solid fa-save px-3`}></i>
