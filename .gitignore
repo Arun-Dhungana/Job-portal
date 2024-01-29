@@ -2,3 +2,4 @@
 /API/.env
 /API/package-lock.json
 .DS_Store
+frontend/src/components/warning.jsx
