@@ -7,15 +7,22 @@ export const List = () => {
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
-          <div className="custom-ui">
+          <div
+            className="px-5 py-2"
+            style={{ border: "2px solid black", borderRadius: "20px 0 20px 0" }}
+          >
             <h1>Accept</h1>
+            <hr></hr>
             <p>Are you sure to accept ?? </p>
-            <Button type="button" variant="danger" onClick={onClose}>
-              No
-            </Button>
-            <Button type="button" variant="success" onClick={onClose}>
-              Yes
-            </Button>
+            <hr></hr>
+            <div className="d-flex flex-row justify-content-evenly">
+              <Button type="button" variant="danger" onClick={onClose}>
+                No
+              </Button>
+              <Button type="button" variant="success" onClick={onClose}>
+                Yes
+              </Button>
+            </div>
           </div>
         );
       },
@@ -70,6 +77,7 @@ export const List = () => {
                     variant="danger"
                     className="p-1 px-3 mb-2 me-2"
                     onClick={handleReject}
+                    size="sm"
                   >
                     Reject
                   </Button>
