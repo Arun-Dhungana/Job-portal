@@ -8,37 +8,29 @@ export const JobList = ({ title }) => {
       style={{ boxShadow: "4px 4px 10px black", background: "lightgrey" }}
     >
       <Row>
-        <Col xs={12}>
-          <Row>
-            <Col xs={12} className="mb-0">
-              <h1
-                style={{
-                  background:
-                    "linear-gradient(to right, white, lightgrey, grey, darkgrey,white)",
-                }}
-                className=" ps-4 text-capitalize"
-              >
-                {title} Jobs
-              </h1>
-            </Col>
-          </Row>
-          <Row className="justify-content-center ps-2 pe-2">
-            <Col className="">
-              <Row>
-                <JobCard></JobCard>
-                <JobCard></JobCard>
-                <JobCard></JobCard>
-                <JobCard></JobCard>
-                <JobCard></JobCard>
-                <JobCard></JobCard>
-
-                <JobCard></JobCard>
-                <JobCard></JobCard>
-                <JobCard></JobCard>
-              </Row>
-            </Col>
-          </Row>
+        <Col xs={12} className="mb-0">
+          <h1
+            style={{
+              background:
+                "linear-gradient(to right, white, lightgrey, grey, darkgrey,white)",
+            }}
+            className=" ps-4 text-capitalize"
+          >
+            {title} Jobs
+          </h1>
         </Col>
+      </Row>
+      <Row className="justify-content-center ps-2 pe-2">
+        <JobCard></JobCard>
+        <JobCard></JobCard>
+        <JobCard></JobCard>
+        <JobCard></JobCard>
+        <JobCard></JobCard>
+        <JobCard></JobCard>
+
+        <JobCard></JobCard>
+        <JobCard></JobCard>
+        <JobCard></JobCard>
       </Row>
     </Col>
   );

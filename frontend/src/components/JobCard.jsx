@@ -12,14 +12,19 @@ export const JobCard = () => {
         className="ps-2 bg-light"
       >
         <Row className="h-100">
-          <Col xs={2} sm={4} md={3}>
+          <Col
+            xs={4}
+            sm={4}
+            md={3}
+            className="d-flex flex-row justify-content-center"
+          >
             <Image
-              className="p-1"
-              style={{ height: "100%", width: "100%", borderRadius: "50%" }}
+              className="pt-1"
+              style={{ height: "40px", width: "40px" }}
               src={img1}
             ></Image>
           </Col>
-          <Col xs={10} sm={8} md={9}>
+          <Col xs={8} sm={8} md={9}>
             <Row>
               <Col
                 xs={12}

@@ -9,10 +9,7 @@ export const Home = () => {
     <Container>
       <Row>
         <Col style={{ position: "relative" }}>
-          <Carousel
-            className="w-100 px-3 mt-3"
-            style={{ height: "350px", position: "relative" }}
-          >
+          <Carousel className="w-100 px-3 mt-3" style={{ height: "350px" }}>
             <Carousel.Item interval={1000}>
               <img
                 style={{ width: "100%", height: "350px", objectFit: "fill" }}
@@ -51,7 +48,6 @@ export const Home = () => {
               left: "50%",
               transform: "translateX(-50%)",
               zIndex: 1,
-              boxShadow: "5px 5px 15px black",
             }}
           >
             <Row>

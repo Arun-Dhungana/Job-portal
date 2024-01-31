@@ -47,15 +47,20 @@ export const Topnav = () => {
         {/*Navbar*/}
         <Col xs={12}>
           <Row>
-            <Navbar expand="lg" className=" bg-dark ps-2 " variant="dark">
+            <Navbar
+              expand="lg"
+              className=" bg-dark ps-2 "
+              variant="dark"
+              fixed="top"
+            >
               <Col>
                 <Navbar.Brand as={Link} to="/" className="text-white text-2xl ">
                   JobHub
                 </Navbar.Brand>
               </Col>
               <Col>
-                <Navbar.Toggle></Navbar.Toggle>
-                <Navbar.Collapse>
+                <Navbar.Toggle aria-controls="basic-navbar-nav"></Navbar.Toggle>
+                <Navbar.Collapse id="basic-navbar-nav">
                   <Nav className="mx-auto ">
                     <NavLink
                       to="/about"
