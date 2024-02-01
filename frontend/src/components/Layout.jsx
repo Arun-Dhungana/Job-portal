@@ -6,6 +6,7 @@ import {
   Row,
   Col,
   NavItem,
+  Dropdown,
 } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import { useEffect } from "react";
@@ -43,130 +44,124 @@ export const Topnav = () => {
   };
   return (
     <Container fluid>
-      <Row className="min-vh-100">
+      <Row className="min-vh-100 ">
         {/*Navbar*/}
-        <Col xs={12}>
-          <Row>
-            <Navbar
-              expand="lg"
-              className=" bg-dark ps-2 "
-              variant="dark"
-              fixed="top"
-            >
-              <Col>
-                <Navbar.Brand as={Link} to="/" className="text-white text-2xl ">
-                  JobHub
-                </Navbar.Brand>
-              </Col>
-              <Col>
-                <Navbar.Toggle aria-controls="basic-navbar-nav"></Navbar.Toggle>
-                <Navbar.Collapse id="basic-navbar-nav">
-                  <Nav className="mx-auto ">
-                    <NavLink
-                      to="/about"
-                      className="text-white text-decoration-none d-flex flex-row  align-items-center"
-                    >
-                      About Us
-                    </NavLink>
+        <Col xs={12} className="m-0 p-0">
+          <Navbar expand="lg" className=" bg-dark ps-2 " variant="dark">
+            <Container>
+              <Navbar.Brand as={Link} to="/" className="text-white text-2xl ">
+                JobHub
+              </Navbar.Brand>
 
-                    <NavDropdown
-                      title={<span className="text-white">Search</span>}
-                      id="basic-navbar-dropdown"
-                      data-bs-theme="dark"
-                      className="dropdown"
-                    >
-                      <NavDropdown.Item as={Link} to="/top">
-                        Top Jobs
-                      </NavDropdown.Item>
-                      <NavDropdown.Item as={Link} to="/hot">
-                        Hot Jobs
-                      </NavDropdown.Item>
-                      <NavDropdown.Item as={Link} to="/premium">
-                        Premium Jobs
-                      </NavDropdown.Item>
-                    </NavDropdown>
-                  </Nav>
-                  {Object.keys(user).length ? (
-                    user.role == "company" ? (
-                      <Nav className="">
-                        <NavLink
-                          to="/job/manage"
-                          className="text-white text-decoration-none p-1"
-                        >
-                          Manage Jobs
-                        </NavLink>
-                      </Nav>
-                    ) : user.role == "jobseeker" ? (
-                      <Nav>
-                        <NavLink
-                          to="/application/applied"
-                          className="text-white text-decoration-none p-1"
-                        >
-                          Applied Jobs
-                        </NavLink>
-                      </Nav>
-                    ) : null
-                  ) : (
-                    <Nav className="ms-auto">
-                      <NavDropdown
-                        title={
-                          <span className="text-white">
-                            <i className="fa-solid fa-plug-circle-exclamation"></i>
-                            Register
-                          </span>
-                        }
-                        id="basic-navbar-dropdown"
-                        data-bs-theme="dark"
-                      >
-                        <NavDropdown.Item as={NavLink} to="/register/seeker">
-                          as Job-Seeker
-                          <i class="fa-solid fa-user-large ps-1"></i>
-                        </NavDropdown.Item>
-                        <NavDropdown.Divider></NavDropdown.Divider>
-                        <NavDropdown.Item href="/register/company">
-                          as Company
-                          <i className="fa-solid fa-building-user ps-1"></i>
-                        </NavDropdown.Item>
-                      </NavDropdown>
+              <Navbar.Toggle
+                aria-controls="responsive-navbar-nav"
+                className="ms-auto"
+              ></Navbar.Toggle>
+              <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="mx-auto ">
+                  <NavLink
+                    to="/about"
+                    className="text-white text-decoration-none d-flex flex-row  align-items-center"
+                  >
+                    About Us
+                  </NavLink>
+
+                  <NavDropdown
+                    title={<span className="text-white">Search</span>}
+                    id="basic-navbar-dropdown"
+                    data-bs-theme="dark"
+                    className="dropdown"
+                  >
+                    <NavDropdown.Item as={Link} to="/top">
+                      Top Jobs
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/hot">
+                      Hot Jobs
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/premium">
+                      Premium Jobs
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </Nav>
+                {Object.keys(user).length ? (
+                  user.role == "company" ? (
+                    <Nav className="">
                       <NavLink
-                        to="/login"
-                        className="text-white text-decoration-none d-flex flex-row align-items-center pe-2"
+                        to="/job/manage"
+                        className="text-white text-decoration-none p-1"
                       >
-                        <i className="fa-solid fa-plug-circle-bolt"></i>
-                        Login
+                        Manage Jobs
                       </NavLink>
                     </Nav>
-                  )}
-                </Navbar.Collapse>
-              </Col>
-
-              {Object.keys(user).length ? (
-                <Col xs={2}>
-                  <Nav className="">
+                  ) : user.role == "jobseeker" ? (
+                    <Nav>
+                      <NavLink
+                        to="/application/applied"
+                        className="text-white text-decoration-none p-1"
+                      >
+                        Applied Jobs
+                      </NavLink>
+                    </Nav>
+                  ) : null
+                ) : (
+                  <Nav className="ms-auto">
                     <NavDropdown
+                      title={
+                        <span className="text-white">
+                          <i className="fa-solid fa-plug-circle-exclamation"></i>
+                          Register
+                        </span>
+                      }
+                      id="basic-navbar-dropdown"
+                      data-bs-theme="dark"
+                    >
+                      <NavDropdown.Item as={NavLink} to="/register/seeker">
+                        as Job-Seeker
+                        <i class="fa-solid fa-user-large ps-1"></i>
+                      </NavDropdown.Item>
+                      <NavDropdown.Divider></NavDropdown.Divider>
+                      <NavDropdown.Item as={NavLink} to="/register/company">
+                        as Company
+                        <i className="fa-solid fa-building-user ps-1"></i>
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                    <NavLink
+                      to="/login"
+                      className="text-white text-decoration-none d-flex flex-row align-items-center pe-2"
+                    >
+                      <i className="fa-solid fa-plug-circle-bolt"></i>
+                      Login
+                    </NavLink>
+                  </Nav>
+                )}
+
+                {Object.keys(user).length ? (
+                  <Nav>
+                    <NavDropdown
+                      className="ps-2"
                       title={
                         <img
                           src={imageURL(user.image)}
                           alt="profile picture"
                           style={{
-                            height: "20%",
-                            width: "20%",
+                            height: "40px",
+                            width: "40px",
 
                             borderRadius: "50%",
                           }}
                         ></img>
                       }
                       data-bs-theme="dark"
-                      className="ms-auto"
+                      align={{ xs: "start" }}
                     >
-                      <NavDropdown.Item as={Link} to="/profile/123">
+                      <NavDropdown.Item as={NavLink} to="/profile/123">
                         Profile
                       </NavDropdown.Item>
 
-                      <NavDropdown.Item as={Link} to="/profile/password">
+                      <NavDropdown.Item as={NavLink} to="/profile/password">
                         Change Password
                       </NavDropdown.Item>
-                      <NavDropdown.Item as={Link} to="/profile/edit">
+                      <NavDropdown.Item as={NavLink} to="/profile/edit">
                         Edit Profile
                       </NavDropdown.Item>
                       <NavDropdown.Divider></NavDropdown.Divider>
@@ -175,10 +170,10 @@ export const Topnav = () => {
                       </NavDropdown.Item>
                     </NavDropdown>
                   </Nav>
-                </Col>
-              ) : null}
-            </Navbar>
-          </Row>
+                ) : null}
+              </Navbar.Collapse>
+            </Container>
+          </Navbar>
         </Col>
         {/*Content*/}
         <Outlet></Outlet>

@@ -17,10 +17,17 @@ const frontCOntroller = {
       ]).exec();
       const job = jobs.map((job) => {
         return {
+          job_id: job._id,
+          company_id: job.creator_id,
           title: job.title,
-          creator: job.creator[0],
+          opening: job.opening,
+          deadline: job.deadline,
+          salary: job.salary,
+          name: job.creator[0].name,
+          image: job.creator[0].image,
         };
       });
+      console.log(jobs);
       res.json(job);
     } catch (err) {
       showError(err, next);
@@ -56,8 +63,14 @@ const frontCOntroller = {
       console.log(jobs);
       const job = jobs.map((job) => {
         return {
+          job_id: job._id,
+          company_id: job.creator_id,
           title: job.title,
-          creator: job.creator[0],
+          opening: job.opening,
+          deadline: job.deadline,
+          salary: job.salary,
+          name: job.creator[0].name,
+          image: job.creator[0].image,
         };
       });
       res.json(job);
@@ -80,11 +93,18 @@ const frontCOntroller = {
       ]).exec();
       const job = jobs.map((job) => {
         return {
+          job_id: job._id,
+          company_id: job.creator_id,
           title: job.title,
-          creator: job.creator[0],
+          opening: job.opening,
+          deadline: job.deadline,
+          salary: job.salary,
+          name: job.creator[0].name,
+          image: job.creator[0].image,
         };
       });
       res.json(job);
+      console.log(jobs);
     } catch (err) {
       showError(err, next);
     }
@@ -104,10 +124,17 @@ const frontCOntroller = {
       ]).exec();
       const job = jobs.map((job) => {
         return {
+          job_id: job._id,
+          company_id: job.creator_id,
           title: job.title,
-          creator: job.creator[0],
+          opening: job.opening,
+          deadline: job.deadline,
+          salary: job.salary,
+          name: job.creator[0].name,
+          image: job.creator[0].image,
         };
       });
+      console.log(jobs);
       res.json(job);
     } catch (err) {
       showError(err, next);

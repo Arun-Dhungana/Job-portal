@@ -1,4 +1,6 @@
-
+.dropdown>a::after{
+  color: rgb(227, 225, 223);
+}
 [type=text],[type=email],[type=password],[type=number],[type=date],[type=file]{
     background-color: rgb(232, 227, 227);
 }

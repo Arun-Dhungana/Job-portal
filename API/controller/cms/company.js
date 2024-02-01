@@ -57,10 +57,14 @@ const companyController = {
             as: "creator",
           },
         },
-      ]).exec();
+      ]);
       const company = companies.map((compan) => {
         return {
-          creator: compan.creator[0],
+          name: compan.creator[0].name,
+          image: compan.creator[0].image,
+          Email: compan.creator[0].email,
+          number: compan.creator[0].number,
+          description: compan.creator[0].description,
           contact_person: compan.contact_person,
           contact_no: compan.contact_no,
           email: compan.email,
@@ -68,6 +72,8 @@ const companyController = {
           description: compan.description,
         };
       });
+      console.log(company);
+      console.log(companies);
       res.json(company);
     } catch (err) {
       showError(err, next);

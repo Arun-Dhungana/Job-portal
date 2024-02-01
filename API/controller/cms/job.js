@@ -20,7 +20,7 @@ const jobController = {
       } = req.body;
       let type = [];
       const opening = new Date();
-      const dat = new Date();
+      
       if (timing.toLowerCase() == "fulltime" && salary >= 100000) {
         type = ["premium", "top"];
       } else if (timing.toLowerCase() == "fulltime" && salary >= 50000) {

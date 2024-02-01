@@ -3,7 +3,7 @@ import { Topnav } from "../components/Layout";
 import { Companyroutes } from "./Companyroutes";
 import { PrivateRoutes } from "./Privateroutes";
 import { Seekeroutes } from "./Seekerroutes";
-import { DataTable } from "../components/Datamanage";
+
 import * as Pages from "../pages";
 export const AllRoutes = () => {
   return (
@@ -11,7 +11,7 @@ export const AllRoutes = () => {
       <Routes>
         <Route path="/" element={<Topnav></Topnav>}>
           <Route index element={<Pages.Front.Home></Pages.Front.Home>} />
-          <Route path="login" element={<DataTable></DataTable>} />
+          <Route path="login" element={<Pages.Auth.Login />} />
           <Route path="job/list" element={<Pages.Job.List></Pages.Job.List>} />
           <Route
             path="about"
