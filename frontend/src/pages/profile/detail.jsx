@@ -1,15 +1,40 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Image, Button } from "react-bootstrap";
-import { SubmitBtn, FormField } from "../../components/index";
-import img from "../../lib/img1.jpg";
+import { FormField } from "../../components/index";
+
 import { useSelector } from "react-redux";
 import http from "../../http";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import { imageURL } from "../../lib";
 export const Detail = () => {
-  const [form, setForm] = useState({});
-  
   const user = useSelector((state) => state.user.value);
-  useEffect(()=>{}, []);
-  return (
+  const navigate = useNavigate();
+  const params = useParams();
+  const [form, setForm] = useState({});
+  const [company, setCompany] = useState({});
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true);
+    http
+      .get(`/cms/company/detail/${params.id}`)
+      .then(({ data }) => setCompany(data))
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [user]);
+  useEffect(() => {
+    if (Object.keys(user).length) {
+      setForm({
+        image: user.image,
+        name: user.name,
+        email: user.email,
+        number: user.number,
+        description: user.description,
+      });
+    }
+  }, [user]);
+  return Object.keys(form).length ? (
     <Container fluid>
       <Row
         style={{
@@ -27,7 +52,7 @@ export const Detail = () => {
           className="d-flex flex-row  justify-content-sm-center justify-content-md-end  align-items-center"
         >
           <Image
-            src={img}
+            src={imageURL(form.image)}
             style={{
               width: "80px",
               height: "80px",
@@ -46,7 +71,7 @@ export const Detail = () => {
             className=" bg-secondary rounded-2 px-2   "
             style={{ boxShadow: "2px 2px 8px black" }}
           >
-            Company Name Pvt. Ltd
+            {form.name}
           </h1>
         </Col>
       </Row>
@@ -55,18 +80,35 @@ export const Detail = () => {
           <h1 className="text-center my-5">Personal Detail</h1>
           <Form>
             <FormField title="name" label="Name">
-              <Form.Control id="name" className="border-botto"></Form.Control>
+              <Form.Control
+                id="name"
+                className="border-botto"
+                value={form.name}
+                disabled
+              ></Form.Control>
             </FormField>
             <FormField title="email" label="Email">
-              <Form.Control id="email" className="border-botto"></Form.Control>
+              <Form.Control
+                id="email"
+                className="border-botto"
+                value={form.email}
+                disabled
+              ></Form.Control>
             </FormField>
             <FormField title="number" label="Number">
-              <Form.Control id="number" className="border-botto"></Form.Control>
+              <Form.Control
+                id="number"
+                className="border-botto"
+                value={form.number}
+                disabled
+              ></Form.Control>
             </FormField>
             <FormField title="description" label="Description">
               <Form.Control
                 id="description"
                 className="border-botto"
+                value={form.description}
+                disabled
               ></Form.Control>
             </FormField>
           </Form>
@@ -74,52 +116,64 @@ export const Detail = () => {
       </Row>
       {Object.keys(user).length ? (
         user.role == "company" ? (
-          <Row>
-            <Col xs={12} md={8} className="mx-auto my-3">
-              <h1 className="text-center my-5">Contact Person's Detail</h1>
-              <Form>
-                <FormField title="name" label="Name">
-                  <Form.Control
-                    id="name"
-                    className="border-botto"
-                  ></Form.Control>
-                </FormField>
-                <FormField title="email" label="Email">
-                  <Form.Control
-                    id="email"
-                    className="border-botto"
-                  ></Form.Control>
-                </FormField>
-                <FormField title="number" label="Number">
-                  <Form.Control
-                    id="number"
-                    className="border-botto"
-                  ></Form.Control>
-                </FormField>
-                <FormField title="address" label="Address">
-                  <Form.Control
-                    id="address"
-                    className="border-botto"
-                  ></Form.Control>
-                </FormField>
-                <FormField title="description" label="Description/Post">
-                  <Form.Control
-                    id="description"
-                    className="border-botto"
-                  ></Form.Control>
-                </FormField>
-              </Form>
-            </Col>
-          </Row>
+          Object.keys(company).length ? (
+            <Row>
+              <Col xs={12} md={8} className="mx-auto my-3">
+                <h1 className="text-center my-5">Contact Person's Detail</h1>
+                <Form>
+                  <FormField title="name" label="Name">
+                    <Form.Control
+                      id="name"
+                      className="border-botto"
+                      value={company[0].contact_person}
+                      disabled
+                    ></Form.Control>
+                  </FormField>
+                  <FormField title="email" label="Email">
+                    <Form.Control
+                      id="email"
+                      className="border-botto"
+                      value={company[0].email}
+                      disabled
+                    ></Form.Control>
+                  </FormField>
+                  <FormField title="number" label="Number">
+                    <Form.Control
+                      id="number"
+                      className="border-botto"
+                      value={company[0].contact_no}
+                      disabled
+                    ></Form.Control>
+                  </FormField>
+                  <FormField title="address" label="Address">
+                    <Form.Control
+                      id="address"
+                      className="border-botto"
+                      value={company[0].address}
+                      disabled
+                    ></Form.Control>
+                  </FormField>
+                  <FormField title="description" label="Description/Post">
+                    <Form.Control
+                      id="description"
+                      className="border-botto"
+                      value={company[0].description}
+                      disabled
+                    ></Form.Control>
+                  </FormField>
+                </Form>
+              </Col>
+            </Row>
+          ) : null
         ) : null
       ) : null}
       <Row>
         <Col className="d-flex flex-row justify-content-center my-2">
-          <Button className="ps-4 pe-4">
+          <Button as={Link} className="ps-4 pe-4" type="button" to="edit">
             <i className="fa-solid fa-pen-ruler pe-2"></i>Edit
           </Button>
         </Col>
       </Row>
     </Container>
-  );
+  ) : null;
 };
