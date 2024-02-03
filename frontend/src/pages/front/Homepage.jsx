@@ -132,27 +132,35 @@ export const Home = () => {
             </Col>
           </Row>
           <Row>
-            <JobList
-              title="hot"
-              data={hot}
-              sortable={["Name", "Salary", "Opening", "Deadline"]}
-            ></JobList>
-            {console.log(top)}
-            <JobList
-              title="top"
-              data={top}
-              sortable={["Name", "Salary", "Opening", "Deadline"]}
-            ></JobList>
-            <JobList
-              title="premium"
-              data={premium}
-              sortable={["Name", "Salary", "Opening", "Deadline"]}
-            ></JobList>
-            <JobList
-              title="other"
-              data={other}
-              sortable={["Name", "Salary", "Opening", "Deadline"]}
-            ></JobList>
+            {hot.length ? (
+              <JobList
+                title="hot"
+                data={hot}
+                sortable={["Name", "Salary", "Opening", "Deadline"]}
+              ></JobList>
+            ) : null}
+
+            {top.length ? (
+              <JobList
+                title="top"
+                data={top}
+                sortable={["Name", "Salary", "Opening", "Deadline"]}
+              ></JobList>
+            ) : null}
+            {premium.length ? (
+              <JobList
+                title="premium"
+                data={premium}
+                sortable={["Name", "Salary", "Opening", "Deadline"]}
+              ></JobList>
+            ) : null}
+            {other.length ? (
+              <JobList
+                title="other"
+                data={other}
+                sortable={["Name", "Salary", "Opening", "Deadline"]}
+              ></JobList>
+            ) : null}
           </Row>
         </Container>
       )}
