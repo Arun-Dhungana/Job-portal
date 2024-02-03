@@ -3,6 +3,15 @@ const { showError } = require("../../middlewares");
 const { Jobs } = require("../../models");
 
 const jobController = {
+  detail: async (req, res, next) => {
+    try {
+      const job = await Jobs.findById(req.params.id);
+      console.log(job);
+      res.json(job);
+    } catch (err) {
+      showError(err, next);
+    }
+  },
   create: async (req, res, next) => {
     try {
       const {
@@ -15,12 +24,12 @@ const jobController = {
         education,
         location,
         position_level,
-        date,
+        deadline,
         count,
       } = req.body;
       let type = [];
       const opening = new Date();
-      
+
       if (timing.toLowerCase() == "fulltime" && salary >= 100000) {
         type = ["premium", "top"];
       } else if (timing.toLowerCase() == "fulltime" && salary >= 50000) {
@@ -43,9 +52,9 @@ const jobController = {
         count,
         creator_id: req.params.id,
         opening: opening,
-        deadline: new Date(date),
+        deadline,
       });
-      res.json({ message: "Job Created!!!" });
+      res.json({ success: "Job Created!!!" });
     } catch (err) {
       showError(err, next);
     }
@@ -67,6 +76,7 @@ const jobController = {
       console.log(jobs);
       const job = jobs.map((jobb) => {
         return {
+          id: jobb._id,
           title: jobb.title,
           description: jobb.description,
           timing: jobb.timing,
@@ -75,9 +85,10 @@ const jobController = {
           salary: jobb.salary,
           education: jobb.education,
           location: jobb.location,
-          position_level: jobb.position_level,
+          level: jobb.position_level,
           type: jobb.type,
-          creator: jobb.creator[0],
+          image: jobb.creator[0].image,
+          name: jobb.creator[0].name,
           opening: jobb.opening,
           deadline: jobb.deadline,
           count: jobb.count,
@@ -118,8 +129,10 @@ const jobController = {
         status,
         count,
       });
-      res.json({ message: "Successfully updated" });
+
+      res.json({ success: "Successfully updated" });
     } catch (err) {
+      res.status(400).json({ message: "Error" });
       showError(err, next);
     }
   },

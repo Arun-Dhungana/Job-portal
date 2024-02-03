@@ -66,9 +66,9 @@ const Jobs = model(
       },
       position_level: {
         type: String,
-        required: true,
         set: (value) => value.toLowerCase(),
         enum: ["junior-level", "mid-level", "senior-level"],
+        required: true,
       },
       opening: {
         type: Date,
