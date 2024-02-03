@@ -1,9 +1,32 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-
+import http from "../../http";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 export const Create = ({ show, onHide }) => {
-  const handleSubmit = (ev) => {};
+  const [form, setForm] = useState({});
+  const [loading, setLoading] = useState(false);
+  const params = useParams();
+  const navigate = useNavigate();
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+    setLoading(true);
+    const data = new FormData();
+    data.append("resume", form.resume);
+    console.log(form);
+    console.log(data);
+    http
+      .post(`/cms/apply/${params.id}`, data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then(() => navigate(-1))
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setLoading(false);
+        navigate(-1);
+      });
+  };
 
   return (
     <Modal show={show} onHide={onHide} size="lg">
@@ -14,7 +37,14 @@ export const Create = ({ show, onHide }) => {
       <Modal.Body>
         <Form onSubmit={handleSubmit} data-bs-theme="dark">
           <label htmlFor="resume">Resume</label>
-          <Form.Control id="resume" name="resume" type="file"></Form.Control>
+          <Form.Control
+            id="resume"
+            name="resume"
+            type="file"
+            onChange={(ev) => setForm({ resume: ev.target.files[0] })}
+            accept="application/pdf"
+            required
+          ></Form.Control>
           <hr></hr>
           <div
             className="d-flex flex-row justify-content-end "
@@ -28,15 +58,13 @@ export const Create = ({ show, onHide }) => {
             >
               Cancel
             </Button>
-            <Button
-              type="submit"
-              variant="success"
-              size="sm"
-              className="mb-2"
-              onClick={onHide}
-            >
+            <Button type="submit" variant="success" size="sm" className="mb-2">
               Apply
-              <i className={` fa-solid fa-save  px-3`}></i>
+              <i
+                className={` fa-solid ${
+                  loading ? "fa-spinner fa-spin" : "fa-save"
+                }  px-3`}
+              ></i>
             </Button>
           </div>
         </Form>
