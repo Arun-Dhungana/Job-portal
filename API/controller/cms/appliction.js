@@ -3,9 +3,20 @@ const { Application } = require("../../models/index");
 const applicationController = {
   create: async (req, res, next) => {
     try {
-      const { user_id } = req.body;
-      await Application.create({ job_id: req.params.id, user_id });
-      res.json({ message: "Successfully Applied" });
+      const resume = req.file.filename;
+      const exist = Application.find({
+        job_id: req.params.id,
+        user_id: req.uid,
+      });
+      if (exist) {
+        res.status(400).json({ message: "Already applied!!" });
+      }
+      await Application.create({
+        job_id: req.params.id,
+        user_id: req.uid,
+        resume: resume,
+      });
+      res.json({ success: "Successfully Applied" });
     } catch (err) {
       showError(err, next);
     }
@@ -14,7 +25,7 @@ const applicationController = {
     try {
       const { status } = req.body;
       await Application.findByIdAndUpdate(req.params.id, { status: status });
-      res.json({ message: "Update success!!" });
+      res.json({ success: "Update success!!" });
     } catch (err) {
       showError(err, next);
     }
@@ -22,7 +33,7 @@ const applicationController = {
   delete: async (req, res, next) => {
     try {
       await Application.findByIdAndDelete(req.params.id);
-      res.json({ message: "deleted Successfully" });
+      res.json({ success: "deleted Successfully" });
     } catch (err) {
       showError(err, next);
     }
