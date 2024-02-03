@@ -16,6 +16,7 @@ const Application = model(
       },
       resume: {
         type: String,
+        required: true,
       },
       applied_date: {
         type: Date,

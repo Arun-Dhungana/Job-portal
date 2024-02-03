@@ -27,7 +27,7 @@ const frontCOntroller = {
           image: job.creator[0].image,
         };
       });
-      console.log(jobs);
+
       res.json(job);
     } catch (err) {
       showError(err, next);
@@ -60,7 +60,7 @@ const frontCOntroller = {
           },
         },
       ]).exec();
-      console.log(jobs);
+
       const job = jobs.map((job) => {
         return {
           job_id: job._id,
@@ -104,7 +104,6 @@ const frontCOntroller = {
         };
       });
       res.json(job);
-      console.log(jobs);
     } catch (err) {
       showError(err, next);
     }
@@ -134,7 +133,7 @@ const frontCOntroller = {
           image: job.creator[0].image,
         };
       });
-      console.log(jobs);
+
       res.json(job);
     } catch (err) {
       showError(err, next);

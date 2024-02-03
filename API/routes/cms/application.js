@@ -2,7 +2,13 @@ const express = require("express");
 const router = express.Router();
 
 const { cms } = require("../../controller/index");
-router.post("/:id", cms.application.create);
+const { Auth, fileStorage } = require("../../middlewares");
+router.post(
+  "/:id",
+  fileStorage(["application/pdf"]).single("resume"),
+  Auth,
+  cms.application.create
+);
 router
   .route("/update/:id")
   .put(cms.application.update)

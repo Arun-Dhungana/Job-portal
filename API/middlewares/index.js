@@ -68,7 +68,7 @@ const fileStorage = (mimeTypes = []) =>
         if (mimeTypes.includes(file.mimetype)) {
           cb(null, true);
         } else {
-          cb({ message: "File no supported" }, false);
+          cb({ status: 400, message: "File no supported" }, false);
         }
       } else {
         cb(null, true);

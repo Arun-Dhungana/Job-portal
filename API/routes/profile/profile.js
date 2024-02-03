@@ -9,7 +9,7 @@ router
   .patch(Auth, profile.change_password);
 router.get("/delete", profile.delete);
 router.get("/applied_jobs/:id", profile.applied_jobs);
-router.get("/applicants", profile.applicants);
-router.get("/jobs", profile.jobs);
-router.route("/update").put(profile.update).patch(profile.update);
+router.get("/applicants/:id", profile.applicants);
+router.get("/jobs", Auth, profile.jobs);
+router.route("/update").put(Auth, profile.update).patch(Auth, profile.update);
 module.exports = router;

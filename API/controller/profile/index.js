@@ -14,19 +14,19 @@ const ProfileController = {
   },
   change_password: async (req, res, next) => {
     try {
-      const { old_password, new_passsword, confirm_password } = req.body;
+      const { old_password, new_password, confirm_password } = req.body;
 
       if (bcrypt.compareSync(old_password, req.user.password)) {
-        if (new_passsword === confirm_password) {
-          const hash = bcrypt.hashSync(new_passsword, bcrypt.genSaltSync(10));
+        if (new_password === confirm_password) {
+          const hash = bcrypt.hashSync(new_password, bcrypt.genSaltSync(10));
 
-          await Users.findByIdAndUpdate(req.uid, { password: hash });
+          await Users.findByIdAndUpdate(req.user._id, { password: hash });
           res.json({ success: "Successfully updated" });
         } else {
           res.status(422).json({ message: "Wrong confirmation password" });
         }
       } else {
-        next({ message: "Wrong old password!!", status: 400 });
+        res.status(422).json({ message: "Wrong old password" });
       }
     } catch (err) {
       showError(err, next);
@@ -34,8 +34,8 @@ const ProfileController = {
   },
   update: async (req, res, next) => {
     try {
-      const { number, name } = req.body;
-      await Users.findByIdAndUpdate(req.uid, { name, number });
+      const { number, name, description } = req.body;
+      await Users.findByIdAndUpdate(req.uid, { name, number, description });
       res.json({ message: "Successfully updated!!" });
     } catch (err) {
       showError(err, next);
@@ -65,10 +65,14 @@ const ProfileController = {
       ]);
       const apply = appli.map((app) => {
         return {
+          id: app._id,
           status: app.status,
           title: app.job[0].title,
+          category: app.job[0].category,
+          description: app.job[0].description,
         };
       });
+      console.log(apply);
       res.json(apply);
     } catch (err) {
       showError(err, next);
@@ -77,9 +81,14 @@ const ProfileController = {
   jobs: async (req, res, next) => {
     try {
       const id = new ObjectId(req.uid);
-      const job = await Jobs.find({ creator_id: id });
+      const job = await Jobs.find({ creator_id: id, status: true });
       const jobs = job.map((job) => {
-        return { title: job.title };
+        return {
+          title: job.title,
+          category: job.category,
+          description: job.description,
+          job_id: job._id,
+        };
       });
       res.json(jobs);
     } catch (err) {
@@ -90,8 +99,8 @@ const ProfileController = {
     try {
       const id = new ObjectId(req.params.id);
       const application = await Application.aggregate([
-        { $match: { job_id: id } },
-        { $addFields: { count: { $count: { $sum: 1 } } } },
+        { $match: { job_id: id, status: "pending" } },
+
         {
           $lookup: {
             from: "users",
@@ -101,14 +110,18 @@ const ProfileController = {
           },
         },
       ]);
+
       const applications = application.map((app) => {
         return {
-          count: app.count,
           status: app.status,
-          user: app.user[0],
+          resume: app.resume,
+          name: app.user[0].name,
+          email: app.user[0].email,
+          id: app._id,
         };
       });
-      req.json(applications);
+      console.log(applications);
+      res.json(applications);
     } catch (err) {
       showError(err, next);
     }

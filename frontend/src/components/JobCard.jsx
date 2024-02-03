@@ -1,8 +1,9 @@
 import { Col, Row, Image } from "react-bootstrap";
 import img1 from "../lib/img1.jpg";
 import { imageURL } from "../lib/index";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 export const JobCard = ({ data }) => {
+  const navigate = useNavigate();
   return data.length
     ? data.map((dataa) => {
         return (
@@ -22,6 +23,7 @@ export const JobCard = ({ data }) => {
                 className="d-flex flex-row justify-content-center"
               >
                 <Image
+                  as={NavLink}
                   className="pt-1"
                   style={{ height: "40px", width: "40px" }}
                   src={imageURL(dataa.image)}

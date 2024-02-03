@@ -58,14 +58,15 @@ export const JobList = ({ data, sortable, title }) => {
     setCurrentPage(1);
     let temp = [...data].splice(offset, perPage);
     let total = Math.ceil(data.length / perPage);
-
+    console.log(temp);
     setPaginated(temp);
     setTotalPages(total);
-  }, [perPage, offset, data]);
+  }, [perPage]);
 
   useEffect(() => {
     let temp = [...data].splice(offset, perPage);
     setPaginated(temp);
+    console.log(temp, 1);
   }, [offset]);
 
   useEffect(() => {
