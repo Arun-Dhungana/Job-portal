@@ -16,6 +16,7 @@ import { setUser, clearUser } from "../store";
 import "./layout.css";
 import { Outlet, useNavigate } from "react-router-dom";
 import http from "../http";
+import { toast } from "react-toastify";
 export const Topnav = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,7 +41,8 @@ export const Topnav = () => {
     dispatch(clearUser());
     removeStorage("token");
 
-    navigate("/");
+    navigate("/login");
+    toast.info("Logged Out!!!");
   };
   return (
     <Container fluid>
@@ -87,6 +89,12 @@ export const Topnav = () => {
                   user.role == "company" ? (
                     <Nav className="">
                       <NavLink
+                        to="/job/create"
+                        className="text-white text-decoration-none p-1 me-1"
+                      >
+                        Create Job
+                      </NavLink>
+                      <NavLink
                         to="/job/manage"
                         className="text-white text-decoration-none p-1"
                       >
@@ -96,7 +104,7 @@ export const Topnav = () => {
                   ) : user.role == "jobseeker" ? (
                     <Nav>
                       <NavLink
-                        to="/application/applied"
+                        to={`/application/applied/${user._id}`}
                         className="text-white text-decoration-none p-1"
                       >
                         Applied Jobs
@@ -154,7 +162,7 @@ export const Topnav = () => {
                       data-bs-theme="dark"
                       align={{ xs: "start" }}
                     >
-                      <NavDropdown.Item as={NavLink} to="/profile/123">
+                      <NavDropdown.Item as={NavLink} to={`profile/${user._id}`}>
                         Profile
                       </NavDropdown.Item>
 
@@ -164,6 +172,11 @@ export const Topnav = () => {
                       <NavDropdown.Item as={NavLink} to="/profile/edit">
                         Edit Profile
                       </NavDropdown.Item>
+                      {user.role == "company" ? (
+                        <NavDropdown.Item as={NavLink} to="/profile/edit">
+                          Edit contact Person
+                        </NavDropdown.Item>
+                      ) : null}
                       <NavDropdown.Divider></NavDropdown.Divider>
                       <NavDropdown.Item onClick={handleLogout}>
                         Logout
