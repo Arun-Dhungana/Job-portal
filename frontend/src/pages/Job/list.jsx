@@ -1,12 +1,30 @@
 import { Create } from "../Application/Create";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Row, Table, Image, Card } from "react-bootstrap";
-import img from "../../lib/img1.jpg";
-import { useNavigate } from "react-router-dom";
+import { Loading } from "../../components/Loading";
+import http from "../../http";
+import { useSelector } from "react-redux";
+import { imageURL } from "../../lib";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import moment from "moment";
 export const List = () => {
+  const user = useSelector((state) => state.user.value);
   const [modalShow, setModalShow] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [job, setJob] = useState([]);
   const navigate = useNavigate();
-  return (
+  const params = useParams();
+  useEffect(() => {
+    setLoading(true);
+    http
+      .get(`/cms/job/${params.id}`)
+      .then(({ data }) => setJob(data))
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
+  }, [params.id]);
+  return loading ? (
+    <Loading></Loading>
+  ) : job.length ? (
     <Col xs={12}>
       <Row
         style={{
@@ -24,7 +42,7 @@ export const List = () => {
           className="d-flex flex-row  justify-content-sm-center justify-content-md-end  align-items-center"
         >
           <Image
-            src={img}
+            src={imageURL(job[0].image)}
             style={{
               width: "80px",
               height: "80px",
@@ -43,24 +61,19 @@ export const List = () => {
             className=" bg-secondary rounded-2 px-2   "
             style={{ boxShadow: "2px 2px 8px black" }}
           >
-            Company Name Pvt. Ltd
+            {job[0].name}
           </h1>
         </Col>
       </Row>
       <Row>
         <Col sm={12} md={9} className="mt-5">
-          <h1>Job title</h1>
-          <h6 className="ms-3 mt-3 text-secondary mb-5">Company name</h6>
+          <h1>{job[0].title}</h1>
+          <h6 className="ms-3 mt-3 text-secondary mb-5">{job[0].name}</h6>
           <Card>
             <Card.Header>
               <h5>Details/Requirement</h5>
             </Card.Header>
-            <Card.Body>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum
-              assumenda, iure quaerat officia corrupti consequuntur officiis
-              aut, sunt odit velit voluptatem voluptatum nemo nostrum, veritatis
-              fuga voluptates ipsam necessitatibus praesentium.
-            </Card.Body>
+            <Card.Body>{job[0].description}</Card.Body>
           </Card>
         </Col>
         <Col sm={12} md={3} className="mt-5">
@@ -69,45 +82,40 @@ export const List = () => {
             <tbody>
               <tr>
                 <td>Title</td>
-                <td>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Ipsam alias quam beatae in quibusdam eaque natus, vero qui ex?
-                  Repellendus beatae vero fugit praesentium, reiciendis quas
-                  deserunt ducimus minima ipsa.
-                </td>
+                <td>{job[0].title}</td>
               </tr>
               <tr>
                 <td>No. of posts</td>
-                <td>Jacob</td>
+                <td>{job[0].count}</td>
               </tr>
               <tr>
                 <td>Experience</td>
-                <td>Jacob</td>
+                <td>{job[0].experience}</td>
               </tr>
               <tr>
                 <td>Education</td>
-                <td>Jacob</td>
+                <td>{job[0].education}</td>
               </tr>
               <tr>
                 <td>Salary</td>
-                <td>Jacob</td>
+                <td>{job[0].salary}</td>
               </tr>
               <tr>
                 <td>Location</td>
-                <td>Jacob</td>
+                <td>{job[0].location}</td>
               </tr>
 
               <tr>
                 <td>Level</td>
-                <td>Jacob</td>
+                <td>{job[0].level}</td>
               </tr>
               <tr>
                 <td>Opening</td>
-                <td>Jacob</td>
+                <td>{moment(job[0].opening).fromNow()}</td>
               </tr>
               <tr>
                 <td>Deadline</td>
-                <td>Jacob</td>
+                <td>{moment(job[0].deadline).format("MMMM D,YYYY")}</td>
               </tr>
             </tbody>
           </Table>
@@ -118,18 +126,24 @@ export const List = () => {
           <Button onClick={() => navigate(-1)} size="lg" variant="danger">
             Back
           </Button>
-          <Button
-            className="ps-4 pe-4"
-            size="lg"
-            variant="success"
-            onClick={() => setModalShow(!modalShow)}
-          >
-            Apply
-          </Button>
+          {user.role == "jobseeker" ? (
+            <Button
+              as={Link}
+              className="ps-4 pe-4"
+              size="lg"
+              variant="success"
+              onClick={() => {
+                setModalShow(!modalShow);
+                navigate(`${job[0].id}`);
+              }}
+            >
+              Apply
+            </Button>
+          ) : null}
 
           <Create show={modalShow} onHide={() => setModalShow(false)} />
         </Col>
       </Row>
     </Col>
-  );
+  ) : null;
 };

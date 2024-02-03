@@ -1,17 +1,59 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Col, Row, Form } from "react-bootstrap";
 import Switch from "react-switch";
 import { FormField, SubmitBtn } from "../../components/index";
 import { setInForm } from "../../lib";
+import { useNavigate, useParams } from "react-router-dom";
+import { Loading } from "../../components/Loading";
+import http from "../../http";
+import moment from "moment";
 export const Edit = () => {
   const [form, setForm] = useState({});
-  const [check, setCheck] = useState(false);
+  const [check, setCheck] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const params = useParams();
+  const [job, setJob] = useState({});
+  const navigate = useNavigate();
+  useEffect(() => {
+    setLoading(true);
+    http
+      .get(`cms/job/detail/${params.id}`)
+      .then(({ data }) => setJob(data))
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+  useEffect(() => {
+    if (Object.keys(job).length) {
+      setForm({
+        title: job.title,
+        description: job.description,
+        timing: job.timing,
+        category: job.category,
+        position_level: job.position_level,
+        experience: job.experience,
+        education: job.education,
+        salary: job.salary,
+        location: job.location,
+        deadline: job.deadline,
+        count: job.count,
+      });
+    }
+  }, [job]);
   const handleSubmit = (ev) => {
-    ev.preventDefault();
-    console.log(1);
+    setLoading(true);
+    http
+      .put(`cms/job/update/${params.id}`, form, { status: check })
+      .then(() => navigate(`/job/edit/${params.id}`))
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   };
-  return (
+  return loading ? (
+    <Loading></Loading>
+  ) : Object.keys(form).length ? (
     <Container>
+      {console.log(form)}
       <Row>
         <Col
           lg={6}
@@ -33,6 +75,7 @@ export const Edit = () => {
                     id="title"
                     name="title"
                     type="text"
+                    value={form.title}
                     onChange={(ev) => setInForm(ev, form, setForm)}
                     required
                   ></Form.Control>
@@ -42,6 +85,7 @@ export const Edit = () => {
                     id="post"
                     name="count"
                     type="number"
+                    defaultValue={form.count}
                     onChange={(ev) => setInForm(ev, form, setForm)}
                     required
                   ></Form.Control>
@@ -52,9 +96,9 @@ export const Edit = () => {
                     name="timing"
                     type="number"
                     onChange={(ev) => setInForm(ev, form, setForm)}
+                    defaultValue={form.timing}
                     required
                   >
-                    <option>Choose one....</option>
                     <option>FullTime</option>
                     <option>PartTime</option>
                   </Form.Select>
@@ -64,24 +108,35 @@ export const Edit = () => {
                     id="category"
                     name="category"
                     type="text"
+                    defaultValue={form.category}
                     onChange={(ev) => setInForm(ev, form, setForm)}
                     required
                   >
-                    <option>Choose one....</option>
-                    <option>Bank</option>
-                    <option>finance</option>
-                    <option>Health</option>
+                    <option value="bank-finance">Bank Finance</option>
+                    <option value="ngo-ingo">NGO INGO</option>
+                    <option value="sales-marketing">Sales Marketing</option>
+                    <option value="government">Government</option>
+                    <option value="army-police">Army Police</option>
+                    <option value="cooperative">Cooperative</option>
+                    <option value="school-college">School College</option>
+                    <option value="healthcare">Healthcare</option>
+                    <option value="hotel-restaurant">Hotel Restaurant</option>
+                    <option value="customer_care">Customer Care</option>
+                    <option value="it-computer">IT Computer</option>
+                    <option value="logistics-supply_chain">
+                      Logistics Supply Chain
+                    </option>
                   </Form.Select>
                 </FormField>
                 <FormField title="position" label="Position level">
                   <Form.Select
                     id="position"
-                    name="position"
-                    type="number"
+                    name="position_level"
+                    type="text"
+                    defaultValue={form.position_level}
                     onChange={(ev) => setInForm(ev, form, setForm)}
                     required
                   >
-                    <option>Choose one....</option>
                     <option>Junior-level</option>
                     <option>Mid-level</option>
                     <option>Senior-level</option>
@@ -96,6 +151,7 @@ export const Edit = () => {
                     name="description"
                     type="text"
                     as="textarea"
+                    defaultValue={form.description}
                     onChange={(ev) => setInForm(ev, form, setForm)}
                     required
                   ></Form.Control>
@@ -105,6 +161,7 @@ export const Edit = () => {
                     id="experience"
                     name="experience"
                     type="text"
+                    defaultValue={form.experience}
                     onChange={(ev) => setInForm(ev, form, setForm)}
                     required
                   ></Form.Control>
@@ -114,6 +171,7 @@ export const Edit = () => {
                     id="education"
                     name="education"
                     type="text"
+                    defaultValue={form.education}
                     onChange={(ev) => setInForm(ev, form, setForm)}
                     required
                   ></Form.Control>
@@ -123,6 +181,7 @@ export const Edit = () => {
                     id="salary"
                     name="salary"
                     type="number"
+                    defaultValue={form.salary}
                     onChange={(ev) => setInForm(ev, form, setForm)}
                     required
                   ></Form.Control>
@@ -132,6 +191,7 @@ export const Edit = () => {
                     id="location"
                     name="location"
                     type="text"
+                    defaultValue={form.location}
                     onChange={(ev) => setInForm(ev, form, setForm)}
                     required
                   ></Form.Control>
@@ -142,13 +202,18 @@ export const Edit = () => {
                     id="deadline"
                     name="deadline"
                     type="date"
+                    defaultValue={moment(form.deadline).format("YYYY-MM-DD")}
+                    required
                   ></Form.Control>
                 </FormField>
                 <FormField title="status" label="Status">
                   <br></br>
+
                   <Switch
                     checked={check}
-                    onChange={() => setCheck(!check)}
+                    onChange={() => {
+                      setCheck(!check);
+                    }}
                   ></Switch>
                 </FormField>
                 <SubmitBtn
@@ -156,6 +221,7 @@ export const Edit = () => {
                   variant2="info"
                   icon="fa-edit"
                   title="Edit"
+                  loading={loading}
                 ></SubmitBtn>
               </Form>
             </Col>
@@ -163,5 +229,5 @@ export const Edit = () => {
         </Col>
       </Row>
     </Container>
-  );
+  ) : null;
 };

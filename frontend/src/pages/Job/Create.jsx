@@ -2,12 +2,23 @@ import { useState } from "react";
 import { Container, Col, Row, Form } from "react-bootstrap";
 import Switch from "react-switch";
 import { FormField, SubmitBtn } from "../../components/index";
+import http from "../../http";
+import { useSelector } from "react-redux";
 import { setInForm } from "../../lib";
+import { useNavigate } from "react-router-dom";
 export const Create = () => {
+  const user = useSelector((state) => state.user.value);
   const [form, setForm] = useState({});
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    console.log(1);
+    setLoading(true);
+    http
+      .post(`/cms/job/${user._id}`, form, { status: true })
+      .then(() => navigate(-1))
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   };
   return (
     <Container>
@@ -66,16 +77,26 @@ export const Create = () => {
                     onChange={(ev) => setInForm(ev, form, setForm)}
                     required
                   >
-                    <option>Choose one....</option>
-                    <option>Bank</option>
-                    <option>finance</option>
-                    <option>Health</option>
+                    <option value="bank-finance">Bank Finance</option>
+                    <option value="ngo-ingo">NGO INGO</option>
+                    <option value="sales-marketing">Sales Marketing</option>
+                    <option value="government">Government</option>
+                    <option value="army-police">Army Police</option>
+                    <option value="cooperative">Cooperative</option>
+                    <option value="school-college">School College</option>
+                    <option value="healthcare">Healthcare</option>
+                    <option value="hotel-restaurant">Hotel Restaurant</option>
+                    <option value="customer_care">Customer Care</option>
+                    <option value="it-computer">IT Computer</option>
+                    <option value="logistics-supply_chain">
+                      Logistics Supply Chain
+                    </option>
                   </Form.Select>
                 </FormField>
                 <FormField title="position" label="Position level">
                   <Form.Select
                     id="position"
-                    name="position"
+                    name="position_level"
                     type="number"
                     onChange={(ev) => setInForm(ev, form, setForm)}
                     required
@@ -140,13 +161,20 @@ export const Create = () => {
                     id="deadline"
                     name="deadline"
                     type="date"
+                    onChange={(ev) => setInForm(ev, form, setForm)}
                   ></Form.Control>
                 </FormField>
                 <FormField title="status" label="Status">
                   <br></br>
                   <Switch checked={true} onChange={() => {}} disabled></Switch>
                 </FormField>
-                <SubmitBtn icon="fa-folder-plus" title="Create"></SubmitBtn>
+                <SubmitBtn
+                  icon="fa-folder-plus"
+                  title="Create"
+                  variant1="primary"
+                  variant2="success"
+                  loading={loading}
+                ></SubmitBtn>
               </Form>
             </Col>
           </Row>
