@@ -68,7 +68,7 @@ export const AllRoutes = () => {
               element={<Pages.Application.Create></Pages.Application.Create>}
             ></Route>
             <Route
-              path="applied"
+              path="applied/:id"
               element={<Pages.Application.Applied></Pages.Application.Applied>}
             ></Route>
           </Route>
@@ -92,7 +92,10 @@ export const AllRoutes = () => {
             }
           >
             <Route path=":id" element={<Pages.Profile.Detail />}></Route>
-            <Route path="edit" element={<Pages.Profile.EditProfile />}></Route>
+            <Route
+              path=":id/edit"
+              element={<Pages.Profile.EditProfile />}
+            ></Route>
             <Route path="password" element={<Pages.Profile.Password />}></Route>
           </Route>
           <Route

@@ -3,6 +3,7 @@ import { Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 export const SubmitBtn = ({ icon, title, variant1, variant2, loading }) => {
   const navigate = useNavigate();
+
   return (
     <Row>
       <Col className="d-flex flex-row justify-content-around">

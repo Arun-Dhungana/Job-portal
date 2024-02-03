@@ -12,12 +12,11 @@ export const Password = () => {
   const handleSubmit = (ev) => {
     ev.preventDefault();
     setLoading(true);
-    console.log(form);
     http
       .put("/profile/change-password", form)
-      .then(navigate("/profile/password"))
+      .then(() => navigate("/profile/password"))
       .catch((err) => console.log(err))
-      .finally(setLoading(false));
+      .finally(() => setLoading(false));
   };
   return (
     <Container>
@@ -42,6 +41,7 @@ export const Password = () => {
                     type="password"
                     name="old_password"
                     onChange={(ev) => setInForm(ev, form, setForm)}
+                    required
                   ></Form.Control>
                 </FormField>
 
@@ -51,6 +51,7 @@ export const Password = () => {
                     type="password"
                     name="new_password"
                     onChange={(ev) => setInForm(ev, form, setForm)}
+                    required
                   ></Form.Control>
                 </FormField>
 
@@ -60,19 +61,17 @@ export const Password = () => {
                     type="password"
                     name="confirm_password"
                     onChange={(ev) => setInForm(ev, form, setForm)}
+                    required
                   ></Form.Control>
                 </FormField>
-                <Row>
-                  <Col className="text-center">
-                    <SubmitBtn
-                      title="Update"
-                      variant1="dark"
-                      variant2="success"
-                      icon="fa-cloud-arrow-up"
-                      loading={loading}
-                    ></SubmitBtn>
-                  </Col>
-                </Row>
+
+                <SubmitBtn
+                  title="Update"
+                  variant1="dark"
+                  variant2="success"
+                  icon="fa-cloud-arrow-up"
+                  loading={loading}
+                ></SubmitBtn>
               </Form>
             </Col>
           </Row>
