@@ -2,15 +2,34 @@ import { Form, Col, Row, Button } from "react-bootstrap";
 import { FormField } from "../../components";
 import { setInForm } from "../../lib";
 import { useState } from "react";
+import http from "../../http";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setCompany } from "../../store";
 export const Create = () => {
   const [form, setForm] = useState({});
   const [loading, setLoading] = useState(false);
-  const handleSubmit = () => {};
+  const user = useSelector((state) => state.user.value);
+  const navigate = useNavigate();
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+    setLoading(true);
+    http
+      .post(`cms/company/${user._id}`, form)
+      .then(({ data }) => {
+        console.log(data);
+        setCompany(data.company);
+        navigate("/");
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
+  };
   return (
     <Col xs={12}>
       <Row>
         <Col
-          xs={7}
+          xs={12}
+          md={7}
           className="mx-auto my-3"
           style={{ boxShadow: "0 0 20px black" }}
         >
@@ -72,8 +91,12 @@ export const Create = () => {
                 xs={12}
                 className="d-flex flex-row justify-content-center my-2"
               >
-                <Button size="lg" className=" bg-success p-1 px-3">
-                  Submit{" "}
+                <Button
+                  size="lg"
+                  className=" bg-success p-1 px-3"
+                  type="submit"
+                >
+                  Submit
                   <i
                     className={`fa-solid  ${
                       loading ? " fa-arrows-spin fa-spin" : "fa-save"
