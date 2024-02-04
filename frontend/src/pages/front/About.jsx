@@ -126,6 +126,7 @@ export const About = () => {
             <div
               style={{
                 position: "relative",
+                boxShadow: "4px 4px 8px blue",
               }}
               className="p-2 mb-4 aboutone"
             >

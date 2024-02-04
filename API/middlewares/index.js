@@ -26,6 +26,7 @@ const showError = async (err, next) => {
   }
 
   next({
+    status: 400,
     message: "Problem while executing",
   });
 };

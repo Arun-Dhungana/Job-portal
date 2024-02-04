@@ -21,6 +21,7 @@ export const Login = () => {
         dispatch(setUser(data.user));
 
         inStorage("token", data.token);
+
         navigate("/");
       })
       .catch((err) => {

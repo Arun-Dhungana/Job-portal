@@ -75,7 +75,7 @@ export const Edit = () => {
                     id="title"
                     name="title"
                     type="text"
-                    value={form.title}
+                    defaultValue={form.title}
                     onChange={(ev) => setInForm(ev, form, setForm)}
                     required
                   ></Form.Control>

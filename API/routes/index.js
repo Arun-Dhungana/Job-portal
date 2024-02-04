@@ -12,4 +12,10 @@ router.use("/front", frontroutes);
 router.get("/image/:filename", (req, res, next) => {
   res.sendFile(`uploads/${req.params.filename}`, { root: "./" });
 });
+router.use((req, res, next) => {
+  res.status(404),
+    json({
+      message: "Resource not found",
+    });
+});
 module.exports = router;

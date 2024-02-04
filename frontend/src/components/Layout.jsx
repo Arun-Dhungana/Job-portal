@@ -12,7 +12,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fromStorage, removeStorage, imageURL } from "../lib";
-import { setUser, clearUser } from "../store";
+import { setUser, clearUser, clearCompany } from "../store";
 import "./layout.css";
 import { Outlet, useNavigate } from "react-router-dom";
 import http from "../http";
@@ -40,7 +40,7 @@ export const Topnav = () => {
   const handleLogout = () => {
     dispatch(clearUser());
     removeStorage("token");
-
+    dispatch(clearCompany());
     navigate("/login");
     toast.info("Logged Out!!!");
   };
@@ -169,11 +169,17 @@ export const Topnav = () => {
                       <NavDropdown.Item as={NavLink} to="/profile/password">
                         Change Password
                       </NavDropdown.Item>
-                      <NavDropdown.Item as={NavLink} to="/profile/edit">
+                      <NavDropdown.Item
+                        as={NavLink}
+                        to={`/profile/${user._id}/edit`}
+                      >
                         Edit Profile
                       </NavDropdown.Item>
                       {user.role == "company" ? (
-                        <NavDropdown.Item as={NavLink} to="/profile/edit">
+                        <NavDropdown.Item
+                          as={NavLink}
+                          to={`/company/edit/${user._id}`}
+                        >
                           Edit contact Person
                         </NavDropdown.Item>
                       ) : null}

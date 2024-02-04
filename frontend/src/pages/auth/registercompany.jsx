@@ -27,11 +27,11 @@ export const Registercomp = () => {
       .post("/auth/register", fd, {
         headers: { "Content-Type": "multipart/form-data" },
       })
-      .then(navigate("/login"))
+      .then(() => navigate("/login"))
       .catch((err) => {
         toast.error(err);
       })
-      .finally(setLoading(false));
+      .finally(() => setLoading(false));
   };
   return (
     <Container>

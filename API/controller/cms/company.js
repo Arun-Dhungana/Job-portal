@@ -6,8 +6,11 @@ const companyController = {
     try {
       const id = new ObjectId(req.params.id);
       const user = await Company.find({ company_id: id });
-      console.log(user);
-      res.json(user);
+      if (user) {
+        res.json(user);
+      } else {
+        res.status(400).json({ message: "No contact person" });
+      }
     } catch (err) {
       showError(err, next);
     }
@@ -16,7 +19,7 @@ const companyController = {
     try {
       const { contact_person, contact_no, email, address, description } =
         req.body;
-      await Company.create({
+      const company = await Company.create({
         company_id: req.params.id,
         contact_person,
         contact_no,
@@ -24,8 +27,9 @@ const companyController = {
         address,
         description,
       });
-      res.json({ message: "Company data added!!" });
+      res.json({ success: "Company data added!!", company });
     } catch (err) {
+      res.status(400).json({ message: "Error" });
       showError(err, next);
     }
   },
@@ -40,7 +44,7 @@ const companyController = {
         address,
         description,
       }).exec();
-      res.json({ message: "Updated Successfully" });
+      res.json({ success: "Updated Successfully" });
     } catch (err) {
       showError(err, next);
     }

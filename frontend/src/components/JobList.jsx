@@ -15,7 +15,7 @@ export const JobList = ({ data, sortable, title }) => {
   const [direction, setDirection] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const [offset, setOffset] = useState(0);
-  const [perPage, setPerPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
   const [paginated, setPaginated] = useState([]);
   const [pageLink, setPageLink] = useState([]);
@@ -166,9 +166,7 @@ export const JobList = ({ data, sortable, title }) => {
       {data.length ? (
         <Container>
           <Row className="justify-content-center ps-2 pe-2">
-            <Col xs={12} sm={6} md={4} lg={3} xlg={2} className=" mb-3 ">
-              <JobCard data={paginated}></JobCard>
-            </Col>
+            <JobCard data={paginated}></JobCard>
           </Row>
           <Row>
             <Col className="d-flex flex-row justify-content-center">

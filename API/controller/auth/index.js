@@ -56,7 +56,9 @@ const authController = {
       const user = await Users.findOne({ email: email });
 
       if (!user) {
-        next({ message: "User not found" });
+        res
+          .status(400)
+          .json({ message: "User not found! Do you want to register" });
       }
       if (bcyrpt.compareSync(password, user.password)) {
         const token = jwt.sign(
@@ -67,9 +69,10 @@ const authController = {
           },
           process.env.JWT_SECRET
         );
+
         res.json({ user, token, success: "Loggged In successfully" });
       } else {
-        next({ message: "Wrong Password" });
+        res.status(400).json({ message: "Wrong Password" });
       }
     } catch (err) {
       showError(err, next);

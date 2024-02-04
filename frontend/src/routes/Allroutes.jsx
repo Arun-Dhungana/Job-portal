@@ -27,9 +27,20 @@ export const AllRoutes = () => {
           />
           <Route
             path="company/:id"
-            element={<Pages.Company.Show></Pages.Company.Show>}
+            element={
+              <PrivateRoutes
+                element={<Pages.Company.Show></Pages.Company.Show>}
+              ></PrivateRoutes>
+            }
           />
-          <Route path="job/:id" element={<Pages.Job.List></Pages.Job.List>} />
+          <Route
+            path="job/:id"
+            element={
+              <PrivateRoutes
+                element={<Pages.Job.List></Pages.Job.List>}
+              ></PrivateRoutes>
+            }
+          />
           <Route
             path="job"
             element={
@@ -84,7 +95,6 @@ export const AllRoutes = () => {
               ></PrivateRoutes>
             }
           ></Route>
-
           <Route
             path="profile"
             element={
@@ -102,9 +112,17 @@ export const AllRoutes = () => {
             path="company/create"
             element={
               <PrivateRoutes
+                element={<Pages.Company.Create></Pages.Company.Create>}
+              ></PrivateRoutes>
+            }
+          ></Route>{" "}
+          <Route
+            path="company/edit/:id"
+            element={
+              <PrivateRoutes
                 element={
                   <Companyroutes
-                    element={<Pages.Company.Create></Pages.Company.Create>}
+                    element={<Pages.Company.Edit />}
                   ></Companyroutes>
                 }
               ></PrivateRoutes>
