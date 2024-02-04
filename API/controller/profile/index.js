@@ -2,6 +2,7 @@ const { ObjectId } = require("mongodb");
 const { showError } = require("../../middlewares");
 const { Users, Application, Jobs } = require("../../models/index");
 const bcrypt = require("bcryptjs");
+const { unlink } = require("node:fs/promises");
 const ProfileController = {
   detail: async (req, res, next) => {
     console.log(1);
@@ -34,9 +35,29 @@ const ProfileController = {
   },
   update: async (req, res, next) => {
     try {
-      const { number, name, description } = req.body;
-      await Users.findByIdAndUpdate(req.uid, { name, number, description });
-      res.json({ message: "Successfully updated!!" });
+      const { number, name, description, image } = req.body;
+      const user = await Users.findById(req.params.id);
+      console.log(user);
+      if (image) {
+        await Users.findByIdAndUpdate(req.params.id, {
+          name,
+          number,
+          description,
+          image,
+        });
+        res.status(200).json({ success: "Successfully updated!!" });
+      } else if (req.file) {
+        console.log(4);
+        const img = req.file.filename;
+        await unlink(`uploads/${user.image}`);
+        await Users.findByIdAndUpdate(req.params.id, {
+          name,
+          number,
+          description,
+          image: img,
+        });
+        res.status(200).json({ success: "Successfully updated!!" });
+      }
     } catch (err) {
       showError(err, next);
     }

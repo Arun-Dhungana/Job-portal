@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { profile } = require("../../controller/index");
-const { Auth } = require("../../middlewares");
+const { Auth, fileStorage } = require("../../middlewares");
+
 router.get("/detail", Auth, profile.detail);
 router
   .route("/change-password")
@@ -11,5 +12,9 @@ router.get("/delete", profile.delete);
 router.get("/applied_jobs/:id", profile.applied_jobs);
 router.get("/applicants/:id", profile.applicants);
 router.get("/jobs", Auth, profile.jobs);
-router.route("/update").put(Auth, profile.update).patch(Auth, profile.update);
+router.put(
+  "/update/:id",
+  fileStorage(["image/jpg", "image/jpeg", "image/png"]).single("images"),
+  profile.update
+);
 module.exports = router;
