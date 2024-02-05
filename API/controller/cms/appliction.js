@@ -1,22 +1,29 @@
+const { ObjectId } = require("mongodb");
 const { showError } = require("../../middlewares");
 const { Application } = require("../../models/index");
 const applicationController = {
   create: async (req, res, next) => {
     try {
       const resume = req.file.filename;
-      const exist = Application.find({
-        job_id: req.params.id,
-        user_id: req.uid,
+
+      const exist = await Application.find({
+        job_id: new ObjectId(req.params.id),
+        user_id: new ObjectId(req.uid),
       });
-      if (exist) {
+      if (exist.length > 0) {
         res.status(400).json({ message: "Already applied!!" });
+      } else {
+        try {
+          await Application.create({
+            job_id: req.params.id,
+            user_id: req.uid,
+            resume: resume,
+          });
+          res.json({ success: "Successfully Applied" });
+        } catch (err) {
+          console.log(err);
+        }
       }
-      await Application.create({
-        job_id: req.params.id,
-        user_id: req.uid,
-        resume: resume,
-      });
-      res.json({ success: "Successfully Applied" });
     } catch (err) {
       showError(err, next);
     }

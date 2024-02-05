@@ -5,8 +5,9 @@ const { cms } = require("../../controller/index");
 const { Auth, fileStorage } = require("../../middlewares");
 router.post(
   "/:id",
-  fileStorage(["application/pdf"]).single("resume"),
   Auth,
+  fileStorage(["application/pdf"]).single("resume"),
+
   cms.application.create
 );
 router

@@ -14,17 +14,15 @@ export const Create = ({ show, onHide }) => {
     setLoading(true);
     const data = new FormData();
     data.append("resume", form.resume);
-    console.log(form);
-    console.log(data);
+
     http
       .post(`/cms/apply/${params.id}`, data, {
         headers: { "Content-Type": "multipart/form-data" },
       })
-      .then(() => navigate(-1))
+      .then(() => setLoading(false))
       .catch((err) => console.log(err))
       .finally(() => {
-        setLoading(false);
-        navigate(-1);
+        navigate("/");
       });
   };
 

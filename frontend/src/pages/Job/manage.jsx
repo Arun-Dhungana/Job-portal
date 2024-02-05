@@ -1,8 +1,6 @@
 import { Col, Row, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Loading } from "../../components/Loading";
-import { useParams } from "react-router-dom";
 import http from "../../http";
 
 export const Manage = () => {

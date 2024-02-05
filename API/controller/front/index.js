@@ -145,7 +145,7 @@ const frontCOntroller = {
         {
           $match: {
             title: { $regex: req.query.title, $options: "i" },
-            category: req.query.category,
+            
           },
         },
         {

@@ -17,4 +17,5 @@ router.put(
   fileStorage(["image/jpg", "image/jpeg", "image/png"]).single("images"),
   profile.update
 );
+
 module.exports = router;
