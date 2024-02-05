@@ -1,9 +1,7 @@
-import { Button, Container, Form, Row, Col, Carousel } from "react-bootstrap";
+import { Button, Container, Form, Row, Col, Image } from "react-bootstrap";
 import { JobList } from "../../components/JobList";
 import http from "../../http";
-import image1 from "../../lib/01.jpeg";
-import image2 from "../../lib/02.png";
-import image3 from "../../lib/03.jpeg";
+
 import image4 from "../../lib/04.jpeg";
 import { useEffect, useState } from "react";
 import { Loading } from "../../components/Loading";
@@ -13,6 +11,8 @@ export const Home = () => {
   const [premium, setPremium] = useState([]);
   const [other, setOther] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [query, setQuery] = useState("");
+  const [result, setResult] = useState([]);
   useEffect(() => {
     setLoading(true);
     http
@@ -35,100 +35,92 @@ export const Home = () => {
       .catch((err) => console.log(err))
       .finally(setLoading(false));
   }, []);
+  const handleChange = (ev) => {
+    ev.preventDefault();
+    setQuery(ev.target.value);
+    if (query) {
+      http
+        .get(`/front/search/?title=${query}`)
+        .then(({ data }) => setResult(data))
+        .catch((err) => console.log(err));
+    }
+  };
   return (
-    <Container>
+    <Container fluid>
       {loading ? (
         <Loading></Loading>
       ) : (
-        <Container>
+        <Container fluid>
           <Row>
-            <Col style={{ position: "relative" }}>
-              <Carousel className="w-100 px-3 mt-3" style={{ height: "350px" }}>
-                <Carousel.Item interval={1000}>
-                  <img
-                    style={{
-                      width: "100%",
-                      height: "350px",
-                      objectFit: "fill",
-                    }}
-                    src={image1}
-                  ></img>
-                </Carousel.Item>
-                <Carousel.Item interval={1000}>
-                  <img
-                    style={{
-                      width: "100%",
-                      height: "350px",
-                      objectFit: "fill",
-                    }}
-                    src={image2}
-                  ></img>
-                </Carousel.Item>
-                <Carousel.Item interval={1000}>
-                  <img
-                    style={{
-                      width: "100%",
-                      height: "350px",
-                      objectFit: "fill",
-                    }}
-                    src={image3}
-                  ></img>
-                </Carousel.Item>
-                <Carousel.Item interval={1000}>
-                  <img
-                    style={{
-                      width: "100%",
-                      height: "350px",
-                      objectFit: "fill",
-                    }}
-                    src={image4}
-                  ></img>
-                </Carousel.Item>
-              </Carousel>
+            <Col className="m-0 p-0" style={{ position: "relative" }}>
+              <Image
+                src={image4}
+                className="w-100 mt-3"
+                style={{ height: "350px" }}
+                fluid
+              ></Image>
 
               <Form
-                className="form-inline d-inline"
+                size="lg"
+                className="m-0"
                 style={{
                   position: "absolute",
                   top: "40%",
                   left: "50%",
                   transform: "translateX(-50%)",
                   zIndex: 1,
+                  width: "60%",
                 }}
               >
                 <Row>
-                  <Col xs={12} md={7} className="pe-0 ps-0">
-                    <Form.Group>
-                      <Form.Control
-                        size="lg"
-                        placeholder="Jobs"
-                        className="mx-auto me-0"
-                      />
-                    </Form.Group>
+                  <Col xs={10} className="m-0 p-0">
+                    <Form.Control
+                      size="lg"
+                      placeholder="Jobs"
+                      className="mx-auto me-0 "
+                      onChange={handleChange}
+                    />
                   </Col>
-                  <Col xs={8} md={3} className="ps-0 pe-0">
-                    <Form.Group>
-                      <Form.Select size="lg" className=" ms-0">
-                        <option>Category</option>
-                        <option>Bank</option>
-                        <option>Health</option>
-                        <option>Business</option>
-                      </Form.Select>
-                    </Form.Group>
-                  </Col>
-                  <Col xs={4} md={2}>
-                    <Form.Group>
-                      <Button
-                        type="search"
-                        size="lg"
-                        className="m-0 ms-0 border-0 bg-dark"
-                      >
-                        <i className="fa-solid fa-magnifying-glass"></i>
-                      </Button>
-                    </Form.Group>
+                  <Col xs={2} className="m-0 p-0">
+                    <Button
+                      type="search"
+                      size="lg"
+                      className="m-0 border-0 bg-dark "
+                    >
+                      <i className="fa-solid fa-magnifying-glass"></i>
+                    </Button>
                   </Col>
                 </Row>
               </Form>
+              {result.length ? (
+                <Row>
+                  <Col
+                    className="mt-0 p-0"
+                    style={{
+                      position: "absolute",
+                      top: "55%",
+                      left: "40%",
+                      transform: "translateX(-40%)",
+                      zIndex: 2,
+                      width: "50%",
+                      background: "black",
+                      borderRadius: "10px",
+                      maxHeight: "180px",
+                      overflow: "scroll",
+                      color: "grey",
+                    }}
+                  >
+                    {result.map((data) => {
+                      return (
+                        <div>
+                          <li className="text-center mt-2">{data.title}</li>
+                          <hr></hr>
+                        </div>
+                      );
+                    })}
+                  </Col>
+                </Row>
+              ) : null}
             </Col>
           </Row>
           <Row>
