@@ -5,6 +5,7 @@ import http from "../../http";
 import image4 from "../../lib/04.jpeg";
 import { useEffect, useState } from "react";
 import { Loading } from "../../components/Loading";
+import { useNavigate } from "react-router-dom";
 export const Home = () => {
   const [top, setTop] = useState([]);
   const [hot, setHot] = useState([]);
@@ -13,6 +14,7 @@ export const Home = () => {
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [result, setResult] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     setLoading(true);
     http
@@ -37,12 +39,15 @@ export const Home = () => {
   }, []);
   const handleChange = (ev) => {
     ev.preventDefault();
-    setQuery(ev.target.value);
+    console.log(query);
     if (query) {
       http
         .get(`/front/search/?title=${query}`)
         .then(({ data }) => setResult(data))
         .catch((err) => console.log(err));
+    }
+    if (!query) {
+      setResult([]);
     }
   };
   return (
@@ -78,14 +83,24 @@ export const Home = () => {
                       size="lg"
                       placeholder="Jobs"
                       className="mx-auto me-0 "
-                      onChange={handleChange}
+                      onChange={(ev) => {
+                        setQuery(ev.target.value);
+                        handleChange(ev);
+                      }}
                     />
                   </Col>
                   <Col xs={2} className="m-0 p-0">
                     <Button
-                      type="search"
+                      type="button"
                       size="lg"
                       className="m-0 border-0 bg-dark "
+                      onClick={() =>
+                        query
+                          ? navigate(`/result/?title=${query}`).then(
+                              () => navigate
+                            )
+                          : null
+                      }
                     >
                       <i className="fa-solid fa-magnifying-glass"></i>
                     </Button>
@@ -93,33 +108,40 @@ export const Home = () => {
                 </Row>
               </Form>
               {result.length ? (
-                <Row>
-                  <Col
-                    className="mt-0 p-0"
-                    style={{
-                      position: "absolute",
-                      top: "55%",
-                      left: "40%",
-                      transform: "translateX(-40%)",
-                      zIndex: 2,
-                      width: "50%",
-                      background: "black",
-                      borderRadius: "10px",
-                      maxHeight: "180px",
-                      overflow: "scroll",
-                      color: "grey",
-                    }}
-                  >
-                    {result.map((data) => {
-                      return (
-                        <div>
-                          <li className="text-center mt-2">{data.title}</li>
-                          <hr></hr>
-                        </div>
-                      );
-                    })}
-                  </Col>
-                </Row>
+                query ? (
+                  <Row>
+                    <Col
+                      className="mt-0 p-0"
+                      style={{
+                        position: "absolute",
+                        top: "55%",
+                        left: "40%",
+                        transform: "translateX(-40%)",
+                        zIndex: 2,
+                        width: "50%",
+                        background: "black",
+                        borderRadius: "10px",
+                        maxHeight: "180px",
+                        overflow: "scroll",
+                        color: "grey",
+                      }}
+                    >
+                      {result.map((data) => {
+                        return (
+                          <div>
+                            <li
+                              onClick={() => navigate(`job/${data.job_id}`)}
+                              className="text-center text-decoration-none mt-2 custom-list"
+                            >
+                              {data.title}
+                            </li>
+                            <hr></hr>
+                          </div>
+                        );
+                      })}
+                    </Col>
+                  </Row>
+                ) : null
               ) : null}
             </Col>
           </Row>
