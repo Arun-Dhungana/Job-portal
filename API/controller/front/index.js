@@ -145,7 +145,6 @@ const frontCOntroller = {
         {
           $match: {
             title: { $regex: req.query.title, $options: "i" },
-            
           },
         },
         {
@@ -159,8 +158,14 @@ const frontCOntroller = {
       ]).exec();
       const jobs = job.map((jobb) => {
         return {
+          job_id: jobb._id,
+          company_id: jobb.creator_id,
           title: jobb.title,
-          creator: jobb.creator[0],
+          opening: jobb.opening,
+          deadline: jobb.deadline,
+          salary: jobb.salary,
+          name: jobb.creator[0].name,
+          image: jobb.creator[0].image,
         };
       });
       res.json(jobs);
