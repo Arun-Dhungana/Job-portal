@@ -20,4 +20,12 @@
   .labeling{
     font-size:100px
   }
+  .custom-list:hover{
+  transform: scale(1.1);
+  color:white;
+  cursor: pointer;
+
+
+  }
+ 
 

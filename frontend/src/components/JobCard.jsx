@@ -25,6 +25,7 @@ export const JobCard = ({ data }) => {
                 >
                   <Image
                     as={NavLink}
+                    to={`company/${dataa.company_id}`}
                     className="pt-1"
                     style={{ height: "40px", width: "40px" }}
                     src={imageURL(dataa.image)}
