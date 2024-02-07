@@ -47,7 +47,7 @@ export const JobCard = ({ data }) => {
                           color: "blue",
                           fontWeight: "bold",
                         }}
-                        to={`job/${dataa.job_id}`}
+                        to={`/job/${dataa.job_id}`}
                       >
                         {dataa.title}
                       </Link>
@@ -66,7 +66,7 @@ export const JobCard = ({ data }) => {
                           color: "grey",
                           fontSize: "10px",
                         }}
-                        to={`company/${dataa.company_id}`}
+                        to={`/company/${dataa.company_id}`}
                       >
                         {dataa.name}
                       </Link>

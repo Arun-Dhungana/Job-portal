@@ -6,6 +6,7 @@ import image4 from "../../lib/04.jpeg";
 import { useEffect, useState } from "react";
 import { Loading } from "../../components/Loading";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 export const Home = () => {
   const [top, setTop] = useState([]);
   const [hot, setHot] = useState([]);
@@ -96,10 +97,8 @@ export const Home = () => {
                       className="m-0 border-0 bg-dark "
                       onClick={() =>
                         query
-                          ? navigate(`/result/?title=${query}`).then(
-                              () => navigate
-                            )
-                          : null
+                          ? navigate(`/result/?title=${query}`)
+                          : toast.error("Search Bar Empty")
                       }
                     >
                       <i className="fa-solid fa-magnifying-glass"></i>

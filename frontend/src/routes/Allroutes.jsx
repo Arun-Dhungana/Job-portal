@@ -12,6 +12,9 @@ export const AllRoutes = () => {
         <Route path="/" element={<Topnav></Topnav>}>
           <Route index element={<Pages.Front.Home></Pages.Front.Home>} />
           <Route path="result" element={<Pages.Front.Full />} />
+          <Route path="top" element={<Pages.Front.Top />} />
+          <Route path="premium" element={<Pages.Front.Premium />} />
+          <Route path="hot" element={<Pages.Front.Hot />} />
           <Route path="login" element={<Pages.Auth.Login />} />
           <Route
             path="about"
