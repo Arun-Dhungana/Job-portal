@@ -20,6 +20,7 @@ const frontCOntroller = {
           job_id: job._id,
           company_id: job.creator_id,
           title: job.title,
+          category: job.category,
           opening: job.opening,
           deadline: job.deadline,
           salary: job.salary,
@@ -69,6 +70,7 @@ const frontCOntroller = {
           opening: job.opening,
           deadline: job.deadline,
           salary: job.salary,
+          category: job.category,
           name: job.creator[0].name,
           image: job.creator[0].image,
         };
@@ -99,6 +101,7 @@ const frontCOntroller = {
           opening: job.opening,
           deadline: job.deadline,
           salary: job.salary,
+          category: job.category,
           name: job.creator[0].name,
           image: job.creator[0].image,
         };
@@ -129,6 +132,7 @@ const frontCOntroller = {
           opening: job.opening,
           deadline: job.deadline,
           salary: job.salary,
+          category: job.category,
           name: job.creator[0].name,
           image: job.creator[0].image,
         };
@@ -164,6 +168,7 @@ const frontCOntroller = {
           opening: jobb.opening,
           deadline: jobb.deadline,
           salary: jobb.salary,
+          category: job.category,
           name: jobb.creator[0].name,
           image: jobb.creator[0].image,
         };

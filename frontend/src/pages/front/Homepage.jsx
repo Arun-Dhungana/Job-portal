@@ -149,7 +149,7 @@ export const Home = () => {
               <JobList
                 title="hot"
                 data={hot}
-                sortable={["Name", "Salary", "Opening", "Deadline"]}
+                sortable={["name", "salary", "opening", "deadline"]}
               ></JobList>
             ) : null}
 
@@ -157,21 +157,21 @@ export const Home = () => {
               <JobList
                 title="top"
                 data={top}
-                sortable={["Name", "Salary", "Opening", "Deadline"]}
+                sortable={["name", "salary", "opening", "deadline"]}
               ></JobList>
             ) : null}
             {premium.length ? (
               <JobList
                 title="premium"
                 data={premium}
-                sortable={["Name", "Salary", "Opening", "Deadline"]}
+                sortable={["name", "salary", "opening", "deadline"]}
               ></JobList>
             ) : null}
             {other.length ? (
               <JobList
                 title="other"
                 data={other}
-                sortable={["Name", "Salary", "Opening", "Deadline"]}
+                sortable={["name", "salary", "opening", "deadline"]}
               ></JobList>
             ) : null}
           </Row>

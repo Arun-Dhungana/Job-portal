@@ -2,7 +2,7 @@ import { Col, Row, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import http from "../../http";
-
+import { Loading } from "../../components/Loading";
 export const Manage = () => {
   const [loading, setLoading] = useState(false);
 
