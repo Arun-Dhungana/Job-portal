@@ -11,6 +11,7 @@ import {
 import { JobCard } from "./JobCard";
 
 export const JobList = ({ data, sortable, title }) => {
+  const [job, setJob] = useState(data);
   const [sortBy, setSortBy] = useState("");
   const [direction, setDirection] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,6 +46,7 @@ export const JobList = ({ data, sortable, title }) => {
         sorted.reverse();
       }
 
+      setJob(sorted);
       setCurrentPage(1);
     }
   }, [sortBy, direction]);
@@ -56,18 +58,12 @@ export const JobList = ({ data, sortable, title }) => {
 
   useEffect(() => {
     setCurrentPage(1);
-    let temp = [...data].splice(offset, perPage);
-    let total = Math.ceil(data.length / perPage);
-    console.log(temp);
+    let temp = [...job].splice(offset, perPage);
+    let total = Math.ceil(job.length / perPage);
+
     setPaginated(temp);
     setTotalPages(total);
-  }, [perPage]);
-
-  useEffect(() => {
-    let temp = [...data].splice(offset, perPage);
-    setPaginated(temp);
-    console.log(temp, 1);
-  }, [offset]);
+  }, [perPage, job, offset]);
 
   useEffect(() => {
     let temp = [
@@ -100,12 +96,10 @@ export const JobList = ({ data, sortable, title }) => {
 
   const handleSort = (key) => {
     if (sortable.includes(key)) {
-      if (sortBy == key) {
-        if (direction == "desc") {
-          setDirection("desc");
-        } else {
-          setDirection("asc");
-        }
+      if (direction == "desc") {
+        setDirection("desc");
+      } else if (direction == "asc") {
+        setDirection("asc");
       }
       setSortBy(key);
     }
@@ -118,7 +112,7 @@ export const JobList = ({ data, sortable, title }) => {
       style={{ boxShadow: "4px 4px 10px black", background: "lightgrey" }}
     >
       <Row>
-        <Col xs={5} className=" text-nowrap ms-0 ps-0">
+        <Col xs={12} md={4} className=" text-nowrap ms-0 ps-0">
           <h3
             className=" ps-4 text-capitalize "
             style={{ overflow: "hidden", textOverflow: "ellipsis" }}
@@ -126,19 +120,24 @@ export const JobList = ({ data, sortable, title }) => {
             {title} Jobs
           </h3>
         </Col>
-        <Col xs={3}>
-          <Dropdown>
+        <Col xs={8} md={6}>
+          <h6 className="d-inline p-1">Sort By </h6>
+          <Dropdown className="d-inline mb-1">
             <Dropdown.Toggle
               size="sm"
-              className=" border border-none text-black"
+              className=" border border-none text-black "
               style={{ background: "lightgrey" }}
             >
-              Sort By
+              {sortBy}
             </Dropdown.Toggle>
             <Dropdown.Menu variant="dark">
               {sortable.map((data, index) => {
                 return (
-                  <Dropdown.Item key={index} onClick={() => handleSort(data)}>
+                  <Dropdown.Item
+                    key={index}
+                    onClick={() => handleSort(data)}
+                    className="text-capitalize"
+                  >
                     {data}
                   </Dropdown.Item>
                 );
@@ -146,7 +145,7 @@ export const JobList = ({ data, sortable, title }) => {
             </Dropdown.Menu>
           </Dropdown>
         </Col>
-        <Col xs={4}>
+        <Col xs={4} md={2}>
           <i
             size="sm"
             onClick={() => setDirection("asc")}
