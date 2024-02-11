@@ -21,10 +21,11 @@
     font-size:100px
   }
   .custom-list:hover{
-  transform: scale(1.1);
+    box-sizing: border-box;
+
   color:white;
   cursor: pointer;
-
+ 
 
   }
  

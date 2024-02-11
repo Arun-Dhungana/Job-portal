@@ -140,7 +140,14 @@ export const Show = () => {
             </Col>
           </Row>
         </Col>
-      ) : null}
+      ) : (
+        <Col xs={12} className="text-center">
+          <h1>Company not Found</h1>
+          <Button variant="secondary" className="" onClick={() => navigate(-1)}>
+            <i className="fa-solid fa-chevron-left me-2"></i>Go Back
+          </Button>
+        </Col>
+      )}
     </Container>
   );
 };

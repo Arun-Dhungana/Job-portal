@@ -22,9 +22,9 @@ export const Applied = () => {
     setLoading(true);
     http
       .get(`/cms/apply/delete/${id}`)
-      .then(() => navigate(`/application/applied/${params.id}`))
+      .then(() => setLoading(false))
       .catch((er) => console.log(err))
-      .finally(setLoading(false));
+      .finally(() => navigate(`/`));
   };
   return loading ? (
     <Loading></Loading>

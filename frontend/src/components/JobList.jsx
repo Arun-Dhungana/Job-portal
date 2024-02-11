@@ -26,8 +26,16 @@ export const JobList = ({ data, sortable, title }) => {
       let sorted = [...data].sort((a, b) => {
         if (isNaN(parseFloat(a[sortBy])) || isNaN(parseFloat(b[sortBy]))) {
           if (moment(a[sortBy]).isValid() && moment(b[sortBy]).isValid()) {
-            return moment(a[sortBy]) - moment(b[sortBy]);
+            console.log(1);
+            if (moment(a[sortBy]) > moment(b[sortBy])) {
+              return 1;
+            }
+            if (moment(a[sortBy]) < moment(b[sortBy])) {
+              return -1;
+            }
+            return 0;
           } else {
+            console.log(2);
             let x = a[sortBy].toLowerCase();
             let y = b[sortBy].toLowerCase();
             if (x < y) {
@@ -39,6 +47,7 @@ export const JobList = ({ data, sortable, title }) => {
             return 0;
           }
         } else {
+          console.log(a[sortBy]);
           return a[sortBy] - b[sortBy];
         }
       });
