@@ -132,14 +132,14 @@ const jobController = {
 
       res.json({ success: "Successfully updated" });
     } catch (err) {
-      res.status(400).json({ message: "Error" });
+      res.status(400).json({ message: "Error updating Job!!" });
       showError(err, next);
     }
   },
   delete: async (req, res, next) => {
     try {
       await Jobs.findByIdAndDelete(req.params.id);
-      res.json({ message: "Successfully deleted" });
+      res.json({ success: "Successfully deleted" });
     } catch (err) {
       showError(err, next);
     }

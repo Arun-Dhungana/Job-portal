@@ -8,14 +8,14 @@ const debug = () => {
 
 const isCompany = async (req, res, next) => {
   if (req.user.type !== "company") {
-    next({ message: "Access only for company" });
+    res.status(400).json({ message: "Access only for company" });
   } else {
     next();
   }
 };
 const isJobseeker = async (req, res, next) => {
   if (req.user.type !== "jobseeker") {
-    next({ message: "Access only for job seeker" });
+    res.status(400).json({ message: "Access only for job seeker" });
   } else {
     next();
   }
@@ -42,13 +42,13 @@ const Auth = async (req, res, next) => {
         req.user = user;
         next();
       } else {
-        next({ message: "Invalid token" });
+        res.status(400).json({ message: "Invalid token" });
       }
     } catch (err) {
-      next({ message: "Invalid token" });
+      res.status(400).json({ message: "Invalid token" });
     }
   } else {
-    next({ message: "Token missing" });
+    res.status(400).json({ message: "Token missing" });
   }
 };
 const fileStorage = (mimeTypes = []) =>

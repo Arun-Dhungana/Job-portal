@@ -53,7 +53,7 @@ const companyController = {
     try {
       const id = new ObjectId(req.params.id);
       await Company.deleteMany({ company_id: id }).exec();
-      res.json({ message: "Deleted Successfully!!" });
+      res.json({ success: "Deleted Successfully!!" });
     } catch (err) {
       showError(err, next);
     }

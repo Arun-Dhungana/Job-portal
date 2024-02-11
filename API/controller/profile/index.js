@@ -47,7 +47,6 @@ const ProfileController = {
         });
         res.status(200).json({ success: "Successfully updated!!" });
       } else if (req.file) {
-        console.log(4);
         const img = req.file.filename;
         await unlink(`uploads/${user.image}`);
         await Users.findByIdAndUpdate(req.params.id, {
@@ -65,7 +64,7 @@ const ProfileController = {
   delete: async (req, res, next) => {
     try {
       await Users.findByIdAndDelete(req.uid);
-      res.json({ message: "Deleted" });
+      res.json({ success: "Deleted" });
     } catch (err) {
       showError(err, next);
     }

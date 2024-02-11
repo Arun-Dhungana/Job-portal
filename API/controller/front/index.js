@@ -1,6 +1,7 @@
 const { showError } = require("../../middlewares");
 const { Jobs } = require("../../models/index");
 const { ObjectId } = require("mongodb");
+const moment = require("moment");
 const frontCOntroller = {
   top: async (req, res, next) => {
     try {
@@ -21,8 +22,8 @@ const frontCOntroller = {
           company_id: job.creator_id,
           title: job.title,
           category: job.category,
-          opening: job.opening,
-          deadline: job.deadline,
+          opening: moment(job.opening).format("MMMM D,YYYY"),
+          deadline: moment(job.deadline).format("MMMM D,YYYY"),
           salary: job.salary,
           name: job.creator[0].name,
           image: job.creator[0].image,
@@ -67,8 +68,8 @@ const frontCOntroller = {
           job_id: job._id,
           company_id: job.creator_id,
           title: job.title,
-          opening: job.opening,
-          deadline: job.deadline,
+          opening: moment(job.opening).format("MMMM D,YYYY"),
+          deadline: moment(job.deadline).format("MMMM D,YYYY"),
           salary: job.salary,
           category: job.category,
           name: job.creator[0].name,
@@ -98,8 +99,8 @@ const frontCOntroller = {
           job_id: job._id,
           company_id: job.creator_id,
           title: job.title,
-          opening: job.opening,
-          deadline: job.deadline,
+          opening: moment(job.opening).format("MMMM D,YYYY"),
+          deadline: moment(job.deadline).format("MMMM D,YYYY"),
           salary: job.salary,
           category: job.category,
           name: job.creator[0].name,
@@ -129,8 +130,8 @@ const frontCOntroller = {
           job_id: job._id,
           company_id: job.creator_id,
           title: job.title,
-          opening: job.opening,
-          deadline: job.deadline,
+          opening: moment(job.opening).format("mmmm d,yyyy"),
+          deadline: moment(job.deadline).format("mmmm d,yyyy"),
           salary: job.salary,
           category: job.category,
           name: job.creator[0].name,
@@ -165,10 +166,10 @@ const frontCOntroller = {
           job_id: jobb._id,
           company_id: jobb.creator_id,
           title: jobb.title,
-          opening: jobb.opening,
-          deadline: jobb.deadline,
+          opening: moment(job.opening).format("MMMM D,YYYY"),
+          deadline: moment(job.deadline).format("MMMM D,YYYY"),
           salary: jobb.salary,
-          category: job.category,
+          category: jobb.category,
           name: jobb.creator[0].name,
           image: jobb.creator[0].image,
         };
