@@ -1,6 +1,7 @@
 const { ObjectId } = require("mongodb");
 const { showError } = require("../../middlewares");
 const { Application } = require("../../models/index");
+const { unlink } = require("node:fs/promises");
 const applicationController = {
   create: async (req, res, next) => {
     try {
@@ -11,6 +12,7 @@ const applicationController = {
         user_id: new ObjectId(req.uid),
       });
       if (exist.length > 0) {
+        await unlink(req.file.filename);
         res.status(400).json({ message: "Already applied!!" });
       } else {
         try {
@@ -39,8 +41,10 @@ const applicationController = {
   },
   delete: async (req, res, next) => {
     try {
+      const app = await Application.findById(req.params.id);
+      await unlink(`uploads/${app.resume}`);
       await Application.findByIdAndDelete(req.params.id);
-      res.json({ success: "deleted Successfully" });
+      res.json({ success: "Deleted successfully" });
     } catch (err) {
       showError(err, next);
     }

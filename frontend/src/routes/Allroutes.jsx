@@ -11,7 +11,7 @@ export const AllRoutes = () => {
       <Routes>
         <Route path="/" element={<Topnav></Topnav>}>
           <Route index element={<Pages.Front.Home></Pages.Front.Home>} />
-          <Route path="result" element={<Pages.Front.Full />} />
+          <Route path="result" element={<Pages.Front.Search />} />
           <Route path="top" element={<Pages.Front.Top />} />
           <Route path="premium" element={<Pages.Front.Premium />} />
           <Route path="hot" element={<Pages.Front.Hot />} />
@@ -131,6 +131,7 @@ export const AllRoutes = () => {
               ></PrivateRoutes>
             }
           ></Route>
+          <Route path="*" element={<Pages.Error></Pages.Error>}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

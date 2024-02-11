@@ -4,4 +4,5 @@ import * as Front from "./front";
 import * as Profile from "./profile";
 import * as Company from "./Company";
 import * as Application from "./Application";
-export { Auth, Job, Front, Profile, Company, Application };
+import { Error } from "./error/errorpage";
+export { Auth, Job, Front, Profile, Company, Application, Error };
