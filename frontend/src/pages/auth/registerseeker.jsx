@@ -22,9 +22,9 @@ export const Register = () => {
       .post("/auth/register", fd, {
         headers: { "Content-type": "multipart/form-data" },
       })
-      .then(navigate("/login"))
+      .then(() => setLoading(false))
       .catch((err) => toast.error(err))
-      .finally(setLoading(false));
+      .finally(() => navigate("/login"));
   };
   return (
     <Container>
