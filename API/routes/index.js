@@ -1,5 +1,5 @@
 const express = require("express");
-const JSON = require('json');
+
 const router = express.Router();
 const Profileroute = require("./profile/profile");
 const cmsroute = require("./cms");
@@ -14,9 +14,8 @@ router.get("/image/:filename", (req, res, next) => {
   res.sendFile(`uploads/${req.params.filename}`, { root: "./" });
 });
 router.use((req, res, next) => {
-  res.status(404),
-    json({
-      message: "Resource not found",
-    });
+  res.status(404).json({
+    message: "Resource not found",
+  });
 });
 module.exports = router;
