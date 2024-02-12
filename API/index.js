@@ -5,7 +5,7 @@ const routes = require("./routes/index");
 const cors = require("cors");
 config();
 const app = express();
-app.use(cors({ origin: "https://jobhub-nu.vercel.app/" }));
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(routes);
