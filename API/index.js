@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 app.use((error, req, res, next) => {
   console.log(error);
-  res.json({ message: "Problem while excuting request" });
+  res.status(400).json({ message: error });
 });
 const listener = app.listen(
   process.env.API_PORT,
