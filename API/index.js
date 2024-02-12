@@ -5,11 +5,11 @@ const routes = require("./routes/index");
 const cors = require("cors");
 config();
 const app = express();
-app.use(cors({
-  origin: '*', // Allow requests from any origin
-  methods: 'GET,POST,PUT,DELETE,PATCH', // Allow specified HTTP methods
-  allowedHeaders: 'Content-Type,Authorization,XMLHttpRequest', // Allow specified headers
-}));
+app.use(
+  cors({
+    origin: "https://jobhub-nu.vercel.app",
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(routes);
