@@ -17,20 +17,20 @@ const authController = {
 
       const img = req.file.filename;
       const exist = await Users.findOne({ email: email });
-      if (exist) {
+      if (Object.keys(exist).length) {
         if (exist.role !== role) {
-          next({
+          res.status(400).json({
             message: `You are already registered as ${exist.role}`,
           });
         } else {
-          next({
+          res.status(400).json({
             message: "Did you mean login?",
           });
         }
       }
       if (password === confirm_password) {
         const hash = bcyrpt.hashSync(password, bcyrpt.genSaltSync(10));
-        const user = await Users.create({
+        await Users.create({
           ...req.body,
           name,
           email,
