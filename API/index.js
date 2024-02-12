@@ -15,13 +15,9 @@ app.use((error, req, res, next) => {
 });
 const listener = app.listen(
   process.env.API_PORT,
-  process.env.API_HOST,
+
   async () => {
-    console.log(
-      `Server is starting at http://${listener.address().address}/${
-        listener.address().port
-      }`
-    );
+    console.log(`Server is starting at http://${listener.address().port}`);
     console.log("Press ctrl+c to exit");
     try {
       await mongoose.connect(process.env.MONGO_URL);
