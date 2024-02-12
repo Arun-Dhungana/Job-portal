@@ -17,7 +17,7 @@ const authController = {
 
       const img = req.file.filename;
       const exist = await Users.findOne({ email: email });
-      if (Object.keys(exist).length) {
+      if (exist) {
         if (exist.role !== role) {
           res.status(400).json({
             message: `You are already registered as ${exist.role}`,

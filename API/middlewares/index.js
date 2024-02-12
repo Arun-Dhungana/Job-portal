@@ -28,7 +28,7 @@ const showError = async (err, next) => {
 
   next({
     status: 400,
-    message: err,
+    message: "Problem while executing",
   });
 };
 const Auth = async (req, res, next) => {
