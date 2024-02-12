@@ -108,38 +108,38 @@ export const Home = () => {
               </Form>
               {result.length ? (
                 query ? (
-                  <Row>
-                    <Col
-                      className="mt-0 p-0"
-                      style={{
-                        position: "absolute",
-                        top: "55%",
-                        left: "40%",
-                        transform: "translateX(-40%)",
-                        zIndex: 2,
-                        width: "50%",
-                        background: "black",
-                        borderRadius: "10px",
-                        maxHeight: "180px",
-                        overflow: "scroll",
-                        color: "grey",
-                      }}
-                    >
-                      {result.map((data) => {
-                        return (
-                          <div>
-                            <li
-                              onClick={() => navigate(`job/${data.job_id}`)}
-                              className="text-center text-decoration-none mt-2 custom-list"
-                            >
-                              {data.title}
-                            </li>
-                            <hr></hr>
-                          </div>
-                        );
-                      })}
-                    </Col>
-                  </Row>
+                  <Col
+                    className=""
+                    style={{
+                      position: "absolute",
+                      top: "55%",
+                      left: "40%",
+                      transform: "translateX(-40%)",
+                      zIndex: 2,
+                      width: "50%",
+                      background: "black",
+                      borderRadius: "10px",
+                      maxHeight: "190px",
+
+                      color: "grey",
+                    }}
+                  >
+                    {result.map((data, index) => {
+                      return (
+                        <div>
+                          <li
+                            key={index}
+                            onClick={() => navigate(`job/${data.job_id}`)}
+                            className="text-center text-decoration-none mt-2 custom-list"
+                          >
+                            {data.title}
+                          </li>
+
+                          <hr></hr>
+                        </div>
+                      );
+                    })}
+                  </Col>
                 ) : null
               ) : null}
             </Col>

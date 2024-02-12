@@ -6,7 +6,9 @@ const companyController = {
     try {
       const id = new ObjectId(req.params.id);
       const user = await Company.find({ company_id: id });
-      if (user) {
+
+      if (user.length > 0) {
+        console.log(user);
         res.json(user);
       } else {
         res.status(400).json({ message: "No contact person" });

@@ -44,7 +44,7 @@ export const PrivateRoutes = ({ element }) => {
   }, [user]);
   useEffect(() => {
     if (user.role == "company") {
-      if (Object.keys(company).length == 0) {
+      if (Object.keys(company).length === 0) {
         setLoading(true);
         http
           .get(`/cms/company/detail/${user._id}`)
@@ -59,6 +59,6 @@ export const PrivateRoutes = ({ element }) => {
           .finally(() => setLoading(false));
       }
     }
-  }, [user]);
+  }, []);
   return loading ? <Loading></Loading> : element;
 };

@@ -1,13 +1,13 @@
+import { useSearchParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Col, Row, Container, Dropdown, Pagination } from "react-bootstrap";
 import { JobCard } from "../../components/JobCard";
-
 import http from "../../http";
-
 import moment from "moment";
-export const Premium = () => {
-  const [premium, setpremium] = useState([]);
-
+export const Search = () => {
+  const [query] = useSearchParams();
+  const value = query.get("title");
+  const [search, setSearch] = useState([]);
   const [sortBy, setSortBy] = useState("");
   const [direction, setDirection] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,12 +17,12 @@ export const Premium = () => {
   const [paginated, setPaginated] = useState([]);
   const [pageLink, setPageLink] = useState([]);
   const [category, setCategory] = useState("");
-  const [job, setJob] = useState(premium);
+  const [job, setJob] = useState(search);
   useEffect(() => {
     const fetch = async () => {
       try {
-        const response = await http.get("/front/premium");
-        setpremium(response.data);
+        const response = await http.get(`/front/search/?title=${value}`);
+        setSearch(response.data);
         setJob(response.data);
       } catch (err) {
         console.log(err);
@@ -33,7 +33,8 @@ export const Premium = () => {
   useEffect(() => {
     if (category.length) {
       if (category != "all") {
-        let filt = premium.filter((data) => {
+        let filt = search.filter((data) => {
+          console.log(data);
           return data.category == category;
         });
 
@@ -69,14 +70,14 @@ export const Premium = () => {
           setCurrentPage(1);
         }
       } else if (category == "all") {
-        setJob(premium);
+        setJob(search);
         setCurrentPage(1);
       }
     }
   }, [category]);
   useEffect(() => {
     if (sortBy.length) {
-      let sorted = [...premium].sort((a, b) => {
+      let sorted = [...search].sort((a, b) => {
         if (isNaN(parseFloat(a[sortBy])) || isNaN(parseFloat(b[sortBy]))) {
           if (moment(a[sortBy]).isValid() && moment(b[sortBy]).isValid()) {
             return moment(a[sortBy]) - moment(b[sortBy]);
@@ -186,10 +187,10 @@ export const Premium = () => {
                   textOverflow: "ellipsis",
                   fontWeight: "bolder",
 
-                  color: "goldenrod",
+                  color: "blue",
                 }}
               >
-                premium Jobs
+                "{value}" Jobs
               </h1>
             </Col>
             <Col xs={6} md={5} className="d-flex flex-row justify-content-end">
@@ -241,7 +242,7 @@ export const Premium = () => {
                     "cooperative",
                     "school-college",
                     "healthcare",
-                    "hotel-restaurant",
+                    "searchel-restaurant",
                     "customer_care",
                     "it-computer",
                     "logistics-supply_chain",

@@ -75,5 +75,7 @@ export const Manage = () => {
         </Col>
       );
     })
-  ) : null;
+  ) : (
+    <h1 className="text-center text-secondary"> No jobs posted yet!!</h1>
+  );
 };

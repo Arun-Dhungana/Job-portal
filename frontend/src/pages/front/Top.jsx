@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row, Container, Dropdown, Pagination } from "react-bootstrap";
 import { JobCard } from "../../components/JobCard";
-import { Loading } from "../../components/Loading";
+
 import http from "../../http";
 import topp from "../../lib/top.jpeg";
 import moment from "moment";
@@ -30,7 +30,50 @@ export const Top = () => {
     };
     fetch();
   }, []);
+  useEffect(() => {
+    if (category.length) {
+      if (category != "all") {
+        let filt = top.filter((data) => {
+          return data.category == category;
+        });
 
+        if (sortBy.length) {
+          let sorted = [...filt].sort((a, b) => {
+            if (isNaN(parseFloat(a[sortBy])) || isNaN(parseFloat(b[sortBy]))) {
+              if (moment(a[sortBy]).isValid() && moment(b[sortBy]).isValid()) {
+                return moment(a[sortBy]) - moment(b[sortBy]);
+              } else {
+                let x = a[sortBy].toLowerCase();
+                let y = b[sortBy].toLowerCase();
+                if (x < y) {
+                  return -1;
+                }
+                if (x > y) {
+                  return 1;
+                }
+                return 0;
+              }
+            } else {
+              return a[sortBy] - b[sortBy];
+            }
+          });
+          if (direction == "desc") {
+            sorted.reverse();
+          }
+          setJob(sorted);
+
+          setCurrentPage(1);
+        } else {
+          setJob(filt);
+          setDirection("asc");
+          setCurrentPage(1);
+        }
+      } else if (category == "all") {
+        setJob(top);
+        setCurrentPage(1);
+      }
+    }
+  }, [category]);
   useEffect(() => {
     if (sortBy.length) {
       let sorted = [...top].sort((a, b) => {
@@ -55,12 +98,16 @@ export const Top = () => {
       if (direction == "desc") {
         sorted.reverse();
       }
+
       if (category.length) {
         if (category != "all") {
-          const sort = sorted.filter((data) => {
+          let filt = sorted.filter((data) => {
             return data.category == category;
           });
-          setJob(sort);
+          setJob(filt);
+          setCurrentPage(1);
+        } else if (category == "all") {
+          setJob(sorted);
           setCurrentPage(1);
         }
       } else {
@@ -68,7 +115,7 @@ export const Top = () => {
         setCurrentPage(1);
       }
     }
-  }, [sortBy, direction, category]);
+  }, [sortBy, direction]);
 
   useEffect(() => {
     let temp = (currentPage - 1) * perPage;
@@ -154,7 +201,7 @@ export const Top = () => {
               <Dropdown className="d-inline mb-1">
                 <Dropdown.Toggle
                   size="sm"
-                  className=" border border-none text-black d-flex flex-row align-items-center"
+                  className=" border border-none text-black "
                   style={{
                     background: "lightgrey",
                   }}
@@ -246,13 +293,10 @@ export const Top = () => {
               </Container>
             ) : null
           ) : (
-            <Row>
-              <Col>
-                <h2 className="text-center text-secondary">
-                  <i className="fa-solid fa-bug me-1"></i>Data Not Found
-                </h2>
-              </Col>
-            </Row>
+            <h2 className="text-center text-secondary">
+              <i className="fa-solid fa-bug   mt-sm-2 mt-md-5"></i>
+              Data Not Found
+            </h2>
           )}
         </Col>
       </Row>

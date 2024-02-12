@@ -116,6 +116,6 @@ export const Edit = () => {
       </Row>
     </Col>
   ) : (
-    <Loading></Loading>
+    <h1 className="text-center text-secondary">No contact person!!!</h1>
   );
 };

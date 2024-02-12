@@ -115,10 +115,14 @@ export const AllRoutes = () => {
             path="company/create"
             element={
               <PrivateRoutes
-                element={<Pages.Company.Create></Pages.Company.Create>}
+                element={
+                  <Companyroutes
+                    element={<Pages.Company.Create></Pages.Company.Create>}
+                  ></Companyroutes>
+                }
               ></PrivateRoutes>
             }
-          ></Route>{" "}
+          ></Route>
           <Route
             path="company/edit/:id"
             element={
