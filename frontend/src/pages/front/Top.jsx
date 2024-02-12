@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row, Container, Dropdown, Pagination } from "react-bootstrap";
 import { JobCard } from "../../components/JobCard";
-import React from "react";
+
 import http from "../../http";
 import topp from "../../lib/top.jpeg";
 import moment from "moment";
