@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const imagesize = require("image-size");
 const { Users } = require("../models");
 const multer = require("multer");
-const path = require("path");
+const path = require("node:path");
 const debug = () => {
   process.env.DEBUG == true;
 };
