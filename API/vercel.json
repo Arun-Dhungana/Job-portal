@@ -1,16 +1,16 @@
-=
+
     {
       "version": 2,
       "builds": [
         {
-          "src": "index.js", // Entry point of your application
-          "use": "@vercel/node" // Specifies the builder to use for the build
+          "src": "index.js", 
+          "use": "@vercel/node" 
         }
       ],
       "routes": [
         {
           "src": "/(.*)",
-          "dest": "/" // Route all requests to the built output
+          "dest": "/" 
         }
       ]
     }
