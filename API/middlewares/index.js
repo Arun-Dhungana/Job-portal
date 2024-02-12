@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const imagesize = require("image-size");
 const { Users } = require("../models");
 const multer = require("multer");
+const path = require("path");
 const debug = () => {
   process.env.DEBUG == true;
 };
@@ -55,7 +56,13 @@ const fileStorage = (mimeTypes = []) =>
   multer({
     storage: multer.diskStorage({
       destination: (req, file, cb) =>
-        cb(null, "/Users/arundhungana/Documents/GitHub/Job-portal/API/uploads"),
+        cb(
+          null,
+          path.resolve(
+            "/Users/arundhungana/Documents/GitHub/Job-portal/API/uploads",
+            "build"
+          )
+        ),
       filename: (req, file, cb) => {
         const ext = file.originalname.split(" ").pop();
 
