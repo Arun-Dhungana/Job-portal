@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const imagesize = require("image-size");
 const { Users } = require("../models");
 const multer = require("multer");
+const path = require("node:path");
 const debug = () => {
   process.env.DEBUG == true;
 };
@@ -54,7 +55,7 @@ const Auth = async (req, res, next) => {
 const fileStorage = (mimeTypes = []) =>
   multer({
     storage: multer.diskStorage({
-      destination: (req, file, cb) => cb(null, "./uploads"),
+      destination: (req, file, cb) => cb(null, path("./uploads", "build")),
       filename: (req, file, cb) => {
         const ext = file.originalname.split(".").pop();
 
