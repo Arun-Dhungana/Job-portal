@@ -4,7 +4,7 @@
   "description": "First project",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
