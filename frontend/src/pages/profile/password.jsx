@@ -3,6 +3,7 @@ import { FormField } from "../../components/formField";
 import { useState } from "react";
 import { setInForm } from "../../lib";
 import { SubmitBtn } from "../../components";
+import React from "react";
 import http from "../../http";
 import { useNavigate } from "react-router-dom";
 export const Password = () => {

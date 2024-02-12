@@ -1,5 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
-
+import React from "react";
 export const Loading = () => {
   return (
     <Container>

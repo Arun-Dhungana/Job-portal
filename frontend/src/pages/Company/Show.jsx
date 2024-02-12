@@ -13,6 +13,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import http from "../../http";
 import { imageURL } from "../../lib";
 import { Loading } from "../../components/Loading";
+import React from "react";
 export const Show = () => {
   const params = useParams();
   const [dats, setData] = useState([]);

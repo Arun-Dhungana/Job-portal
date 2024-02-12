@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Row, Col, Card, Button, Modal, Form } from "react-bootstrap";
-
+import React from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import http from "../../http";
 import { Loading } from "../../components/Loading";

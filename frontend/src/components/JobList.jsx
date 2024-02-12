@@ -9,7 +9,7 @@ import {
   Button,
 } from "react-bootstrap";
 import { JobCard } from "./JobCard";
-
+import React from "react";
 export const JobList = ({ data, sortable, title }) => {
   const [job, setJob] = useState(data);
   const [sortBy, setSortBy] = useState("");

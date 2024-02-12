@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Col, Row, Container, Dropdown, Pagination } from "react-bootstrap";
 import { JobCard } from "../../components/JobCard";
 import http from "../../http";
+import React from "react";
 import moment from "moment";
 export const Search = () => {
   const [query] = useSearchParams();

@@ -2,6 +2,7 @@ import { Col, Row, Image } from "react-bootstrap";
 import img1 from "../lib/img1.jpg";
 import { imageURL } from "../lib/index";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import React from "react";
 export const JobCard = ({ data }) => {
   const navigate = useNavigate();
   return data.length

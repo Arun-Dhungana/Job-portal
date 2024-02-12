@@ -1,7 +1,7 @@
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { Form, Row, Table, Col, Pagination } from "react-bootstrap";
-
+import React from "react";
 export const DataTable = ({ data = [], searchable = [], sortable = [] }) => {
   const [term, setTerm] = useState("");
   const [filtered, setFiltered] = useState([]);

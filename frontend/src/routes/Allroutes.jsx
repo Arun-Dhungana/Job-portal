@@ -3,7 +3,7 @@ import { Topnav } from "../components/Layout";
 import { Companyroutes } from "./Companyroutes";
 import { PrivateRoutes } from "./Privateroutes";
 import { Seekeroutes } from "./Seekerroutes";
-
+import React from "react";
 import * as Pages from "../pages";
 export const AllRoutes = () => {
   return (

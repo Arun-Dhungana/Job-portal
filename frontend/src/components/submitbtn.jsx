@@ -1,6 +1,7 @@
 import { Button } from "react-bootstrap";
 import { Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 export const SubmitBtn = ({ icon, title, variant1, variant2, loading }) => {
   const navigate = useNavigate();
 

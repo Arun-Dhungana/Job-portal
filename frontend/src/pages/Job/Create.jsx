@@ -3,6 +3,7 @@ import { Container, Col, Row, Form } from "react-bootstrap";
 import Switch from "react-switch";
 import { FormField, SubmitBtn } from "../../components/index";
 import http from "../../http";
+import React from "react";
 import { useSelector } from "react-redux";
 import { setInForm } from "../../lib";
 import { useNavigate } from "react-router-dom";

@@ -9,6 +9,7 @@ import {
   Dropdown,
 } from "react-bootstrap";
 import Headroom from "react-headroom";
+import React from "react";
 import logo from "../lib/jobhub.png";
 import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";

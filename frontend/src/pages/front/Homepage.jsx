@@ -1,7 +1,7 @@
 import { Button, Container, Form, Row, Col, Image } from "react-bootstrap";
 import { JobList } from "../../components/JobList";
 import http from "../../http";
-
+import React from "react";
 import image4 from "../../lib/04.jpeg";
 import { useEffect, useState } from "react";
 import { Loading } from "../../components/Loading";

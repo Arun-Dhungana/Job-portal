@@ -2,6 +2,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import http from "../../http";
+import React from "react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 export const Create = ({ show, onHide }) => {

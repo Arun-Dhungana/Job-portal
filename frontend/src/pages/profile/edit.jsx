@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Row, Col, Form, Image } from "react-bootstrap";
 import { SubmitBtn, FormField } from "../../components/index";
-
+import React from "react";
 import { imageURL, setInForm } from "../../lib";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";

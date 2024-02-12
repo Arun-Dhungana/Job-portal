@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Col, Row, Form } from "react-bootstrap";
 import Switch from "react-switch";
+import React from "react";
 import { FormField, SubmitBtn } from "../../components/index";
 import { setInForm } from "../../lib";
 import { useNavigate, useParams } from "react-router-dom";
