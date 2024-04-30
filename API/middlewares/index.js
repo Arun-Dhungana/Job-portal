@@ -3,6 +3,7 @@ const imagesize = require("image-size");
 const { Users } = require("../models");
 const multer = require("multer");
 
+const { v2 } = require("cloudinary");
 const debug = () => {
   process.env.DEBUG == true;
 };
@@ -54,16 +55,7 @@ const Auth = async (req, res, next) => {
 };
 const fileStorage = (mimeTypes = []) =>
   multer({
-    storage: multer.diskStorage({
-      destination: (req, file, cb) => cb(null, "./uploads"),
-      filename: (req, file, cb) => {
-        const ext = file.originalname.split(".").pop();
-
-        const filename =
-          Date.now() + `${Math.floor(Math.random() * 100)}` + `.${ext}`;
-        cb(null, filename);
-      },
-    }),
+    storage: multer.memoryStorage(),
     fileFilter: (req, file, cb) => {
       if (mimeTypes.length > 0) {
         if (mimeTypes.includes(file.mimetype)) {
@@ -75,6 +67,41 @@ const fileStorage = (mimeTypes = []) =>
         cb(null, true);
       }
     },
+    filename: (req, file, cb) => {
+      const ext = file.originalname.split(".").pop();
+
+      const filename =
+        Date.now() + `${Math.floor(Math.random() * 100)}` + `.${ext}`;
+      cb(null, filename);
+    },
+  });
+const cloudinaryUpload = async (req, res, next) => {
+  v2.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET,
   });
 
-module.exports = { isCompany, isJobseeker, showError, Auth, fileStorage };
+  try {
+    const result = await v2.uploader.upload(req.file.filename, {
+      folder: "jobhub",
+    });
+    req.cloudinaryUrl = result.secure_url;
+    // req.publicId = result.public_id; // Store Cloudinary URL for later use
+    next(); // Move to the next middleware
+  } catch (error) {
+    console.error("Error uploading file to Cloudinary:", error);
+    return res
+      .status(500)
+      .json({ error: "Failed to upload file to Cloudinary" });
+  }
+};
+
+module.exports = {
+  isCompany,
+  isJobseeker,
+  showError,
+  Auth,
+  fileStorage,
+  cloudinaryUpload,
+};

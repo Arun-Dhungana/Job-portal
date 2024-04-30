@@ -5,21 +5,20 @@ const { unlink } = require("node:fs/promises");
 const applicationController = {
   create: async (req, res, next) => {
     try {
-      const resume = req.file.filename;
+      const url = req.cloudinaryUrl;
 
       const exist = await Application.find({
         job_id: new ObjectId(req.params.id),
         user_id: new ObjectId(req.uid),
       });
       if (exist.length > 0) {
-        await unlink(req.file.filename);
         res.status(400).json({ message: "Already applied!!" });
       } else {
         try {
           await Application.create({
             job_id: req.params.id,
             user_id: req.uid,
-            resume: resume,
+            resume: url,
           });
           res.json({ success: "Successfully Applied" });
         } catch (err) {
@@ -42,7 +41,7 @@ const applicationController = {
   delete: async (req, res, next) => {
     try {
       const app = await Application.findById(req.params.id);
-      await unlink(`uploads/${app.resume}`);
+
       await Application.findByIdAndDelete(req.params.id);
       res.json({ success: "Deleted successfully" });
     } catch (err) {

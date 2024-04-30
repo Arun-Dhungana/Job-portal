@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { profile } = require("../../controller/index");
-const { Auth, fileStorage } = require("../../middlewares");
+const { Auth, fileStorage, cloudinaryUpload } = require("../../middlewares");
 
 router.get("/detail", Auth, profile.detail);
 router
@@ -15,6 +15,7 @@ router.get("/jobs", Auth, profile.jobs);
 router.put(
   "/update/:id",
   fileStorage(["image/jpg", "image/jpeg", "image/png"]).single("images"),
+  cloudinaryUpload,
   profile.update
 );
 

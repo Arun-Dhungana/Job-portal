@@ -89,8 +89,6 @@ const companyController = {
           description: compan.description,
         };
       });
-      console.log(company);
-      console.log(companies);
       res.json(company);
     } catch (err) {
       showError(err, next);

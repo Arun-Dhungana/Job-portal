@@ -47,8 +47,8 @@ const ProfileController = {
         });
         res.status(200).json({ success: "Successfully updated!!" });
       } else if (req.file) {
-        const img = req.file.filename;
-        await unlink(`uploads/${user.image}`);
+        const img = req.cloudinaryUrl;
+
         await Users.findByIdAndUpdate(req.params.id, {
           name,
           number,
@@ -134,7 +134,7 @@ const ProfileController = {
       const applications = application.map((app) => {
         return {
           status: app.status,
-          resume: app.resume,
+          resume: app.resume.url,
           name: app.user[0].name,
           email: app.user[0].email,
           id: app._id,

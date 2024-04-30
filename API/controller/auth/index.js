@@ -15,7 +15,8 @@ const authController = {
         description,
       } = req.body;
 
-      const img = req.file.filename;
+      const url = req.cloudinaryUrl;
+
       const exist = await Users.findOne({ email: email });
       if (exist) {
         if (exist.role !== role) {
@@ -36,7 +37,7 @@ const authController = {
           password: hash,
           number,
           role,
-          image: img,
+          image: url,
           description,
         });
         res.json({ success: "Successfully registered" });
@@ -77,5 +78,14 @@ const authController = {
       showError(err, next);
     }
   },
+  // image: async (req, res, next) => {
+  //   try {
+  //     const user = await Users.findById(req.uid);
+  //     if (!user) return res.status(400).json({ message: "No user" });
+  //     return res.status(200).json({ url: user.image.url });
+  //   } catch (error) {
+  //     return res.status(400).json({ message: "No user" });
+  //   }
+  // },
 };
 module.exports = authController;
