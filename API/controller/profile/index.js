@@ -134,7 +134,7 @@ const ProfileController = {
       const applications = application.map((app) => {
         return {
           status: app.status,
-          resume: app.resume.url,
+          resume: app.resume,
           name: app.user[0].name,
           email: app.user[0].email,
           id: app._id,
