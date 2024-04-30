@@ -81,7 +81,7 @@ const cloudinaryUpload = async (req, res, next) => {
   });
 
   try {
-    const result = await cloudinary.uploader.upload(req.file.filename, {
+    const result = await cloudinary.uploader.upload(req.file.buffer, {
       folder: "jobhub",
     });
     req.cloudinaryUrl = result.secure_url;
@@ -89,7 +89,7 @@ const cloudinaryUpload = async (req, res, next) => {
     next(); // Move to the next middleware
   } catch (error) {
     console.error("Error uploading file to Cloudinary:", error);
-    return res.status(500).json({ error });
+    return res.status(500).json({ error: error.message });
   }
 };
 
