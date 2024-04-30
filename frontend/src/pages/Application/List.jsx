@@ -88,13 +88,15 @@ export const List = () => {
       },
     });
   const DownloadButton = ({ fileName }) => {
-    const pageUrl = fileName;
-
+    console.log(fileName);
+    const pageUrl = fileName; // Assuming fileName is the URL of the page to navigate to
     const newTab = window.open(pageUrl, "_blank");
-    if (newTab) {
-      newTab.focus();
+
+    // Check if new tab is null or undefined (indicating popup blocked)
+    if (!newTab || newTab.closed || typeof newTab.closed === "undefined") {
+      navigate(pageUrl); // Fallback to normal navigation if opening in a new tab is blocked
     } else {
-      navigate(pageUrl);
+      newTab.focus(); // Focus on the new tab if it's successfully opened
     }
   };
   return (
