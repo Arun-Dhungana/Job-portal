@@ -81,12 +81,9 @@ const cloudinaryUpload = async (req, res, next) => {
   });
 
   try {
-    const result = await cloudinary.uploader.upload(
-      req.file.buffer.toString("base64"),
-      {
-        folder: "jobhub",
-      }
-    );
+    const result = await cloudinary.uploader.upload(req.file.filename, {
+      folder: "jobhub",
+    });
     req.cloudinaryUrl = result.secure_url;
     // req.publicId = result.public_id; // Store Cloudinary URL for later use
     next(); // Move to the next middleware
