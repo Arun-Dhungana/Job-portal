@@ -88,7 +88,8 @@ export const List = () => {
       },
     });
   const DownloadButton = ({ fileName }) => {
-    const pageUrl = new URL(fileName);
+    const pageUrl = fileName;
+
     const newTab = window.open(pageUrl, "_blank");
     if (newTab) {
       newTab.focus();
