@@ -66,25 +66,19 @@ const fileStorage = (mimeTypes = []) =>
       }
     },
   });
-const cloudinaryUpload = async (req, res, next) => {
+const cloudinaryUpload = async (file) => {
   cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUD_API_KEY,
     api_secret: process.env.CLOUD_API_SECRET,
   });
 
-  try {
-    const file = await URL.createObjectURL(req.file.buffer);
-    const result = await cloudinary.uploader.upload(file, {
-      folder: "jobhub",
-    });
-    req.cloudinaryUrl = result.secure_url;
-    // req.publicId = result.public_id; // Store Cloudinary URL for later use
-    next(); // Move to the next middleware
-  } catch (error) {
-    console.error("Error uploading file to Cloudinary:", error);
-    return res.status(500).json({ error: error.message });
-  }
+  const result = await cloudinary.uploader.upload(file, {
+    folder: "jobhub",
+    resource_type: "auto",
+  });
+
+  return result;
 };
 
 module.exports = {

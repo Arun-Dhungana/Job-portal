@@ -7,7 +7,20 @@ router.post(
   "/:id",
   Auth,
   fileStorage(["application/pdf"]).single("resume"),
-  cloudinaryUpload,
+  async (req, res, next) => {
+    try {
+      const b64 = Buffer.from(req.file.buffer).toString("base64");
+      let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+      const cldRes = await cloudinaryUpload(dataURI);
+      req.cloudinaryUrl = cldRes.secure_url;
+      next();
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({
+        message: error.message,
+      });
+    }
+  },
   cms.application.create
 );
 router
