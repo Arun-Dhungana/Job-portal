@@ -3,7 +3,7 @@ const imagesize = require("image-size");
 const { Users } = require("../models");
 const multer = require("multer");
 
-const { v2 } = require("cloudinary");
+const cloudinary = require("cloudinary").v2;
 const debug = () => {
   process.env.DEBUG == true;
 };
@@ -74,14 +74,14 @@ const fileStorage = (mimeTypes = []) =>
     },
   });
 const cloudinaryUpload = async (req, res, next) => {
-  v2.config({
+  cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUD_API_KEY,
     api_secret: process.env.CLOUD_API_SECRET,
   });
 
   try {
-    const result = await v2.uploader.upload(req.file.filename, {
+    const result = await cloudinary.uploader.upload(req.file.filename, {
       folder: "jobhub",
     });
     req.cloudinaryUrl = result.secure_url;
