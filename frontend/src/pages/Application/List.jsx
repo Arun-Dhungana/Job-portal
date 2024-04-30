@@ -88,9 +88,8 @@ export const List = () => {
       },
     });
   const DownloadButton = ({ fileName }) => {
-    const fileUrl = fileName;
     const link = document.createElement("a");
-    link.href = fileUrl;
+    link.href = fileName;
     link.target = "_blank"; // Open the link in a new tab
 
     link.download = fileName;
