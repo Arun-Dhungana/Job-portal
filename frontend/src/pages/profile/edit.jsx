@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Row, Col, Form, Image } from "react-bootstrap";
 import { SubmitBtn, FormField } from "../../components/index";
 import React from "react";
-import { imageURL, setInForm } from "../../lib";
+import { setInForm } from "../../lib";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import http from "../../http";
@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 export const EditProfile = () => {
   const user = useSelector((state) => state.user.value);
 
-  const [img, setImage] = useState(imageURL(user.image));
+  const [img, setImage] = useState(user.image);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({});

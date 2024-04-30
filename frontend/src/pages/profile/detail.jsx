@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import http from "../../http";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { imageURL } from "../../lib";
+
 export const Detail = () => {
   const user = useSelector((state) => state.user.value);
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ export const Detail = () => {
           className="d-flex flex-row  justify-content-sm-center justify-content-md-end  align-items-center"
         >
           <Image
-            src={imageURL(form.image)}
+            src={form.image}
             style={{
               width: "80px",
               height: "80px",

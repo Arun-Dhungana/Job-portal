@@ -14,7 +14,7 @@ import logo from "../lib/jobhub.png";
 import { Link, NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fromStorage, removeStorage, imageURL } from "../lib";
+import { fromStorage, removeStorage } from "../lib";
 import { setUser, clearUser, clearCompany } from "../store";
 import "./layout.css";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -171,7 +171,7 @@ export const Topnav = () => {
                     className="ps-2"
                     title={
                       <img
-                        src={imageURL(user.image)}
+                        src={user.image}
                         alt="profile picture"
                         style={{
                           height: "40px",

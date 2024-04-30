@@ -6,7 +6,7 @@ import http from "../../http";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Loading } from "../../components/Loading";
-import { imageURL } from "../../lib";
+
 export const List = () => {
   const [loading, setLoading] = useState(false);
   const [app, setApp] = useState([]);
@@ -88,7 +88,7 @@ export const List = () => {
       },
     });
   const DownloadButton = ({ fileName }) => {
-    const fileUrl = imageURL(fileName);
+    const fileUrl = { fileName };
     const link = document.createElement("a");
     link.href = fileUrl;
     link.target = "_blank"; // Open the link in a new tab

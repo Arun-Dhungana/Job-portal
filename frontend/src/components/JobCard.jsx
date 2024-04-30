@@ -1,6 +1,5 @@
 import { Col, Row, Image } from "react-bootstrap";
-import img1 from "../lib/img1.jpg";
-import { imageURL } from "../lib/index";
+
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import React from "react";
 export const JobCard = ({ data }) => {
@@ -29,7 +28,7 @@ export const JobCard = ({ data }) => {
                     to={`company/${dataa.company_id}`}
                     className="pt-1"
                     style={{ height: "40px", width: "40px" }}
-                    src={imageURL(dataa.image)}
+                    src={dataa.image}
                   ></Image>
                 </Col>
                 <Col xs={8} sm={8} md={9}>

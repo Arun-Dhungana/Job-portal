@@ -5,7 +5,7 @@ import { Loading } from "../../components/Loading";
 import React from "react";
 import http from "../../http";
 import { useSelector } from "react-redux";
-import { imageURL } from "../../lib";
+
 import { useNavigate, useParams, Link } from "react-router-dom";
 import moment from "moment";
 export const List = () => {
@@ -43,7 +43,7 @@ export const List = () => {
           className="d-flex flex-row  justify-content-sm-center justify-content-md-end  align-items-center"
         >
           <Image
-            src={imageURL(job[0].image)}
+            src={job[0].image}
             style={{
               width: "80px",
               height: "80px",
