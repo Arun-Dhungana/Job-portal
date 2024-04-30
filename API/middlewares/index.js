@@ -65,13 +65,6 @@ const fileStorage = (mimeTypes = []) =>
         cb(null, true);
       }
     },
-    filename: (req, file, cb) => {
-      const ext = file.originalname.split(".").pop();
-
-      const filename =
-        Date.now() + `${Math.floor(Math.random() * 100)}` + `.${ext}`;
-      cb(null, filename);
-    },
   });
 const cloudinaryUpload = async (req, res, next) => {
   cloudinary.config({
@@ -81,7 +74,8 @@ const cloudinaryUpload = async (req, res, next) => {
   });
 
   try {
-    const result = await cloudinary.uploader.upload(req.file.filename, {
+    const file = await URL.createObjectURL(req.file.buffer);
+    const result = await cloudinary.uploader.upload(file, {
       folder: "jobhub",
     });
     req.cloudinaryUrl = result.secure_url;
