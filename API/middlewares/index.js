@@ -91,7 +91,7 @@ const cloudinaryUpload = async (req, res, next) => {
     console.error("Error uploading file to Cloudinary:", error);
     return res
       .status(500)
-      .json({ error: "Failed to upload file to Cloudinary" });
+      .json({ error: "Failed to upload file to Cloudinary", error });
   }
 };
 
