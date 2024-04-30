@@ -43,8 +43,6 @@ const Auth = async (req, res, next) => {
         req.uid = id;
         req.user = user;
         next();
-      } else {
-        res.status(400).json({ message: "Invalid token" });
       }
     } catch (err) {
       res.status(400).json({ message: "Invalid token" });
